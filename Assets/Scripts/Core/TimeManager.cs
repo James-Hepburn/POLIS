@@ -94,6 +94,7 @@ public class TimeManager : MonoBehaviour
     {
         currentDay++;
         CheckSeasonChange ();
+        StartDay ();
     }
 
     private void CheckSeasonChange ()

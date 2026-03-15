@@ -11,6 +11,7 @@ public class TimeDisplay : MonoBehaviour
     private void Update ()
     {
         if (TimeManager.Instance == null) return;
+        if (!TimeManager.Instance.IsDayActive ()) return;
 
         timeText.text   = TimeManager.Instance.GetTimeString ();
         dayText.text    = $"Day {TimeManager.Instance.GetCurrentDay ()}";
