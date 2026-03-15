@@ -2310,8 +2310,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1972709686}
-  - component: {fileID: 1972709685}
-  - component: {fileID: 1972709687}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2319,33 +2317,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1972709685
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1972709684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6028fa2c736c84b8391b60fc9e50ed50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TimeManager
-  dayStartHour: 6
-  dayEndHour: 24
-  minutesPerRealSecond: 10
-  onDayStart:
-    m_PersistentCalls:
-      m_Calls: []
-  onDayEnd:
-    m_PersistentCalls:
-      m_Calls: []
-  onSeasonChange:
-    m_PersistentCalls:
-      m_Calls: []
-  onTimeChanged:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!4 &1972709686
 Transform:
   m_ObjectHideFlags: 0
@@ -2361,39 +2332,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1972709687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1972709684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c052579e9b7e4c76b597bed81928634, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameState
-  playerName: Alexios
-  currentProfession: 0
-  patronGod: 0
-  skinToneIndex: 0
-  hairColorIndex: 0
-  hairStyleIndex: 0
-  facialHairIndex: 0
-  buildIndex: 0
-  drachma: 50
-  honour: 10
-  houseLevel: 1
-  favourHermes: 0
-  favourAres: 0
-  favourAphrodite: 0
-  favourApollo: 0
-  favourHephaestus: 0
-  favourAthena: 0
-  careerLevel: 1
-  careerXP: 0
-  isNewGame: 1
-  gameStarted: 0
 --- !u!1 &2014667733
 GameObject:
   m_ObjectHideFlags: 0
