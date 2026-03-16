@@ -20,6 +20,12 @@ public class SceneSetup : MonoBehaviour
         player.transform.position = playerSpawnPosition;
         player.transform.localScale = playerScale;
 
+        if (PlayerPositionMemory.HasSavedPosition && SceneManager.GetActiveScene ().name == "Athens")
+        {
+            player.transform.position = PlayerPositionMemory.LastAthensPosition;
+            PlayerPositionMemory.HasSavedPosition = false;
+        }
+
         // Reapply appearance in case it needs refreshing
         PlayerAppearance appearance = player.GetComponent<PlayerAppearance> ();
         if (appearance != null)

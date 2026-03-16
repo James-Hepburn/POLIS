@@ -243,7 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecd3b0003aad242e5afdfab0a664def3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneSetup
-  playerSpawnPosition: {x: 0, y: 1, z: 0}
+  playerSpawnPosition: {x: -3, y: -2, z: 0}
   playerScale: {x: 1.5, y: 1.5, z: 1}
   hidePlayer: 0
 --- !u!114 &412994837
@@ -258,10 +258,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63ca123f32fdc42cfa7073b233296dd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapBoundary
-  minX: -2.75
-  maxX: 2.75
-  minY: -2.5
-  maxY: 2.5
+  minX: -3.3
+  maxX: 3.3
+  minY: -3
+  maxY: 3
 --- !u!1 &858005188
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,7 +297,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 150}
+  m_AnchoredPosition: {x: -210, y: -100}
   m_SizeDelta: {x: 180, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &858005190
@@ -639,7 +639,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 1}
+  m_LocalScale: {x: 6, y: 6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -693,7 +693,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 6c90cee42a2d04464877f76c821556f8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 851ba759779eb4dc5b8aebbd4966e971, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -879,7 +879,7 @@ Transform:
   m_GameObject: {fileID: 2053754538}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: 0}
+  m_LocalPosition: {x: -3, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

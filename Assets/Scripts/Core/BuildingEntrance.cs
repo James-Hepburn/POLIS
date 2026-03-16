@@ -47,6 +47,9 @@ public class BuildingEntrance : MonoBehaviour
 
     private void EnterBuilding ()
     {
+        PlayerPositionMemory.LastAthensPosition = player.position;
+        PlayerPositionMemory.HasSavedPosition = true;
+
         if (SceneTransition.Instance != null)
             SceneTransition.Instance.TransitionToScene (interiorSceneIndex);
     }

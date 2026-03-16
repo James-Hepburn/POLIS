@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HomeInterior.unity
     guid: 2d44617e696de4f93890157467ed63c0
+  - enabled: 1
+    path: Assets/Scenes/AgoraInterior.unity
+    guid: 3a284b85f80a6424ebf0c26c71bfef46
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
