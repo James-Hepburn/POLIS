@@ -17,6 +17,21 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AgoraInterior.unity
     guid: 3a284b85f80a6424ebf0c26c71bfef46
+  - enabled: 1
+    path: Assets/Scenes/KerameikosInterior.unity
+    guid: 1b0dde371cb4a46eab9efb904bb84137
+  - enabled: 1
+    path: Assets/Scenes/HarbourInterior.unity
+    guid: c0e278067780740538ebfcb377a6d3d3
+  - enabled: 1
+    path: Assets/Scenes/GymnasiumInterior.unity
+    guid: 3b75d1229eb494f64af5a5428dacd1c2
+  - enabled: 1
+    path: Assets/Scenes/AcropolisInterior.unity
+    guid: 915e365e745e44e94930e9096825787c
+  - enabled: 1
+    path: Assets/Scenes/TheatreInterior.unity
+    guid: e94a5e1a101da4a14a102708d204257c
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
