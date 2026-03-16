@@ -10,14 +10,19 @@ public class PlayerController : MonoBehaviour
     [Header ("Time Cost")]
     public float minutesPerStep = 0.1f;
 
+    [Header ("Bob Settings")]
+    public float bobHeight = 0.04f;
+    public float bobSpeed = 8f;
+
     // ── Internal ───────────────────────────────────────────────────────────
     private Rigidbody2D rb;
     private Vector2 movement;
+    private Transform spriteParent;
+    private Vector3 spriteBasePosition;
 
     // ══════════════════════════════════════════════════════════════════════
     private void Awake ()
     {
-        // If a player already exists that isn't this one, destroy this one
         PlayerController existing = FindFirstObjectByType<PlayerController> ();
         if (existing != null && existing != this)
         {
@@ -27,11 +32,14 @@ public class PlayerController : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D> ();
         DontDestroyOnLoad (gameObject);
+        spriteParent = transform.Find ("SpriteRoot");
+
+        if (spriteParent != null)
+            spriteBasePosition = spriteParent.localPosition;
     }
 
     private void Update ()
     {
-        // Read input using new Input System
         movement.x = 0f;
         movement.y = 0f;
 
@@ -44,10 +52,33 @@ public class PlayerController : MonoBehaviour
         if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed)
             movement.x =  1f;
 
-        // Normalise so diagonal isn't faster
         movement = movement.normalized;
 
-        // Advance time while moving
+        // ── Walking bob ───────────────────────────────────────────────
+        if (spriteParent != null)
+        {
+            if (movement.magnitude > 0)
+            {
+                if (Mathf.Abs (movement.x) >= Mathf.Abs (movement.y))
+                {
+                    // Moving horizontally — bob up and down
+                    float bob = Mathf.Sin (Time.time * bobSpeed) * bobHeight;
+                    spriteParent.localPosition = spriteBasePosition + new Vector3 (0, bob, 0);
+                }
+                else
+                {
+                    // Moving vertically — sway left and right
+                    float sway = Mathf.Sin (Time.time * bobSpeed) * bobHeight;
+                    spriteParent.localPosition = spriteBasePosition + new Vector3 (sway, 0, 0);
+                }
+            }
+            else
+            {
+                spriteParent.localPosition = spriteBasePosition;
+            }
+        }
+
+        // ── Advance time while moving ──────────────────────────────────
         if (movement.magnitude > 0 && TimeManager.Instance != null)
         {
             TimeManager.Instance.AdvanceTimeByMinutes (minutesPerStep * Time.deltaTime * 60f);
