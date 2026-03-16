@@ -2,42 +2,43 @@ using UnityEngine;
 
 public class MapBoundary : MonoBehaviour
 {
-    // ── Boundary Settings ──────────────────────────────────────────────────
     [Header ("Map Bounds")]
     public float minX = -9f;
     public float maxX =  9f;
     public float minY = -5f;
     public float maxY =  5f;
 
-    [Header ("References")]
-    public Transform player;
-    public Camera    mainCamera;
-
-    // ── Camera half sizes ──────────────────────────────────────────────────
+    private Transform player;
+    private Camera mainCamera;
     private float camHalfHeight;
     private float camHalfWidth;
 
-    // ══════════════════════════════════════════════════════════════════════
     private void Start ()
     {
-        if (mainCamera == null)
-            mainCamera = Camera.main;
-
+        mainCamera = Camera.main;
         camHalfHeight = mainCamera.orthographicSize;
         camHalfWidth  = camHalfHeight * mainCamera.aspect;
+
+        PlayerController pc = FindFirstObjectByType<PlayerController> ();
+        if (pc != null)
+            player = pc.transform;
+        else
+            Debug.LogWarning ("MapBoundary: No player found.");
     }
 
     private void LateUpdate ()
     {
         if (player == null) return;
 
-        // Clamp player position
-        Vector3 playerPos = player.position;
-        playerPos.x = Mathf.Clamp (playerPos.x, minX, maxX);
-        playerPos.y = Mathf.Clamp (playerPos.y, minY, maxY);
-        player.position = playerPos;
+        // Clamp player
+        Vector3 pos = player.position;
+        pos.x = Mathf.Clamp (pos.x, minX, maxX);
+        pos.y = Mathf.Clamp (pos.y, minY, maxY);
+        player.position = pos;
 
-        // Clamp camera position
+        // Only clamp camera if it has a Cinemachine Brain (i.e. Athens)
+        if (mainCamera.GetComponent<Unity.Cinemachine.CinemachineBrain> () == null) return;
+
         Vector3 camPos = mainCamera.transform.position;
         camPos.x = Mathf.Clamp (camPos.x, minX + camHalfWidth,  maxX - camHalfWidth);
         camPos.y = Mathf.Clamp (camPos.y, minY + camHalfHeight, maxY - camHalfHeight);
