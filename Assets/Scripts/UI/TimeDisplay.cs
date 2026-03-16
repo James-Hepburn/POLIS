@@ -7,6 +7,7 @@ public class TimeDisplay : MonoBehaviour
     public TextMeshProUGUI timeText;
     public TextMeshProUGUI dayText;
     public TextMeshProUGUI seasonText;
+    public TextMeshProUGUI drachmaText;
 
     private void Update ()
     {
@@ -16,5 +17,8 @@ public class TimeDisplay : MonoBehaviour
         timeText.text   = TimeManager.Instance.GetTimeString ();
         dayText.text    = $"Day {TimeManager.Instance.GetCurrentDay ()}";
         seasonText.text = TimeManager.Instance.GetCurrentSeason ().ToString ();
+
+        if (drachmaText != null && GameState.Instance != null)
+            drachmaText.text = $"₯ {GameState.Instance.drachma:F0}";
     }
 }
