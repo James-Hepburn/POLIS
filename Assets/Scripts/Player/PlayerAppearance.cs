@@ -19,7 +19,8 @@ public class PlayerAppearance : MonoBehaviour
     // ══════════════════════════════════════════════════════════════════════
     private void Start ()
     {
-        ApplyAppearance ();
+        // Small delay to ensure GameState has fully carried over
+        Invoke ("ApplyAppearance", 0.1f);
     }
 
     // ══════════════════════════════════════════════════════════════════════
@@ -30,6 +31,8 @@ public class PlayerAppearance : MonoBehaviour
             Debug.LogWarning ("GameState not found — using default appearance.");
             return;
         }
+
+        Debug.Log ($"GameState found — Skin: {GameState.Instance.skinToneIndex}, Hair: {GameState.Instance.hairColorIndex}, Profession: {GameState.Instance.currentProfession}");
 
         // Apply skin tone
         int skinIndex = GameState.Instance.skinToneIndex;
