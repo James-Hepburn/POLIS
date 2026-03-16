@@ -17,7 +17,16 @@ public class PlayerController : MonoBehaviour
     // ══════════════════════════════════════════════════════════════════════
     private void Awake ()
     {
+        // If a player already exists that isn't this one, destroy this one
+        PlayerController existing = FindFirstObjectByType<PlayerController> ();
+        if (existing != null && existing != this)
+        {
+            Destroy (gameObject);
+            return;
+        }
+
         rb = GetComponent<Rigidbody2D> ();
+        DontDestroyOnLoad (gameObject);
     }
 
     private void Update ()

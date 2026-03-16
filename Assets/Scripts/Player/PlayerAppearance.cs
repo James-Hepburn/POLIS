@@ -19,7 +19,8 @@ public class PlayerAppearance : MonoBehaviour
     // ══════════════════════════════════════════════════════════════════════
     private void Start ()
     {
-        // Small delay to ensure GameState has fully carried over
+        // Position player at scene entry point
+        transform.position = new Vector3 (0f, -2f, 0f);
         Invoke ("ApplyAppearance", 0.1f);
     }
 
