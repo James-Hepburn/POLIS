@@ -83,12 +83,21 @@ public class TimeManager : MonoBehaviour
 
     public void EndDay ()
     {
-        dayActive = false;
+        dayActive  = false;
         timePaused = true;
         onDayEnd?.Invoke ();
         Debug.Log ($"Day {currentDay} ends.");
+
+        // Advance the day counter now so summary shows correct next-day info
         AdvanceDay ();
+
+        // Load end of day scene
+        if (SceneTransition.Instance != null)
+            SceneTransition.Instance.TransitionToScene (endOfDaySceneIndex);
     }
+
+    [Header ("Scene Indices")]
+    public int endOfDaySceneIndex = 9;
 
     private void AdvanceDay ()
     {
