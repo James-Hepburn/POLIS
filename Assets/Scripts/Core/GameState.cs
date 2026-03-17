@@ -64,6 +64,10 @@ public class GameState : MonoBehaviour
     public bool isNewGame  = true;
     public bool gameStarted = false;
 
+    // ── Relationships ──────────────────────────────────────────────────────
+    [Header ("Relationships")]
+    public int relationshipNikias = 0;
+
     // ══════════════════════════════════════════════════════════════════════
     private void Awake ()
     {
@@ -203,6 +207,28 @@ public class GameState : MonoBehaviour
             careerLevel++;
             careerXP = 0;
             Debug.Log ($"Career level up! Now level {careerLevel}");
+        }
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
+    // Relationship helpers
+    // ══════════════════════════════════════════════════════════════════════
+
+    public void ChangeRelationship (string npcName, int amount)
+    {
+        switch (npcName)
+        {
+            case "Nikias": relationshipNikias = Mathf.Clamp (relationshipNikias + amount, -100, 100); break;
+        }
+        Debug.Log ($"Relationship with {npcName}: {GetRelationship (npcName)}");
+    }
+
+    public int GetRelationship (string npcName)
+    {
+        switch (npcName)
+        {
+            case "Nikias": return relationshipNikias;
+            default:       return 0;
         }
     }
 }
