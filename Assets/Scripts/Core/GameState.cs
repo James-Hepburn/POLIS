@@ -219,13 +219,17 @@ public class GameState : MonoBehaviour
 
     public void ChangeRelationship (string npcName, int amount)
     {
+        // Apply Aphrodite favour modifier to relationship gains
+        int bonus = FavourModifiers.GetRelationshipBonus (favourAphrodite);
+        int modifiedAmount = amount > 0 ? amount + bonus : amount;
+
         switch (npcName)
         {
-            case "Nikias":    relationshipNikias    = Mathf.Clamp (relationshipNikias    + amount, -100, 100); break;
-            case "Demetrios": relationshipDemetrios = Mathf.Clamp (relationshipDemetrios + amount, -100, 100); break;
-            case "Theron":    relationshipTheron    = Mathf.Clamp (relationshipTheron    + amount, -100, 100); break;
-            case "Argos":     relationshipArgos     = Mathf.Clamp (relationshipArgos     + amount, -100, 100); break;
-            case "Eudoros":   relationshipEudoros   = Mathf.Clamp (relationshipEudoros   + amount, -100, 100); break;
+            case "Nikias":    relationshipNikias    = Mathf.Clamp (relationshipNikias    + modifiedAmount, -100, 100); break;
+            case "Demetrios": relationshipDemetrios = Mathf.Clamp (relationshipDemetrios + modifiedAmount, -100, 100); break;
+            case "Theron":    relationshipTheron    = Mathf.Clamp (relationshipTheron    + modifiedAmount, -100, 100); break;
+            case "Argos":     relationshipArgos     = Mathf.Clamp (relationshipArgos     + modifiedAmount, -100, 100); break;
+            case "Eudoros":   relationshipEudoros   = Mathf.Clamp (relationshipEudoros   + modifiedAmount, -100, 100); break;
         }
         Debug.Log ($"Relationship with {npcName}: {GetRelationship (npcName)}");
     }
