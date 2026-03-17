@@ -63,6 +63,7 @@ public class GameState : MonoBehaviour
     [Header ("Game Flags")]
     public bool isNewGame  = true;
     public bool gameStarted = false;
+    public int  lastCompletedDay = 1;
 
     // ── Relationships ──────────────────────────────────────────────────────
     [Header ("Relationships")]

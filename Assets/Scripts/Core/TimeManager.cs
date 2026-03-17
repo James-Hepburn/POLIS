@@ -88,6 +88,9 @@ public class TimeManager : MonoBehaviour
         onDayEnd?.Invoke ();
         Debug.Log ($"Day {currentDay} ends.");
 
+        // Store the day that just ended before advancing
+        GameState.Instance.lastCompletedDay = currentDay;
+
         // Advance the day counter now so summary shows correct next-day info
         AdvanceDay ();
 

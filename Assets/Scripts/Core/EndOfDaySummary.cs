@@ -13,6 +13,7 @@ public class EndOfDaySummary : MonoBehaviour
     public TextMeshProUGUI careerText;
     public TextMeshProUGUI relationshipsText;
     public TextMeshProUGUI continuePrompt;
+    public TextMeshProUGUI favourText;
 
     [Header ("Settings")]
     public int homeInteriorSceneIndex = 8;
@@ -37,7 +38,7 @@ public class EndOfDaySummary : MonoBehaviour
     {
         if (TimeManager.Instance != null)
         {
-            dayText.text    = $"End of Day {TimeManager.Instance.GetCurrentDay ()}";
+            dayText.text    = $"End of Day {GameState.Instance.lastCompletedDay}";
             seasonText.text = TimeManager.Instance.GetCurrentSeason ().ToString ();
         }
 
@@ -46,9 +47,27 @@ public class EndOfDaySummary : MonoBehaviour
             drachmaText.text = $"Drachma: ₯ {GameState.Instance.drachma:F0}";
             honourText.text  = $"Honour: {GameState.Instance.honour}";
             careerText.text  = $"Career: Level {GameState.Instance.careerLevel}  ({GameState.Instance.careerXP} / 100 XP)";
+            
+            if (favourText != null)
+                favourText.text = BuildFavourSummary ();
 
-            relationshipsText.text = BuildRelationshipSummary ();
+            if (relationshipsText != null)
+                relationshipsText.text = BuildRelationshipSummary ();
         }
+    }
+
+    private string BuildFavourSummary ()
+    {
+        if (GameState.Instance == null) return "";
+        System.Text.StringBuilder sb = new System.Text.StringBuilder ();
+        sb.AppendLine ("Divine Favour");
+        sb.AppendLine ($"  Hermes      {GameState.Instance.favourHermes}");
+        sb.AppendLine ($"  Ares        {GameState.Instance.favourAres}");
+        sb.AppendLine ($"  Aphrodite   {GameState.Instance.favourAphrodite}");
+        sb.AppendLine ($"  Apollo      {GameState.Instance.favourApollo}");
+        sb.AppendLine ($"  Hephaestus  {GameState.Instance.favourHephaestus}");
+        sb.AppendLine ($"  Athena      {GameState.Instance.favourAthena}");
+        return sb.ToString ();
     }
 
     private string BuildRelationshipSummary ()
@@ -68,7 +87,7 @@ public class EndOfDaySummary : MonoBehaviour
         if (value >= 80)  return $"{value}  [Close]";
         if (value >= 40)  return $"{value}  [Friendly]";
         if (value >= 1)   return $"{value}  [Neutral]";
-        if (value == 0)   return $"{value}  -";
+        if (value == 0)   return $"{value}  ";
         return $"{value}  [Hostile]";
     }
 
