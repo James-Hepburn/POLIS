@@ -33,17 +33,17 @@ public class GameState : MonoBehaviour
 
     // ── Appearance ─────────────────────────────────────────────────────────
     [Header ("Appearance")]
-    public int skinToneIndex  = 0;   // Index into skin tone options
-    public int hairColorIndex = 0;   // Index into hair colour options
-    public int hairStyleIndex = 0;   // Index into hair style options
-    public int facialHairIndex= 0;   // 0 = none, 1 = stubble, 2 = beard
-    public int buildIndex     = 0;   // 0 = lean, 1 = average, 2 = broad
+    public int skinToneIndex  = 0;
+    public int hairColorIndex = 0;
+    public int hairStyleIndex = 0;
+    public int facialHairIndex= 0;
+    public int buildIndex     = 0;
 
     // ── Economy ────────────────────────────────────────────────────────────
     [Header ("Economy")]
-    public float drachma  = 50f;     // Starting drachma
-    public int   honour   = 10;      // Starting honour (Timē)
-    public int   houseLevel = 1;     // 1 = basic insulae
+    public float drachma  = 50f;
+    public int   honour   = 10;
+    public int   houseLevel = 1;
 
     // ── Divine Favour ──────────────────────────────────────────────────────
     [Header ("Divine Favour")]
@@ -56,7 +56,7 @@ public class GameState : MonoBehaviour
 
     // ── Career Progress ────────────────────────────────────────────────────
     [Header ("Career")]
-    public int careerLevel = 1;      // 1 = entry, 2 = mid, 3 = pinnacle
+    public int careerLevel = 1;
     public int careerXP    = 0;
 
     // ── Game Flags ─────────────────────────────────────────────────────────
@@ -66,7 +66,11 @@ public class GameState : MonoBehaviour
 
     // ── Relationships ──────────────────────────────────────────────────────
     [Header ("Relationships")]
-    public int relationshipNikias = 0;
+    public int relationshipNikias    = 0;
+    public int relationshipDemetrios = 0;
+    public int relationshipTheron    = 0;
+    public int relationshipArgos     = 0;
+    public int relationshipEudoros   = 0;
 
     // ══════════════════════════════════════════════════════════════════════
     private void Awake ()
@@ -81,7 +85,7 @@ public class GameState : MonoBehaviour
     }
 
     // ══════════════════════════════════════════════════════════════════════
-    // Setup — called by character creation when player hits Start
+    // Setup
     // ══════════════════════════════════════════════════════════════════════
 
     public void InitialiseNewGame (
@@ -101,14 +105,12 @@ public class GameState : MonoBehaviour
         facialHairIndex   = facialHair;
         buildIndex        = build;
 
-        // Starting drachma and honour same for everyone
         drachma    = 50f;
         honour     = 10;
         houseLevel = 1;
         careerLevel = 1;
         careerXP   = 0;
 
-        // Set patron god favour to +20, others to 0
         ResetDivineFavour ();
         SetPatronFavour (god, 20);
 
@@ -218,7 +220,11 @@ public class GameState : MonoBehaviour
     {
         switch (npcName)
         {
-            case "Nikias": relationshipNikias = Mathf.Clamp (relationshipNikias + amount, -100, 100); break;
+            case "Nikias":    relationshipNikias    = Mathf.Clamp (relationshipNikias    + amount, -100, 100); break;
+            case "Demetrios": relationshipDemetrios = Mathf.Clamp (relationshipDemetrios + amount, -100, 100); break;
+            case "Theron":    relationshipTheron    = Mathf.Clamp (relationshipTheron    + amount, -100, 100); break;
+            case "Argos":     relationshipArgos     = Mathf.Clamp (relationshipArgos     + amount, -100, 100); break;
+            case "Eudoros":   relationshipEudoros   = Mathf.Clamp (relationshipEudoros   + amount, -100, 100); break;
         }
         Debug.Log ($"Relationship with {npcName}: {GetRelationship (npcName)}");
     }
@@ -227,8 +233,12 @@ public class GameState : MonoBehaviour
     {
         switch (npcName)
         {
-            case "Nikias": return relationshipNikias;
-            default:       return 0;
+            case "Nikias":    return relationshipNikias;
+            case "Demetrios": return relationshipDemetrios;
+            case "Theron":    return relationshipTheron;
+            case "Argos":     return relationshipArgos;
+            case "Eudoros":   return relationshipEudoros;
+            default:          return 0;
         }
     }
 }
