@@ -480,6 +480,7 @@ GameObject:
   - component: {fileID: 24399206}
   - component: {fileID: 24399205}
   - component: {fileID: 24399204}
+  - component: {fileID: 24399207}
   m_Layer: 0
   m_Name: Lydia
   m_TagString: Untagged
@@ -508,7 +509,7 @@ MonoBehaviour:
     minding.
   dialogueClose: I told my father I met you again today. He said nothing. But he
     smiled.
-  interactionRadius: 1.5
+  interactionRadius: 0.5
   timeCostMinutes: 30
   conversationCooldownSeconds: 10
   promptUI: {fileID: 799177711}
@@ -589,6 +590,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &24399207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 24399203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2ea6332bd11344dfbb67eaf0cafc96b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCSchedule
+  schedule:
+  - startHour: 7
+    endHour: 14
+    position: {x: 2, y: 1}
+  - startHour: 14
+    endHour: 21
+    position: {x: 0, y: 0.5}
+  homePosition: {x: -13, y: 3}
 --- !u!1 &36608356
 GameObject:
   m_ObjectHideFlags: 0
@@ -1469,6 +1490,7 @@ GameObject:
   - component: {fileID: 206453673}
   - component: {fileID: 206453672}
   - component: {fileID: 206453671}
+  - component: {fileID: 206453674}
   m_Layer: 0
   m_Name: Argos
   m_TagString: Untagged
@@ -1496,7 +1518,7 @@ MonoBehaviour:
   dialogueFriendly: You've got good hands. Not many people do anymore.
   dialogueClose: Forty years I've worked this forge. You're one of the few I'd trust
     to carry it on.
-  interactionRadius: 1.5
+  interactionRadius: 0.5
   timeCostMinutes: 30
   conversationCooldownSeconds: 10
   promptUI: {fileID: 719920393}
@@ -1577,6 +1599,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &206453674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206453670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2ea6332bd11344dfbb67eaf0cafc96b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCSchedule
+  schedule:
+  - startHour: 6
+    endHour: 21
+    position: {x: 3.5, y: 3.5}
+  homePosition: {x: -14, y: -0.5}
 --- !u!1 &228043891
 GameObject:
   m_ObjectHideFlags: 0
@@ -2974,6 +3013,7 @@ GameObject:
   - component: {fileID: 382418067}
   - component: {fileID: 382418066}
   - component: {fileID: 382418065}
+  - component: {fileID: 382418068}
   m_Layer: 0
   m_Name: Miriam
   m_TagString: Untagged
@@ -3003,7 +3043,7 @@ MonoBehaviour:
     on the wrong ship. I appreciate that more than you know.
   dialogueClose: I have something set aside for you. Came off a ship from Carthage
     last week. I do not show it to everyone.
-  interactionRadius: 1.5
+  interactionRadius: 0.5
   timeCostMinutes: 30
   conversationCooldownSeconds: 10
   promptUI: {fileID: 1437971847}
@@ -3084,6 +3124,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &382418068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382418064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2ea6332bd11344dfbb67eaf0cafc96b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCSchedule
+  schedule:
+  - startHour: 6
+    endHour: 14
+    position: {x: 6, y: -3}
+  - startHour: 14
+    endHour: 20
+    position: {x: 4.75, y: -3}
+  homePosition: {x: -12, y: -4}
 --- !u!1 &389682214
 GameObject:
   m_ObjectHideFlags: 0
@@ -3845,6 +3905,7 @@ GameObject:
   - component: {fileID: 505536512}
   - component: {fileID: 505536511}
   - component: {fileID: 505536510}
+  - component: {fileID: 505536513}
   m_Layer: 0
   m_Name: Phaedra
   m_TagString: Untagged
@@ -3873,7 +3934,7 @@ MonoBehaviour:
     Sincerity, I think.
   dialogueClose: I have prayed for you. Do not ask me what I said. Some things belong
     to the goddess alone.
-  interactionRadius: 1.5
+  interactionRadius: 0.5
   timeCostMinutes: 30
   conversationCooldownSeconds: 10
   promptUI: {fileID: 228043891}
@@ -3954,6 +4015,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &505536513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 505536509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2ea6332bd11344dfbb67eaf0cafc96b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCSchedule
+  schedule:
+  - startHour: 6
+    endHour: 14
+    position: {x: 1.5, y: 3.5}
+  - startHour: 14
+    endHour: 22
+    position: {x: 1, y: 3.5}
+  homePosition: {x: -14, y: -4}
 --- !u!1 &507414664
 GameObject:
   m_ObjectHideFlags: 0
@@ -4213,6 +4294,7 @@ GameObject:
   - component: {fileID: 534159554}
   - component: {fileID: 534159553}
   - component: {fileID: 534159552}
+  - component: {fileID: 534159555}
   m_Layer: 0
   m_Name: Stephanos
   m_TagString: Untagged
@@ -4242,7 +4324,7 @@ MonoBehaviour:
     Nikias has been asking about you. Casually. Very casually. But still."
   dialogueClose: 'I saw Lydia watching you from across the Agora yesterday. She did
     not think anyone noticed. I notice everything. '
-  interactionRadius: 1.5
+  interactionRadius: 0.5
   timeCostMinutes: 30
   conversationCooldownSeconds: 10
   promptUI: {fileID: 1636623368}
@@ -4323,6 +4405,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &534159555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534159551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2ea6332bd11344dfbb67eaf0cafc96b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCSchedule
+  schedule:
+  - startHour: 7
+    endHour: 12
+    position: {x: -1.5, y: -3.7}
+  - startHour: 12
+    endHour: 21
+    position: {x: -0.2, y: -0.7}
+  homePosition: {x: -2.5, y: -4.5}
 --- !u!1 &535210068
 GameObject:
   m_ObjectHideFlags: 0
@@ -5323,6 +5425,7 @@ GameObject:
   - component: {fileID: 722323117}
   - component: {fileID: 722323116}
   - component: {fileID: 722323115}
+  - component: {fileID: 722323118}
   m_Layer: 0
   m_Name: Kallias
   m_TagString: Untagged
@@ -5352,7 +5455,7 @@ MonoBehaviour:
     case you were wondering.
   dialogueClose: I will tell you something I tell very few people. The city rewards
     those who know which doors to knock on. Knock on mine.
-  interactionRadius: 1.5
+  interactionRadius: 0.5
   timeCostMinutes: 30
   conversationCooldownSeconds: 10
   promptUI: {fileID: 2043160587}
@@ -5433,6 +5536,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &722323118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722323114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2ea6332bd11344dfbb67eaf0cafc96b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCSchedule
+  schedule:
+  - startHour: 7
+    endHour: 14
+    position: {x: 2, y: 0}
+  - startHour: 14
+    endHour: 20
+    position: {x: 1, y: 0.5}
+  homePosition: {x: -10, y: 3}
 --- !u!1 &728965372
 GameObject:
   m_ObjectHideFlags: 0
@@ -5829,6 +5952,7 @@ GameObject:
   - component: {fileID: 758600692}
   - component: {fileID: 758600691}
   - component: {fileID: 758600690}
+  - component: {fileID: 758600693}
   m_Layer: 0
   m_Name: Xanthos
   m_TagString: Untagged
@@ -5857,7 +5981,7 @@ MonoBehaviour:
     maybe. I respect that more than strength anyway.
   dialogueClose: You are the kind of person I would want beside me if things went
     badly. That is the highest thing I know how to say.
-  interactionRadius: 1.5
+  interactionRadius: 0.5
   timeCostMinutes: 30
   conversationCooldownSeconds: 10
   promptUI: {fileID: 740533624}
@@ -5938,6 +6062,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &758600693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758600689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2ea6332bd11344dfbb67eaf0cafc96b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCSchedule
+  schedule:
+  - startHour: 6
+    endHour: 14
+    position: {x: -8.5, y: 3.7}
+  - startHour: 14
+    endHour: 21
+    position: {x: -8, y: 3}
+  homePosition: {x: -10, y: -4}
 --- !u!1 &758626809
 GameObject:
   m_ObjectHideFlags: 0
@@ -6624,6 +6768,7 @@ GameObject:
   - component: {fileID: 994261508}
   - component: {fileID: 994261507}
   - component: {fileID: 994261506}
+  - component: {fileID: 994261509}
   m_Layer: 0
   m_Name: Chloe
   m_TagString: Untagged
@@ -6651,7 +6796,7 @@ MonoBehaviour:
     That is not nothing.
   dialogueClose: I made extra bread this morning. I do not know why I thought of
     you when I did.
-  interactionRadius: 1.5
+  interactionRadius: 0.5
   timeCostMinutes: 30
   conversationCooldownSeconds: 10
   promptUI: {fileID: 1871179770}
@@ -6732,6 +6877,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &994261509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 994261505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2ea6332bd11344dfbb67eaf0cafc96b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCSchedule
+  schedule:
+  - startHour: 8
+    endHour: 13
+    position: {x: 5, y: 0.3}
+  - startHour: 13
+    endHour: 20
+    position: {x: 1, y: -0.6}
+  homePosition: {x: -13, y: -0.5}
 --- !u!1 &997515161
 GameObject:
   m_ObjectHideFlags: 0
@@ -9784,6 +9949,7 @@ GameObject:
   - component: {fileID: 1470564469}
   - component: {fileID: 1470564468}
   - component: {fileID: 1470564467}
+  - component: {fileID: 1470564470}
   m_Layer: 0
   m_Name: Theron
   m_TagString: Untagged
@@ -9813,7 +9979,7 @@ MonoBehaviour:
     That's rare.
   dialogueClose: I used to think I was the sharpest mind in Athens. You're making
     me reconsider.
-  interactionRadius: 1.5
+  interactionRadius: 0.5
   timeCostMinutes: 30
   conversationCooldownSeconds: 10
   promptUI: {fileID: 36608356}
@@ -9894,6 +10060,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1470564470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470564466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2ea6332bd11344dfbb67eaf0cafc96b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCSchedule
+  schedule:
+  - startHour: 7
+    endHour: 13
+    position: {x: 0, y: 2}
+  - startHour: 13
+    endHour: 21
+    position: {x: -6, y: 2}
+  homePosition: {x: -10, y: -0.5}
 --- !u!1 &1485218675
 GameObject:
   m_ObjectHideFlags: 0
@@ -12207,6 +12393,7 @@ GameObject:
   - component: {fileID: 1935058557}
   - component: {fileID: 1935058556}
   - component: {fileID: 1935058555}
+  - component: {fileID: 1935058558}
   m_Layer: 0
   m_Name: Demetrios
   m_TagString: Untagged
@@ -12234,7 +12421,7 @@ MonoBehaviour:
   dialogueFriendly: You're tougher than I expected. Keep pushing.
   dialogueClose: I've fought beside men half as capable as you. Athens is lucky to
     have you.
-  interactionRadius: 1.5
+  interactionRadius: 0.5
   timeCostMinutes: 30
   conversationCooldownSeconds: 10
   promptUI: {fileID: 1645193300}
@@ -12315,6 +12502,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1935058558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935058554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2ea6332bd11344dfbb67eaf0cafc96b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCSchedule
+  schedule:
+  - startHour: 6
+    endHour: 21
+    position: {x: -4, y: 3}
+  homePosition: {x: -12, y: -0.5}
 --- !u!1 &1939922347
 GameObject:
   m_ObjectHideFlags: 0
@@ -12326,6 +12530,7 @@ GameObject:
   - component: {fileID: 1939922350}
   - component: {fileID: 1939922349}
   - component: {fileID: 1939922348}
+  - component: {fileID: 1939922351}
   m_Layer: 0
   m_Name: Nikias
   m_TagString: Untagged
@@ -12354,7 +12559,7 @@ MonoBehaviour:
     at it.
   dialogueClose: You have proven yourself, my friend. Athens is better for men like
     you.
-  interactionRadius: 1.5
+  interactionRadius: 0.5
   timeCostMinutes: 30
   conversationCooldownSeconds: 10
   promptUI: {fileID: 1734876546}
@@ -12435,6 +12640,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1939922351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939922347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2ea6332bd11344dfbb67eaf0cafc96b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCSchedule
+  schedule:
+  - startHour: 6
+    endHour: 22
+    position: {x: 1, y: 1.5}
+  homePosition: {x: -14, y: 3}
 --- !u!1 &1960059205
 GameObject:
   m_ObjectHideFlags: 0
@@ -12888,6 +13110,7 @@ GameObject:
   - component: {fileID: 2015131229}
   - component: {fileID: 2015131228}
   - component: {fileID: 2015131227}
+  - component: {fileID: 2015131230}
   m_Layer: 0
   m_Name: Eudoros
   m_TagString: Untagged
@@ -12915,7 +13138,7 @@ MonoBehaviour:
   dialogueFriendly: "Your piety does not go unnoticed \u2014 by me or by the gods."
   dialogueClose: In all my years serving Zeus, few have shown the devotion you have.
     You honour Athens.
-  interactionRadius: 1.5
+  interactionRadius: 0.5
   timeCostMinutes: 30
   conversationCooldownSeconds: 10
   promptUI: {fileID: 450490350}
@@ -12996,6 +13219,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2015131230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2015131226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2ea6332bd11344dfbb67eaf0cafc96b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NPCSchedule
+  schedule:
+  - startHour: 6
+    endHour: 14
+    position: {x: -2.5, y: 4}
+  - startHour: 14
+    endHour: 21
+    position: {x: -2, y: 3.5}
+  homePosition: {x: -12, y: 3}
 --- !u!1 &2016270331
 GameObject:
   m_ObjectHideFlags: 0
