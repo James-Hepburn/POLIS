@@ -91,6 +91,9 @@ public class TimeManager : MonoBehaviour
         // Store the day that just ended before advancing
         GameState.Instance.lastCompletedDay = currentDay;
 
+        // Process divine favour decay and negative favour events
+        GameState.Instance.ProcessEndOfDayFavour ();
+
         // Advance the day counter now so summary shows correct next-day info
         AdvanceDay ();
 

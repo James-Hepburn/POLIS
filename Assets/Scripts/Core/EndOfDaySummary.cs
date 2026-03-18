@@ -14,6 +14,7 @@ public class EndOfDaySummary : MonoBehaviour
     public TextMeshProUGUI relationshipsText;
     public TextMeshProUGUI continuePrompt;
     public TextMeshProUGUI favourText;
+    public TextMeshProUGUI eventsText;
 
     [Header ("Settings")]
     public int homeInteriorSceneIndex = 8;
@@ -56,6 +57,9 @@ public class EndOfDaySummary : MonoBehaviour
 
             if (relationshipsText != null)
                 relationshipsText.text = BuildRelationshipSummary ();
+
+            if (eventsText != null)
+                eventsText.text = BuildEventsSummary ();
         }
     }
 
@@ -82,6 +86,20 @@ public class EndOfDaySummary : MonoBehaviour
         sb.AppendLine ($"  Theron      {FormatRelationship (GameState.Instance.relationshipTheron)}");
         sb.AppendLine ($"  Argos       {FormatRelationship (GameState.Instance.relationshipArgos)}");
         sb.AppendLine ($"  Eudoros     {FormatRelationship (GameState.Instance.relationshipEudoros)}");
+        return sb.ToString ();
+    }
+
+    private string BuildEventsSummary ()
+    {
+        if (GameState.Instance == null) return "";
+        if (GameState.Instance.pendingEndOfDayEvents == null
+            || GameState.Instance.pendingEndOfDayEvents.Count == 0)
+            return "";
+
+        System.Text.StringBuilder sb = new System.Text.StringBuilder ();
+        sb.AppendLine ("The Gods Speak");
+        foreach (string evt in GameState.Instance.pendingEndOfDayEvents)
+            sb.AppendLine ($"  {evt}");
         return sb.ToString ();
     }
 

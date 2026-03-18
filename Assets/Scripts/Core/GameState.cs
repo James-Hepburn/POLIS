@@ -65,6 +65,15 @@ public class GameState : MonoBehaviour
     public bool gameStarted = false;
     public int  lastCompletedDay = 1;
 
+    // ── Divine Favour Tracking ─────────────────────────────────────────────
+    [Header ("Divine Favour Tracking")]
+    public bool prayedToPatronToday = false;
+
+    // Messages generated at end of day for the summary screen to display
+    [System.NonSerialized]
+    public System.Collections.Generic.List<string> pendingEndOfDayEvents =
+        new System.Collections.Generic.List<string> ();
+
     // ── Relationships ──────────────────────────────────────────────────────
     [Header ("Relationships")]
     public int relationshipNikias    = 0;
@@ -114,6 +123,9 @@ public class GameState : MonoBehaviour
 
         ResetDivineFavour ();
         SetPatronFavour (god, 20);
+
+        prayedToPatronToday = false;
+        pendingEndOfDayEvents.Clear ();
 
         isNewGame   = false;
         gameStarted = true;
@@ -195,6 +207,91 @@ public class GameState : MonoBehaviour
             case PatronGod.Hephaestus: return favourHephaestus;
             case PatronGod.Athena:     return favourAthena;
             default:                   return 0;
+        }
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
+    // End-of-day favour processing
+    // ══════════════════════════════════════════════════════════════════════
+
+    /// <summary>
+    /// Called by TimeManager.EndDay(). Applies patron decay if the player
+    /// did not pray today, fires negative favour events, then resets daily flags.
+    /// </summary>
+    public void ProcessEndOfDayFavour ()
+    {
+        pendingEndOfDayEvents.Clear ();
+
+        // ── Patron decay ───────────────────────────────────────────────────
+        if (!prayedToPatronToday)
+        {
+            int decay = 3;
+            ChangeFavour (patronGod, -decay);
+            int current = GetFavour (patronGod);
+            pendingEndOfDayEvents.Add (
+                $"{patronGod} grows distant — you did not pray today. (Favour: {current})");
+            Debug.Log ($"Patron decay: {patronGod} -{decay}. Now {current}.");
+        }
+
+        // ── Negative favour events ─────────────────────────────────────────
+        CheckNegativeFavour (PatronGod.Hermes,     favourHermes);
+        CheckNegativeFavour (PatronGod.Ares,       favourAres);
+        CheckNegativeFavour (PatronGod.Aphrodite,  favourAphrodite);
+        CheckNegativeFavour (PatronGod.Apollo,     favourApollo);
+        CheckNegativeFavour (PatronGod.Hephaestus, favourHephaestus);
+        CheckNegativeFavour (PatronGod.Athena,     favourAthena);
+
+        // ── Reset daily flags ──────────────────────────────────────────────
+        prayedToPatronToday = false;
+    }
+
+    private void CheckNegativeFavour (PatronGod god, int favour)
+    {
+        if (favour >= -20) return;
+
+        // Apply a domain-appropriate mechanical penalty
+        switch (god)
+        {
+            case PatronGod.Hermes:
+                float lost = 5f;
+                AddDrachma (-lost);
+                pendingEndOfDayEvents.Add (
+                    $"Hermes turns his back — a deal goes poorly. Lost ₯{lost:F0}. (Favour: {favour})");
+                break;
+
+            case PatronGod.Ares:
+                AddHonour (-3);
+                pendingEndOfDayEvents.Add (
+                    $"Ares is displeased — your reputation for courage suffers. (-3 Honour) (Favour: {favour})");
+                break;
+
+            case PatronGod.Aphrodite:
+                // Relationship decay on a random tracked NPC
+                string[] npcs = { "Nikias", "Demetrios", "Theron", "Argos", "Eudoros" };
+                string target = npcs[Random.Range (0, npcs.Length)];
+                ChangeRelationship (target, -5);
+                pendingEndOfDayEvents.Add (
+                    $"Aphrodite is displeased — {target} grows cooler toward you. (-5 Relationship) (Favour: {favour})");
+                break;
+
+            case PatronGod.Apollo:
+                careerXP = Mathf.Max (0, careerXP - 5);
+                pendingEndOfDayEvents.Add (
+                    $"Apollo withholds his clarity — your studies feel fruitless. (-5 Career XP) (Favour: {favour})");
+                break;
+
+            case PatronGod.Hephaestus:
+                float lostCraft = 4f;
+                AddDrachma (-lostCraft);
+                pendingEndOfDayEvents.Add (
+                    $"Hephaestus is displeased — your tools fail you. Lost ₯{lostCraft:F0}. (Favour: {favour})");
+                break;
+
+            case PatronGod.Athena:
+                AddHonour (-2);
+                pendingEndOfDayEvents.Add (
+                    $"Athena withdraws her favour — your standing in the city quietly erodes. (-2 Honour) (Favour: {favour})");
+                break;
         }
     }
 

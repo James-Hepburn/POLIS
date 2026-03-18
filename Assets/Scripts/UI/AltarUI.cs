@@ -33,7 +33,6 @@ public class AltarUI : MonoBehaviour
     public float offeringCost    = 10f;
     public int   prayFavourGain  = 5;
     public int   offerFavourGain = 15;
-    public int   patronDecayRate = 2;
 
     private GameState.PatronGod selectedGod;
     private PrayerAltar         altar;
@@ -103,7 +102,10 @@ public class AltarUI : MonoBehaviour
 
         TimeManager.Instance.AdvanceTimeByMinutes (prayTimeCost);
         GameState.Instance.ChangeFavour (selectedGod, prayFavourGain);
-        ApplyPatronDecay ();
+
+        // Mark patron as prayed to today if applicable
+        if (selectedGod == GameState.Instance.patronGod)
+            GameState.Instance.prayedToPatronToday = true;
 
         currentFavourText.text = $"Current Favour: {GameState.Instance.GetFavour (selectedGod)}";
         feedbackText.text = $"You pray to {selectedGod}. The god is pleased.";
@@ -123,24 +125,15 @@ public class AltarUI : MonoBehaviour
 
         TimeManager.Instance.AdvanceTimeByMinutes (prayTimeCost);
         GameState.Instance.ChangeFavour (selectedGod, offerFavourGain);
-        ApplyPatronDecay ();
+
+        // An offering to your patron counts as prayer for the day
+        if (selectedGod == GameState.Instance.patronGod)
+            GameState.Instance.prayedToPatronToday = true;
 
         currentFavourText.text = $"Current Favour: {GameState.Instance.GetFavour (selectedGod)}";
         feedbackText.text = $"You make an offering to {selectedGod}. The god smiles upon you.";
 
         Debug.Log ($"Offered to {selectedGod}. Favour: {GameState.Instance.GetFavour (selectedGod)}");
-    }
-
-    private void ApplyPatronDecay ()
-    {
-        if (GameState.Instance == null) return;
-
-        if (selectedGod != GameState.Instance.patronGod)
-        {
-            GameState.Instance.ChangeFavour (GameState.Instance.patronGod, -patronDecayRate);
-            feedbackText.text += $"\n{GameState.Instance.patronGod} grows distant.";
-            Debug.Log ($"Patron {GameState.Instance.patronGod} favour decayed by {patronDecayRate}");
-        }
     }
 
     private void OnBack ()
