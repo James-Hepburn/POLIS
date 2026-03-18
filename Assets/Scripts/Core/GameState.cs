@@ -210,6 +210,10 @@ public class GameState : MonoBehaviour
             careerLevel++;
             careerXP = 0;
             Debug.Log ($"Career level up! Now level {careerLevel}");
+
+            // Show notification
+            if (CareerNotification.Instance != null)
+                CareerNotification.Instance.ShowLevelUp (careerLevel, currentProfession);
         }
     }
 

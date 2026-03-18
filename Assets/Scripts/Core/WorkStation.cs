@@ -76,10 +76,14 @@ public class WorkStation : MonoBehaviour
 
         bool professionAllowed = System.Array.IndexOf (allowedProfessions, GameState.Instance.currentProfession) >= 0;
 
+        bool notificationShowing = CareerNotification.Instance != null
+                        && CareerNotification.Instance.IsShowing;
+
         bool canWork = professionAllowed
                     && worksToday < maxWorksPerDay
                     && TimeManager.Instance != null
-                    && TimeManager.Instance.IsDayActive ();
+                    && TimeManager.Instance.IsDayActive ()
+                    && !notificationShowing;
 
         if (promptUI != null && playerInRange && canWork)
         {

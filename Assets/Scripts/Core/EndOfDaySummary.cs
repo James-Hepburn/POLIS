@@ -23,6 +23,9 @@ public class EndOfDaySummary : MonoBehaviour
     // ══════════════════════════════════════════════════════════════════════
     private void Start ()
     {
+        if (continuePrompt != null)
+            continuePrompt.text = "";
+
         PopulateSummary ();
         Invoke ("ShowContinuePrompt", 1.5f);
     }
