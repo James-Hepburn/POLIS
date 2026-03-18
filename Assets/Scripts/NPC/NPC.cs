@@ -92,7 +92,10 @@ public class NPC : MonoBehaviour
             TimeManager.Instance.AdvanceTimeByMinutes (timeCostMinutes);
 
         if (GameState.Instance != null)
+        {
             GameState.Instance.ChangeRelationship (npcName, relationshipGain);
+            GameState.Instance.AddHonour (1);
+        }
     }
 
     private void CloseDialogue ()

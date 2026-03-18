@@ -211,6 +211,9 @@ public class GameState : MonoBehaviour
             careerXP = 0;
             Debug.Log ($"Career level up! Now level {careerLevel}");
 
+            // Honour bonus on level up
+            AddHonour (5);
+
             // Show notification
             if (CareerNotification.Instance != null)
                 CareerNotification.Instance.ShowLevelUp (careerLevel, currentProfession);

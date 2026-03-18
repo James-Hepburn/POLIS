@@ -117,6 +117,7 @@ public class WorkStation : MonoBehaviour
         TimeManager.Instance.AdvanceTimeByMinutes (work.timeCostMinutes);
         GameState.Instance.AddDrachma (modifiedDrachma);
         GameState.Instance.AddCareerXP (modifiedXP);
+        GameState.Instance.AddHonour (1);
         worksToday++;
 
         string modifierNote = modifier > 1f ? " (divine blessing!)" : modifier < 1f ? " (divine displeasure)" : "";
