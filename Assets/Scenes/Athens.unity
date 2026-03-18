@@ -610,6 +610,12 @@ MonoBehaviour:
     endHour: 21
     position: {x: 0, y: 0.5}
   homePosition: {x: -13, y: 3}
+  moveSpeed: 1.5
+  arrivalThreshold: 0.05
+  wanderRadius: 0.3
+  wanderInterval: 3
+  bobHeight: 0.04
+  bobSpeed: 8
 --- !u!1 &36608356
 GameObject:
   m_ObjectHideFlags: 0
@@ -1616,6 +1622,12 @@ MonoBehaviour:
     endHour: 21
     position: {x: 3.5, y: 3.5}
   homePosition: {x: -14, y: -0.5}
+  moveSpeed: 1.5
+  arrivalThreshold: 0.05
+  wanderRadius: 0.3
+  wanderInterval: 3
+  bobHeight: 0.04
+  bobSpeed: 8
 --- !u!1 &228043891
 GameObject:
   m_ObjectHideFlags: 0
@@ -3144,6 +3156,12 @@ MonoBehaviour:
     endHour: 20
     position: {x: 4.75, y: -3}
   homePosition: {x: -12, y: -4}
+  moveSpeed: 1.5
+  arrivalThreshold: 0.05
+  wanderRadius: 0.3
+  wanderInterval: 3
+  bobHeight: 0.04
+  bobSpeed: 8
 --- !u!1 &389682214
 GameObject:
   m_ObjectHideFlags: 0
@@ -4035,6 +4053,12 @@ MonoBehaviour:
     endHour: 22
     position: {x: 1, y: 3.5}
   homePosition: {x: -14, y: -4}
+  moveSpeed: 1.5
+  arrivalThreshold: 0.05
+  wanderRadius: 0.3
+  wanderInterval: 3
+  bobHeight: 0.04
+  bobSpeed: 8
 --- !u!1 &507414664
 GameObject:
   m_ObjectHideFlags: 0
@@ -4425,6 +4449,12 @@ MonoBehaviour:
     endHour: 21
     position: {x: -0.2, y: -0.7}
   homePosition: {x: -2.5, y: -4.5}
+  moveSpeed: 1.5
+  arrivalThreshold: 0.05
+  wanderRadius: 0.3
+  wanderInterval: 3
+  bobHeight: 0.04
+  bobSpeed: 8
 --- !u!1 &535210068
 GameObject:
   m_ObjectHideFlags: 0
@@ -5556,6 +5586,12 @@ MonoBehaviour:
     endHour: 20
     position: {x: 1, y: 0.5}
   homePosition: {x: -10, y: 3}
+  moveSpeed: 1.5
+  arrivalThreshold: 0.05
+  wanderRadius: 0.3
+  wanderInterval: 3
+  bobHeight: 0.04
+  bobSpeed: 8
 --- !u!1 &728965372
 GameObject:
   m_ObjectHideFlags: 0
@@ -6082,6 +6118,12 @@ MonoBehaviour:
     endHour: 21
     position: {x: -8, y: 3}
   homePosition: {x: -10, y: -4}
+  moveSpeed: 1.5
+  arrivalThreshold: 0.05
+  wanderRadius: 0.3
+  wanderInterval: 3
+  bobHeight: 0.04
+  bobSpeed: 8
 --- !u!1 &758626809
 GameObject:
   m_ObjectHideFlags: 0
@@ -6747,6 +6789,16 @@ MonoBehaviour:
   - {fileID: 1110745505}
   - {fileID: 1773644575}
   - {fileID: 77819048}
+  - {fileID: 1612261464}
+  - {fileID: 1043214668}
+  - {fileID: 1277576911}
+  - {fileID: 2041562308}
+  - {fileID: 1468665148}
+  - {fileID: 1487289259}
+  - {fileID: 622162557}
+  - {fileID: 1606414522}
+  - {fileID: 1883035740}
+  - {fileID: 472539700}
   skyDawn: {r: 0.2, g: 0.13, b: 0.08, a: 1}
   skyMidday: {r: 0.36, g: 0.6, b: 0.85, a: 1}
   skyLateAfternoon: {r: 0.7, g: 0.45, b: 0.18, a: 1}
@@ -6897,6 +6949,12 @@ MonoBehaviour:
     endHour: 20
     position: {x: 1, y: -0.6}
   homePosition: {x: -13, y: -0.5}
+  moveSpeed: 1.5
+  arrivalThreshold: 0.05
+  wanderRadius: 0.3
+  wanderInterval: 3
+  bobHeight: 0.04
+  bobSpeed: 8
 --- !u!1 &997515161
 GameObject:
   m_ObjectHideFlags: 0
@@ -10080,6 +10138,12 @@ MonoBehaviour:
     endHour: 21
     position: {x: -6, y: 2}
   homePosition: {x: -10, y: -0.5}
+  moveSpeed: 1.5
+  arrivalThreshold: 0.05
+  wanderRadius: 0.3
+  wanderInterval: 3
+  bobHeight: 0.04
+  bobSpeed: 8
 --- !u!1 &1485218675
 GameObject:
   m_ObjectHideFlags: 0
@@ -12519,6 +12583,12 @@ MonoBehaviour:
     endHour: 21
     position: {x: -4, y: 3}
   homePosition: {x: -12, y: -0.5}
+  moveSpeed: 1.5
+  arrivalThreshold: 0.05
+  wanderRadius: 0.3
+  wanderInterval: 3
+  bobHeight: 0.04
+  bobSpeed: 8
 --- !u!1 &1939922347
 GameObject:
   m_ObjectHideFlags: 0
@@ -12657,6 +12727,12 @@ MonoBehaviour:
     endHour: 22
     position: {x: 1, y: 1.5}
   homePosition: {x: -14, y: 3}
+  moveSpeed: 1.5
+  arrivalThreshold: 0.05
+  wanderRadius: 0.3
+  wanderInterval: 3
+  bobHeight: 0.04
+  bobSpeed: 8
 --- !u!1 &1960059205
 GameObject:
   m_ObjectHideFlags: 0
@@ -13239,6 +13315,12 @@ MonoBehaviour:
     endHour: 21
     position: {x: -2, y: 3.5}
   homePosition: {x: -12, y: 3}
+  moveSpeed: 1.5
+  arrivalThreshold: 0.05
+  wanderRadius: 0.3
+  wanderInterval: 3
+  bobHeight: 0.04
+  bobSpeed: 8
 --- !u!1 &2016270331
 GameObject:
   m_ObjectHideFlags: 0

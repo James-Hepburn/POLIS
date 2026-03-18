@@ -34,6 +34,8 @@ public class NPC : MonoBehaviour
     private float     dialogueOpenTime = -999f;
     private const float closeDelay    = 0.4f;
 
+    public bool IsDialogueOpen => dialogueOpen;
+
     // ══════════════════════════════════════════════════════════════════════
     private void Start ()
     {
