@@ -63,17 +63,24 @@ public class EndOfDaySummary : MonoBehaviour
         }
     }
 
+    // Forces the value to always start at the same horizontal position
+    // regardless of name length. Adjust posX to match your font size.
+    private string Row (string name, object value, int posX = 160)
+    {
+        return $"  {name}<pos={posX}>{value}";
+    }
+
     private string BuildFavourSummary ()
     {
         if (GameState.Instance == null) return "";
         System.Text.StringBuilder sb = new System.Text.StringBuilder ();
         sb.AppendLine ("Divine Favour");
-        sb.AppendLine ($"  Hermes      {GameState.Instance.favourHermes}");
-        sb.AppendLine ($"  Ares        {GameState.Instance.favourAres}");
-        sb.AppendLine ($"  Aphrodite   {GameState.Instance.favourAphrodite}");
-        sb.AppendLine ($"  Apollo      {GameState.Instance.favourApollo}");
-        sb.AppendLine ($"  Hephaestus  {GameState.Instance.favourHephaestus}");
-        sb.AppendLine ($"  Athena      {GameState.Instance.favourAthena}");
+        sb.AppendLine (Row ("Hermes",     GameState.Instance.favourHermes));
+        sb.AppendLine (Row ("Ares",       GameState.Instance.favourAres));
+        sb.AppendLine (Row ("Aphrodite",  GameState.Instance.favourAphrodite));
+        sb.AppendLine (Row ("Apollo",     GameState.Instance.favourApollo));
+        sb.AppendLine (Row ("Hephaestus", GameState.Instance.favourHephaestus));
+        sb.AppendLine (Row ("Athena",     GameState.Instance.favourAthena));
         return sb.ToString ();
     }
 
@@ -81,11 +88,18 @@ public class EndOfDaySummary : MonoBehaviour
     {
         System.Text.StringBuilder sb = new System.Text.StringBuilder ();
         sb.AppendLine ("Relationships");
-        sb.AppendLine ($"  Nikias      {FormatRelationship (GameState.Instance.relationshipNikias)}");
-        sb.AppendLine ($"  Demetrios   {FormatRelationship (GameState.Instance.relationshipDemetrios)}");
-        sb.AppendLine ($"  Theron      {FormatRelationship (GameState.Instance.relationshipTheron)}");
-        sb.AppendLine ($"  Argos       {FormatRelationship (GameState.Instance.relationshipArgos)}");
-        sb.AppendLine ($"  Eudoros     {FormatRelationship (GameState.Instance.relationshipEudoros)}");
+        sb.AppendLine (Row ("Nikias",    FormatRelationship (GameState.Instance.relationshipNikias)));
+        sb.AppendLine (Row ("Demetrios", FormatRelationship (GameState.Instance.relationshipDemetrios)));
+        sb.AppendLine (Row ("Theron",    FormatRelationship (GameState.Instance.relationshipTheron)));
+        sb.AppendLine (Row ("Argos",     FormatRelationship (GameState.Instance.relationshipArgos)));
+        sb.AppendLine (Row ("Eudoros",   FormatRelationship (GameState.Instance.relationshipEudoros)));
+        sb.AppendLine (Row ("Chloe",     FormatRelationship (GameState.Instance.relationshipChloe)));
+        sb.AppendLine (Row ("Kallias",   FormatRelationship (GameState.Instance.relationshipKallias)));
+        sb.AppendLine (Row ("Lydia",     FormatRelationship (GameState.Instance.relationshipLydia)));
+        sb.AppendLine (Row ("Miriam",    FormatRelationship (GameState.Instance.relationshipMiriam)));
+        sb.AppendLine (Row ("Phaedra",   FormatRelationship (GameState.Instance.relationshipPhaedra)));
+        sb.AppendLine (Row ("Stephanos", FormatRelationship (GameState.Instance.relationshipStephanos)));
+        sb.AppendLine (Row ("Xanthos",   FormatRelationship (GameState.Instance.relationshipXanthos)));
         return sb.ToString ();
     }
 

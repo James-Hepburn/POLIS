@@ -76,11 +76,18 @@ public class GameState : MonoBehaviour
 
     // ── Relationships ──────────────────────────────────────────────────────
     [Header ("Relationships")]
-    public int relationshipNikias    = 0;
-    public int relationshipDemetrios = 0;
-    public int relationshipTheron    = 0;
-    public int relationshipArgos     = 0;
-    public int relationshipEudoros   = 0;
+    public int relationshipNikias      = 0;
+    public int relationshipDemetrios   = 0;
+    public int relationshipTheron      = 0;
+    public int relationshipArgos       = 0;
+    public int relationshipEudoros     = 0;
+    public int relationshipChloe       = 0;
+    public int relationshipKallias     = 0;
+    public int relationshipLydia       = 0;
+    public int relationshipMiriam      = 0;
+    public int relationshipPhaedra     = 0;
+    public int relationshipStephanos   = 0;
+    public int relationshipXanthos     = 0;
 
     // ══════════════════════════════════════════════════════════════════════
     private void Awake ()
@@ -267,7 +274,10 @@ public class GameState : MonoBehaviour
 
             case PatronGod.Aphrodite:
                 // Relationship decay on a random tracked NPC
-                string[] npcs = { "Nikias", "Demetrios", "Theron", "Argos", "Eudoros" };
+                string[] npcs = { 
+                    "Nikias", "Demetrios", "Theron", "Argos", "Eudoros", "Chloe", 
+                    "Kallias", "Lydia", "Miriam", "Phaedra", "Stephanos", "Xanthos" 
+                };
                 string target = npcs[Random.Range (0, npcs.Length)];
                 ChangeRelationship (target, -5);
                 pendingEndOfDayEvents.Add (
@@ -329,11 +339,18 @@ public class GameState : MonoBehaviour
 
         switch (npcName)
         {
-            case "Nikias":    relationshipNikias    = Mathf.Clamp (relationshipNikias    + modifiedAmount, -100, 100); break;
-            case "Demetrios": relationshipDemetrios = Mathf.Clamp (relationshipDemetrios + modifiedAmount, -100, 100); break;
-            case "Theron":    relationshipTheron    = Mathf.Clamp (relationshipTheron    + modifiedAmount, -100, 100); break;
-            case "Argos":     relationshipArgos     = Mathf.Clamp (relationshipArgos     + modifiedAmount, -100, 100); break;
-            case "Eudoros":   relationshipEudoros   = Mathf.Clamp (relationshipEudoros   + modifiedAmount, -100, 100); break;
+            case "Nikias":      relationshipNikias    = Mathf.Clamp (relationshipNikias    + modifiedAmount, -100, 100); break;
+            case "Demetrios":   relationshipDemetrios = Mathf.Clamp (relationshipDemetrios + modifiedAmount, -100, 100); break;
+            case "Theron":      relationshipTheron    = Mathf.Clamp (relationshipTheron    + modifiedAmount, -100, 100); break;
+            case "Argos":       relationshipArgos     = Mathf.Clamp (relationshipArgos     + modifiedAmount, -100, 100); break;
+            case "Eudoros":     relationshipEudoros   = Mathf.Clamp (relationshipEudoros   + modifiedAmount, -100, 100); break;
+            case "Chloe":       relationshipChloe     = Mathf.Clamp (relationshipChloe     + modifiedAmount, -100, 100); break;
+            case "Kallias":     relationshipKallias   = Mathf.Clamp (relationshipKallias   + modifiedAmount, -100, 100); break;
+            case "Lydia":       relationshipLydia     = Mathf.Clamp (relationshipLydia     + modifiedAmount, -100, 100); break;
+            case "Miriam":      relationshipMiriam    = Mathf.Clamp (relationshipMiriam    + modifiedAmount, -100, 100); break;
+            case "Phaedra":     relationshipPhaedra   = Mathf.Clamp (relationshipPhaedra   + modifiedAmount, -100, 100); break;
+            case "Stephanos":   relationshipStephanos = Mathf.Clamp (relationshipStephanos + modifiedAmount, -100, 100); break;
+            case "Xanthos":     relationshipXanthos   = Mathf.Clamp (relationshipXanthos   + modifiedAmount, -100, 100); break;
         }
         Debug.Log ($"Relationship with {npcName}: {GetRelationship (npcName)}");
     }
@@ -347,6 +364,13 @@ public class GameState : MonoBehaviour
             case "Theron":    return relationshipTheron;
             case "Argos":     return relationshipArgos;
             case "Eudoros":   return relationshipEudoros;
+            case "Chloe":     return relationshipChloe;
+            case "Kallias":   return relationshipKallias;
+            case "Lydia":     return relationshipLydia;
+            case "Miriam":    return relationshipMiriam;
+            case "Phaedra":   return relationshipPhaedra;
+            case "Stephanos": return relationshipStephanos;
+            case "Xanthos":   return relationshipXanthos;
             default:          return 0;
         }
     }

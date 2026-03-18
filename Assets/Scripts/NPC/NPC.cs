@@ -29,6 +29,10 @@ public class NPC : MonoBehaviour
     private bool      playerInRange   = false;
     private bool      dialogueOpen    = false;
     private float     lastTalkTime    = -999f;
+    private bool      talkedToday     = false;
+    private int       lastTalkedDay   = -1;
+    private float     dialogueOpenTime = -999f;
+    private const float closeDelay    = 0.4f;
 
     // ══════════════════════════════════════════════════════════════════════
     private void Start ()
@@ -42,33 +46,45 @@ public class NPC : MonoBehaviour
     {
         if (player == null) return;
 
+        // Reset daily cap on new day
+        if (TimeManager.Instance != null)
+        {
+            int today = TimeManager.Instance.GetCurrentDay ();
+            if (today != lastTalkedDay)
+            {
+                talkedToday  = false;
+                lastTalkedDay = today;
+            }
+        }
+
         float distance = Vector2.Distance (transform.position, player.position);
         playerInRange  = distance <= interactionRadius;
 
         bool onCooldown = (Time.time - lastTalkTime) < conversationCooldownSeconds;
+        bool canTalk    = playerInRange && !dialogueOpen && !onCooldown && !talkedToday;
+        bool canClose   = dialogueOpen && (Time.time - dialogueOpenTime) >= closeDelay;
 
         // Show/hide prompt
         if (promptUI != null)
-            promptUI.SetActive (playerInRange && !dialogueOpen && !onCooldown);
+            promptUI.SetActive (canTalk);
 
-        // Open and close dialogue
-        if (playerInRange && !dialogueOpen && !onCooldown
-            && Keyboard.current.eKey.wasPressedThisFrame)
-        {
+        // Open dialogue
+        if (canTalk && Keyboard.current.eKey.wasPressedThisFrame)
             OpenDialogue ();
-        }
-        else if (dialogueOpen && Keyboard.current.eKey.wasPressedThisFrame)
-        {
+
+        // Close dialogue — only after delay has elapsed
+        else if (canClose && Keyboard.current.eKey.wasPressedThisFrame)
             CloseDialogue ();
-        }
     }
 
     // ══════════════════════════════════════════════════════════════════════
     private void OpenDialogue ()
     {
         Debug.Log ("OpenDialogue called");
-        dialogueOpen = true;
-        lastTalkTime = Time.time;
+        dialogueOpen     = true;
+        lastTalkTime     = Time.time;
+        dialogueOpenTime = Time.time;
+        talkedToday      = true;
 
         if (promptUI != null)  promptUI.SetActive (false);
         if (dialogueUI != null)
