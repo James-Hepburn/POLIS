@@ -16,7 +16,11 @@ public class TimeDisplay : MonoBehaviour
 
         timeText.text   = TimeManager.Instance.GetTimeString ();
         dayText.text    = $"Day {TimeManager.Instance.GetCurrentDay ()}";
-        seasonText.text = TimeManager.Instance.GetCurrentSeason ().ToString ();
+
+        if (FestivalManager.Instance != null && FestivalManager.Instance.IsFestivalDay)
+            seasonText.text = $"{FestivalManager.Instance.CurrentFestival.displayName}";
+        else
+            seasonText.text = TimeManager.Instance.GetCurrentSeason ().ToString ();
 
         if (drachmaText != null && GameState.Instance != null)
             drachmaText.text = $"₯ {GameState.Instance.drachma:F0}";

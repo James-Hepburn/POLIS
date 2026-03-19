@@ -17,6 +17,13 @@ public class NPCSchedule : MonoBehaviour
     [Header ("Home")]
     public Vector2 homePosition;
 
+    [Header ("Festival Override")]
+    public bool    hasFestivalOverride = false;
+    public FestivalManager.FestivalType festivalType;
+    public Vector2 festivalPosition;
+    public float   festivalStartHour = 8f;
+    public float   festivalEndHour   = 22f;
+
     [Header ("Movement")]
     public float moveSpeed        = 1.5f;
     public float arrivalThreshold = 0.05f;
@@ -248,6 +255,17 @@ public class NPCSchedule : MonoBehaviour
     // ══════════════════════════════════════════════════════════════════════
     private bool GetScheduledPosition (float hour, out Vector2 position)
     {
+        // Festival override takes priority over normal schedule
+        if (hasFestivalOverride
+            && FestivalManager.Instance != null
+            && FestivalManager.Instance.IsFestivalDay
+            && FestivalManager.Instance.CurrentFestival.type == festivalType
+            && hour >= festivalStartHour && hour < festivalEndHour)
+        {
+            position = festivalPosition;
+            return true;
+        }
+
         if (schedule != null)
         {
             foreach (ScheduleEntry entry in schedule)

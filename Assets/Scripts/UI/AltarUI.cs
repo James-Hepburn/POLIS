@@ -101,14 +101,20 @@ public class AltarUI : MonoBehaviour
         if (GameState.Instance == null || TimeManager.Instance == null) return;
 
         TimeManager.Instance.AdvanceTimeByMinutes (prayTimeCost);
-        GameState.Instance.ChangeFavour (selectedGod, prayFavourGain);
 
-        // Mark patron as prayed to today if applicable
+        bool doubleFavour = FestivalManager.Instance != null
+                         && FestivalManager.Instance.IsDoubleFavourDay (selectedGod);
+        int gain = doubleFavour ? prayFavourGain * 2 : prayFavourGain;
+
+        GameState.Instance.ChangeFavour (selectedGod, gain);
+
         if (selectedGod == GameState.Instance.patronGod)
             GameState.Instance.prayedToPatronToday = true;
 
         currentFavourText.text = $"Current Favour: {GameState.Instance.GetFavour (selectedGod)}";
-        feedbackText.text = $"You pray to {selectedGod}. The god is pleased.";
+        feedbackText.text = doubleFavour
+            ? $"You pray to {selectedGod} on this sacred day. The god is greatly pleased!"
+            : $"You pray to {selectedGod}. The god is pleased.";
 
         Debug.Log ($"Prayed to {selectedGod}. Favour: {GameState.Instance.GetFavour (selectedGod)}");
     }
@@ -124,14 +130,20 @@ public class AltarUI : MonoBehaviour
         }
 
         TimeManager.Instance.AdvanceTimeByMinutes (prayTimeCost);
-        GameState.Instance.ChangeFavour (selectedGod, offerFavourGain);
 
-        // An offering to your patron counts as prayer for the day
+        bool doubleFavour = FestivalManager.Instance != null
+                         && FestivalManager.Instance.IsDoubleFavourDay (selectedGod);
+        int gain = doubleFavour ? offerFavourGain * 2 : offerFavourGain;
+
+        GameState.Instance.ChangeFavour (selectedGod, gain);
+
         if (selectedGod == GameState.Instance.patronGod)
             GameState.Instance.prayedToPatronToday = true;
 
         currentFavourText.text = $"Current Favour: {GameState.Instance.GetFavour (selectedGod)}";
-        feedbackText.text = $"You make an offering to {selectedGod}. The god smiles upon you.";
+        feedbackText.text = doubleFavour
+            ? $"You make an offering to {selectedGod} on this sacred day. The god is greatly moved!"
+            : $"You make an offering to {selectedGod}. The god smiles upon you.";
 
         Debug.Log ($"Offered to {selectedGod}. Favour: {GameState.Instance.GetFavour (selectedGod)}");
     }

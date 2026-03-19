@@ -22,6 +22,7 @@ public class TimeManager : MonoBehaviour
     private int currentYear = 1;
     private bool dayActive = false;
     private bool timePaused = true;    // Time only moves when player acts
+    private bool hasLoadedSave = false;  // prevents Start() overwriting loaded state
 
     // ── Season ─────────────────────────────────────────────────────────────
     public enum Season { Spring, Summer, Autumn, Winter }
@@ -49,7 +50,9 @@ public class TimeManager : MonoBehaviour
 
     private void Start ()
     {
-        StartDay ();
+        if (!hasLoadedSave)
+            StartDay ();
+
     }
 
     private void Update ()
@@ -75,10 +78,32 @@ public class TimeManager : MonoBehaviour
     public void StartDay ()
     {
         currentHour = dayStartHour;
-        dayActive = true;
-        timePaused = true;   // Time starts paused — resumes when player moves
+        dayActive   = true;
+        timePaused  = true;
         onDayStart?.Invoke ();
         Debug.Log ($"Day {currentDay} begins. Season: {currentSeason}. Year: {currentYear}");
+
+        // Check for festival today and fire notifications
+        if (FestivalManager.Instance != null)
+        {
+            FestivalManager.Instance.CheckFestivalForCurrentDay ();
+
+            // Notify if today is a festival
+            if (FestivalManager.Instance.IsFestivalDay
+                && FestivalNotification.Instance != null)
+            {
+                FestivalNotification.Instance.ShowToday (
+                    FestivalManager.Instance.CurrentFestival);
+            }
+
+            // Notify if tomorrow is a festival
+            var tomorrow = FestivalManager.Instance.GetTomorrowsFestival ();
+            if (tomorrow.type != FestivalManager.FestivalType.None
+                && FestivalNotification.Instance != null)
+            {
+                FestivalNotification.Instance.ShowTomorrowDelayed (tomorrow, 6f);
+            }
+        }
     }
 
     public void EndDay ()
@@ -90,6 +115,12 @@ public class TimeManager : MonoBehaviour
 
         // Store the day that just ended before advancing
         GameState.Instance.lastCompletedDay = currentDay;
+
+        // Store festival name for the summary screen before advancing the day
+        if (FestivalManager.Instance != null && FestivalManager.Instance.IsFestivalDay)
+            GameState.Instance.lastCompletedDayFestival = FestivalManager.Instance.CurrentFestival.displayName;
+        else
+            GameState.Instance.lastCompletedDayFestival = "";
 
         // Process divine favour decay and negative favour events
         GameState.Instance.ProcessEndOfDayFavour ();
@@ -167,12 +198,13 @@ public class TimeManager : MonoBehaviour
 
     public void LoadTimeState (float hour, int day, int year, Season season)
     {
-        currentHour   = hour;
+        currentHour   = Mathf.Floor (hour);
         currentDay    = day;
         currentYear   = year;
         currentSeason = season;
         dayActive     = true;
         timePaused    = true;
+        hasLoadedSave = true;
         Debug.Log ($"Time state loaded — Day {currentDay}, {currentSeason}, Year {currentYear}");
     }
 

@@ -42,8 +42,13 @@ public class EndOfDaySummary : MonoBehaviour
     {
         if (TimeManager.Instance != null)
         {
-            dayText.text    = $"End of Day {GameState.Instance.lastCompletedDay}";
-            seasonText.text = TimeManager.Instance.GetCurrentSeason ().ToString ();
+            dayText.text = $"End of Day {GameState.Instance.lastCompletedDay}";
+
+            string season = TimeManager.Instance.GetCurrentSeason ().ToString ();
+            if (!string.IsNullOrEmpty (GameState.Instance.lastCompletedDayFestival))
+                seasonText.text = $"{season} — ★ {GameState.Instance.lastCompletedDayFestival}";
+            else
+                seasonText.text = season;
         }
 
         if (GameState.Instance != null)
@@ -135,6 +140,9 @@ public class EndOfDaySummary : MonoBehaviour
 
     private void ContinueToNextDay ()
     {
+        if (GameState.Instance != null)
+            GameState.Instance.Save ();
+            
         SceneManager.LoadScene (homeInteriorSceneIndex);
     }
 }

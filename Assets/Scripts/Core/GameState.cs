@@ -64,6 +64,7 @@ public class GameState : MonoBehaviour
     public bool isNewGame  = true;
     public bool gameStarted = false;
     public int  lastCompletedDay = 1;
+    public string lastCompletedDayFestival = "";
 
     // ── Divine Favour Tracking ─────────────────────────────────────────────
     [Header ("Divine Favour Tracking")]
@@ -341,8 +342,9 @@ public class GameState : MonoBehaviour
         public int careerXP;
 
         // Game Flags
-        public int  lastCompletedDay;
-        public bool prayedToPatronToday;
+        public int    lastCompletedDay;
+        public bool   prayedToPatronToday;
+        public string lastCompletedDayFestival;
 
         // Time
         public float currentHour;
@@ -387,8 +389,9 @@ public class GameState : MonoBehaviour
             favourAthena      = favourAthena,
             careerLevel       = careerLevel,
             careerXP          = careerXP,
-            lastCompletedDay  = lastCompletedDay,
-            prayedToPatronToday = prayedToPatronToday,
+            lastCompletedDay            = lastCompletedDay,
+            prayedToPatronToday         = prayedToPatronToday,
+            lastCompletedDayFestival    = lastCompletedDayFestival,
             currentHour       = TimeManager.Instance != null ? TimeManager.Instance.GetCurrentHour () : 6f,
             currentDay        = TimeManager.Instance != null ? TimeManager.Instance.GetCurrentDay ()  : 1,
             currentYear       = TimeManager.Instance != null ? TimeManager.Instance.GetCurrentYear () : 1,
@@ -441,8 +444,9 @@ public class GameState : MonoBehaviour
         favourAthena      = data.favourAthena;
         careerLevel       = data.careerLevel;
         careerXP          = data.careerXP;
-        lastCompletedDay  = data.lastCompletedDay;
-        prayedToPatronToday = data.prayedToPatronToday;
+        lastCompletedDay            = data.lastCompletedDay;
+        prayedToPatronToday         = data.prayedToPatronToday;
+        lastCompletedDayFestival    = data.lastCompletedDayFestival;
         relationshipNikias    = data.relationshipNikias;
         relationshipDemetrios = data.relationshipDemetrios;
         relationshipTheron    = data.relationshipTheron;
@@ -470,13 +474,17 @@ public class GameState : MonoBehaviour
 
     public static bool SaveExists ()
     {
-        return System.IO.File.Exists (SavePath);
+        string path = System.IO.Path.Combine (Application.persistentDataPath, "polis_save.json");
+        bool exists = System.IO.File.Exists (path);
+        Debug.Log ($"SaveExists check — path: {path}, exists: {exists}");
+        return exists;
     }
 
     public static void DeleteSave ()
     {
-        if (System.IO.File.Exists (SavePath))
-            System.IO.File.Delete (SavePath);
+        string path = System.IO.Path.Combine (Application.persistentDataPath, "polis_save.json");
+        if (System.IO.File.Exists (path))
+            System.IO.File.Delete (path);
     }
 
     private static string SavePath =>

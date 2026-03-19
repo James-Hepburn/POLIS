@@ -1534,6 +1534,7 @@ GameObject:
   - component: {fileID: 1825073057}
   - component: {fileID: 1825073056}
   - component: {fileID: 1825073055}
+  - component: {fileID: 1825073058}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1644,6 +1645,85 @@ MonoBehaviour:
   relationshipPhaedra: 0
   relationshipStephanos: 0
   relationshipXanthos: 0
+--- !u!114 &1825073058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825073053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bede84fbdc9a84cc88793f5c47debb7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FestivalManager
+  festivals:
+  - type: 1
+    displayName: City Dionysia
+    season: 0
+    dayOfSeason: 10
+    benefit: 2
+    relevantGod: 0
+    passiveHonour: 0
+    description: The great theatre festival. The city celebrates with song and drama.
+  - type: 2
+    displayName: Thargelia
+    season: 0
+    dayOfSeason: 22
+    benefit: 1
+    relevantGod: 3
+    passiveHonour: 0
+    description: A purification festival. Apollo's favour flows more freely today.
+  - type: 3
+    displayName: Panathenaia
+    season: 1
+    dayOfSeason: 10
+    benefit: 1
+    relevantGod: 5
+    passiveHonour: 0
+    description: The great festival of Athena. Athens celebrates its patron goddess.
+  - type: 4
+    displayName: Hephaestia
+    season: 1
+    dayOfSeason: 22
+    benefit: 1
+    relevantGod: 4
+    passiveHonour: 0
+    description: The craftsmen's festival. Hephaestus smiles on those who work with
+      their hands.
+  - type: 5
+    displayName: Thesmophoria
+    season: 2
+    dayOfSeason: 10
+    benefit: 3
+    relevantGod: 0
+    passiveHonour: 5
+    description: A sacred women's festival. You observe with respect and gain honour.
+  - type: 6
+    displayName: Pyanopsia
+    season: 2
+    dayOfSeason: 22
+    benefit: 1
+    relevantGod: 3
+    passiveHonour: 0
+    description: Apollo's harvest festival. A quiet, reflective celebration.
+  - type: 7
+    displayName: Lenaia
+    season: 3
+    dayOfSeason: 10
+    benefit: 2
+    relevantGod: 0
+    passiveHonour: 0
+    description: An intimate winter theatre festival. The gossip flows as freely
+      as the wine.
+  - type: 8
+    displayName: Haloa
+    season: 3
+    dayOfSeason: 22
+    benefit: 4
+    relevantGod: 0
+    passiveHonour: 3
+    description: Midwinter feasting and unusual social freedoms. A night to remember.
 --- !u!1 &2118711991
 GameObject:
   m_ObjectHideFlags: 0
