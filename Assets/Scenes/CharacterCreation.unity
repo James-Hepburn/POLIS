@@ -1787,7 +1787,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &517091650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5540,6 +5540,7 @@ MonoBehaviour:
   onTimeChanged:
     m_PersistentCalls:
       m_Calls: []
+  endOfDaySceneIndex: 11
 --- !u!114 &2008923529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5573,6 +5574,20 @@ MonoBehaviour:
   careerXP: 0
   isNewGame: 1
   gameStarted: 0
+  lastCompletedDay: 1
+  prayedToPatronToday: 0
+  relationshipNikias: 0
+  relationshipDemetrios: 0
+  relationshipTheron: 0
+  relationshipArgos: 0
+  relationshipEudoros: 0
+  relationshipChloe: 0
+  relationshipKallias: 0
+  relationshipLydia: 0
+  relationshipMiriam: 0
+  relationshipPhaedra: 0
+  relationshipStephanos: 0
+  relationshipXanthos: 0
 --- !u!4 &2008923530
 Transform:
   m_ObjectHideFlags: 0

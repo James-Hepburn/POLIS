@@ -94,6 +94,9 @@ public class TimeManager : MonoBehaviour
         // Process divine favour decay and negative favour events
         GameState.Instance.ProcessEndOfDayFavour ();
 
+        // Auto-save at end of each day
+        GameState.Instance.Save ();
+
         // Advance the day counter now so summary shows correct next-day info
         AdvanceDay ();
 
@@ -103,7 +106,7 @@ public class TimeManager : MonoBehaviour
     }
 
     [Header ("Scene Indices")]
-    public int endOfDaySceneIndex = 9;
+    public int endOfDaySceneIndex = 11;
 
     private void AdvanceDay ()
     {
@@ -161,6 +164,17 @@ public class TimeManager : MonoBehaviour
     // ══════════════════════════════════════════════════════════════════════
     // Getters
     // ══════════════════════════════════════════════════════════════════════
+
+    public void LoadTimeState (float hour, int day, int year, Season season)
+    {
+        currentHour   = hour;
+        currentDay    = day;
+        currentYear   = year;
+        currentSeason = season;
+        dayActive     = true;
+        timePaused    = true;
+        Debug.Log ($"Time state loaded — Day {currentDay}, {currentSeason}, Year {currentYear}");
+    }
 
     public float GetCurrentHour () => currentHour;
     public int GetCurrentDay () => currentDay;

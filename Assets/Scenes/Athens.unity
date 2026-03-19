@@ -797,7 +797,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildingEntrance
   buildingName: Kerameikos
-  interiorSceneIndex: 4
+  interiorSceneIndex: 6
   interactionRadius: 1.5
   promptUI: {fileID: 21399870}
 --- !u!1 &86297850
@@ -1942,7 +1942,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildingEntrance
   buildingName: Agora
-  interiorSceneIndex: 3
+  interiorSceneIndex: 5
   interactionRadius: 1.5
   promptUI: {fileID: 1140252073}
 --- !u!1 &299016356
@@ -3267,7 +3267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildingEntrance
   buildingName: Theatre
-  interiorSceneIndex: 8
+  interiorSceneIndex: 10
   interactionRadius: 1.5
   promptUI: {fileID: 1396936117}
 --- !u!1 &408299223
@@ -6733,7 +6733,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildingEntrance
   buildingName: Home
-  interiorSceneIndex: 2
+  interiorSceneIndex: 4
   interactionRadius: 1.5
   promptUI: {fileID: 841805654}
 --- !u!1 &889863436
@@ -7854,7 +7854,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildingEntrance
   buildingName: Acropolis
-  interiorSceneIndex: 7
+  interiorSceneIndex: 9
   interactionRadius: 1.5
   promptUI: {fileID: 1300039345}
 --- !u!1 &1110745504
@@ -7962,7 +7962,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildingEntrance
   buildingName: Gymnasium
-  interiorSceneIndex: 6
+  interiorSceneIndex: 8
   interactionRadius: 1.5
   promptUI: {fileID: 1052573929}
 --- !u!1 &1140252073
@@ -12002,7 +12002,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildingEntrance
   buildingName: Harbour
-  interiorSceneIndex: 5
+  interiorSceneIndex: 7
   interactionRadius: 1.5
   promptUI: {fileID: 728965372}
 --- !u!1 &1871179770

@@ -1542,7 +1542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbe1dd634c5464a95b5b0acc8f629a7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExitTrigger
-  athensSceneIndex: 1
+  athensSceneIndex: 3
   interactionRadius: 1.5
   promptUI: {fileID: 858005188}
 --- !u!1660057539 &9223372036854775807

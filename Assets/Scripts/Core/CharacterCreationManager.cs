@@ -155,6 +155,6 @@ public class CharacterCreationManager : MonoBehaviour
             build:      0
         );
 
-        SceneManager.LoadScene (1);
+        SceneManager.LoadScene (3);
     }
 }

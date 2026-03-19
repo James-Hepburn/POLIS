@@ -306,8 +306,182 @@ public class GameState : MonoBehaviour
     }
 
     // ══════════════════════════════════════════════════════════════════════
-    // Career helpers
+    // Save / Load
     // ══════════════════════════════════════════════════════════════════════
+
+    [System.Serializable]
+    public class SaveData
+    {
+        // Identity
+        public int profession;
+        public int patronGod;
+
+        // Appearance
+        public int skinToneIndex;
+        public int hairColorIndex;
+        public int hairStyleIndex;
+        public int facialHairIndex;
+        public int buildIndex;
+
+        // Economy
+        public float drachma;
+        public int   honour;
+        public int   houseLevel;
+
+        // Divine Favour
+        public int favourHermes;
+        public int favourAres;
+        public int favourAphrodite;
+        public int favourApollo;
+        public int favourHephaestus;
+        public int favourAthena;
+
+        // Career
+        public int careerLevel;
+        public int careerXP;
+
+        // Game Flags
+        public int  lastCompletedDay;
+        public bool prayedToPatronToday;
+
+        // Time
+        public float currentHour;
+        public int   currentDay;
+        public int   currentYear;
+        public int   currentSeason;
+
+        // Relationships
+        public int relationshipNikias;
+        public int relationshipDemetrios;
+        public int relationshipTheron;
+        public int relationshipArgos;
+        public int relationshipEudoros;
+        public int relationshipChloe;
+        public int relationshipKallias;
+        public int relationshipLydia;
+        public int relationshipMiriam;
+        public int relationshipPhaedra;
+        public int relationshipStephanos;
+        public int relationshipXanthos;
+    }
+
+    public void Save ()
+    {
+        SaveData data = new SaveData
+        {
+            profession        = (int) currentProfession,
+            patronGod         = (int) patronGod,
+            skinToneIndex     = skinToneIndex,
+            hairColorIndex    = hairColorIndex,
+            hairStyleIndex    = hairStyleIndex,
+            facialHairIndex   = facialHairIndex,
+            buildIndex        = buildIndex,
+            drachma           = drachma,
+            honour            = honour,
+            houseLevel        = houseLevel,
+            favourHermes      = favourHermes,
+            favourAres        = favourAres,
+            favourAphrodite   = favourAphrodite,
+            favourApollo      = favourApollo,
+            favourHephaestus  = favourHephaestus,
+            favourAthena      = favourAthena,
+            careerLevel       = careerLevel,
+            careerXP          = careerXP,
+            lastCompletedDay  = lastCompletedDay,
+            prayedToPatronToday = prayedToPatronToday,
+            currentHour       = TimeManager.Instance != null ? TimeManager.Instance.GetCurrentHour () : 6f,
+            currentDay        = TimeManager.Instance != null ? TimeManager.Instance.GetCurrentDay ()  : 1,
+            currentYear       = TimeManager.Instance != null ? TimeManager.Instance.GetCurrentYear () : 1,
+            currentSeason     = TimeManager.Instance != null ? (int) TimeManager.Instance.GetCurrentSeason () : 0,
+            relationshipNikias    = relationshipNikias,
+            relationshipDemetrios = relationshipDemetrios,
+            relationshipTheron    = relationshipTheron,
+            relationshipArgos     = relationshipArgos,
+            relationshipEudoros   = relationshipEudoros,
+            relationshipChloe     = relationshipChloe,
+            relationshipKallias   = relationshipKallias,
+            relationshipLydia     = relationshipLydia,
+            relationshipMiriam    = relationshipMiriam,
+            relationshipPhaedra   = relationshipPhaedra,
+            relationshipStephanos = relationshipStephanos,
+            relationshipXanthos   = relationshipXanthos,
+        };
+
+        string json = JsonUtility.ToJson (data, prettyPrint: true);
+        System.IO.File.WriteAllText (SavePath, json);
+        Debug.Log ($"Game saved to {SavePath}");
+    }
+
+    public bool Load ()
+    {
+        if (!System.IO.File.Exists (SavePath))
+        {
+            Debug.Log ("No save file found.");
+            return false;
+        }
+
+        string json   = System.IO.File.ReadAllText (SavePath);
+        SaveData data = JsonUtility.FromJson<SaveData> (json);
+
+        currentProfession = (Profession) data.profession;
+        patronGod         = (PatronGod)  data.patronGod;
+        skinToneIndex     = data.skinToneIndex;
+        hairColorIndex    = data.hairColorIndex;
+        hairStyleIndex    = data.hairStyleIndex;
+        facialHairIndex   = data.facialHairIndex;
+        buildIndex        = data.buildIndex;
+        drachma           = data.drachma;
+        honour            = data.honour;
+        houseLevel        = data.houseLevel;
+        favourHermes      = data.favourHermes;
+        favourAres        = data.favourAres;
+        favourAphrodite   = data.favourAphrodite;
+        favourApollo      = data.favourApollo;
+        favourHephaestus  = data.favourHephaestus;
+        favourAthena      = data.favourAthena;
+        careerLevel       = data.careerLevel;
+        careerXP          = data.careerXP;
+        lastCompletedDay  = data.lastCompletedDay;
+        prayedToPatronToday = data.prayedToPatronToday;
+        relationshipNikias    = data.relationshipNikias;
+        relationshipDemetrios = data.relationshipDemetrios;
+        relationshipTheron    = data.relationshipTheron;
+        relationshipArgos     = data.relationshipArgos;
+        relationshipEudoros   = data.relationshipEudoros;
+        relationshipChloe     = data.relationshipChloe;
+        relationshipKallias   = data.relationshipKallias;
+        relationshipLydia     = data.relationshipLydia;
+        relationshipMiriam    = data.relationshipMiriam;
+        relationshipPhaedra   = data.relationshipPhaedra;
+        relationshipStephanos = data.relationshipStephanos;
+        relationshipXanthos   = data.relationshipXanthos;
+
+        // Restore time state
+        if (TimeManager.Instance != null)
+            TimeManager.Instance.LoadTimeState (data.currentHour, data.currentDay, data.currentYear, (TimeManager.Season) data.currentSeason);
+
+        isNewGame   = false;
+        gameStarted = true;
+        pendingEndOfDayEvents.Clear ();
+
+        Debug.Log ("Game loaded successfully.");
+        return true;
+    }
+
+    public static bool SaveExists ()
+    {
+        return System.IO.File.Exists (SavePath);
+    }
+
+    public static void DeleteSave ()
+    {
+        if (System.IO.File.Exists (SavePath))
+            System.IO.File.Delete (SavePath);
+    }
+
+    private static string SavePath =>
+        System.IO.Path.Combine (Application.persistentDataPath, "polis_save.json");
+
 
     public void AddCareerXP (int amount)
     {

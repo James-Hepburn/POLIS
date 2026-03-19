@@ -17,7 +17,7 @@ public class EndOfDaySummary : MonoBehaviour
     public TextMeshProUGUI eventsText;
 
     [Header ("Settings")]
-    public int homeInteriorSceneIndex = 8;
+    public int homeInteriorSceneIndex = 4;
 
     private bool ready = false;
 
