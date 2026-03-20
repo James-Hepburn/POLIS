@@ -9,6 +9,7 @@ public class AthensSceneEvents : MonoBehaviour
             GameState.Instance.EvaluateLifeGoals ();
 
         Invoke (nameof (FireFestivalNotifications), 0.5f);
+        Invoke (nameof (CheckDivineIntervention), 1.5f);
     }
 
     private void FireFestivalNotifications ()
@@ -29,5 +30,15 @@ public class AthensSceneEvents : MonoBehaviour
         var tomorrow = FestivalManager.Instance.GetTomorrowsFestival ();
         if (tomorrow.type != FestivalManager.FestivalType.None)
             FestivalNotification.Instance.ShowTomorrow (tomorrow);
+    }
+
+    private void CheckDivineIntervention ()
+    {
+        if (GameState.Instance == null) return;
+        if (DivineInterventionUI.Instance == null) return;
+
+        GameState.PatronGod? pending = GameState.Instance.CheckPendingIntervention ();
+        if (pending.HasValue)
+            DivineInterventionUI.Instance.Show (pending.Value);
     }
 }

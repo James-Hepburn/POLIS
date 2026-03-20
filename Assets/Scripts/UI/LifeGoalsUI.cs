@@ -72,6 +72,14 @@ public class LifeGoalsUI : MonoBehaviour
         sb.AppendLine ("");
         sb.AppendLine ($"Completed: {GameState.Instance.GoalsCompleted} / 6");
         sb.AppendLine ("");
+        sb.AppendLine ("── Divine Interventions ──");
+        sb.AppendLine (FormatGoal ("Hermes",     GameState.Instance.interventionHermes));
+        sb.AppendLine (FormatGoal ("Ares",       GameState.Instance.interventionAres));
+        sb.AppendLine (FormatGoal ("Aphrodite",  GameState.Instance.interventionAphrodite));
+        sb.AppendLine (FormatGoal ("Apollo",     GameState.Instance.interventionApollo));
+        sb.AppendLine (FormatGoal ("Hephaestus", GameState.Instance.interventionHephaestus));
+        sb.AppendLine (FormatGoal ("Athena",     GameState.Instance.interventionAthena));
+        sb.AppendLine ("");
         sb.AppendLine ("[G] Close");
 
         goalsText.text = sb.ToString ();

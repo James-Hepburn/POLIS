@@ -75,7 +75,59 @@ public class GameState : MonoBehaviour
     public System.Collections.Generic.List<string> pendingEndOfDayEvents =
         new System.Collections.Generic.List<string> ();
 
-    // ── Life Goals ─────────────────────────────────────────────────────────
+    // ── Divine Intervention Tracking ───────────────────────────────────────
+    [Header ("Divine Interventions")]
+    public bool interventionHermes     = false;
+    public bool interventionAres       = false;
+    public bool interventionAphrodite  = false;
+    public bool interventionApollo     = false;
+    public bool interventionHephaestus = false;
+    public bool interventionAthena     = false;
+
+    public bool HasIntervention (PatronGod god)
+    {
+        switch (god)
+        {
+            case PatronGod.Hermes:     return interventionHermes;
+            case PatronGod.Ares:       return interventionAres;
+            case PatronGod.Aphrodite:  return interventionAphrodite;
+            case PatronGod.Apollo:     return interventionApollo;
+            case PatronGod.Hephaestus: return interventionHephaestus;
+            case PatronGod.Athena:     return interventionAthena;
+            default:                   return false;
+        }
+    }
+
+    public void SetIntervention (PatronGod god)
+    {
+        switch (god)
+        {
+            case PatronGod.Hermes:     interventionHermes     = true; break;
+            case PatronGod.Ares:       interventionAres       = true; break;
+            case PatronGod.Aphrodite:  interventionAphrodite  = true; break;
+            case PatronGod.Apollo:     interventionApollo     = true; break;
+            case PatronGod.Hephaestus: interventionHephaestus = true; break;
+            case PatronGod.Athena:     interventionAthena     = true; break;
+        }
+    }
+
+    /// <summary>
+    /// Checks all gods and returns the first one that has crossed +50
+    /// favour without having fired an intervention yet. Returns null if none.
+    /// </summary>
+    public PatronGod? CheckPendingIntervention ()
+    {
+        PatronGod[] gods = {
+            PatronGod.Hermes, PatronGod.Ares, PatronGod.Aphrodite,
+            PatronGod.Apollo, PatronGod.Hephaestus, PatronGod.Athena
+        };
+        foreach (PatronGod god in gods)
+        {
+            if (!HasIntervention (god) && GetFavour (god) >= 50)
+                return god;
+        }
+        return null;
+    }
     [Header ("Life Goals")]
     public bool goalCareerComplete      = false;
     public bool goalMarriageComplete    = false;
@@ -422,6 +474,14 @@ public class GameState : MonoBehaviour
         public int   currentYear;
         public int   currentSeason;
 
+        // Divine Interventions
+        public bool interventionHermes;
+        public bool interventionAres;
+        public bool interventionAphrodite;
+        public bool interventionApollo;
+        public bool interventionHephaestus;
+        public bool interventionAthena;
+
         // Life Goals
         public bool goalCareerComplete;
         public bool goalMarriageComplete;
@@ -492,6 +552,12 @@ public class GameState : MonoBehaviour
             goalFavourComplete     = goalFavourComplete,
             goalHonourComplete     = goalHonourComplete,
             goalFriendshipComplete = goalFriendshipComplete,
+            interventionHermes     = interventionHermes,
+            interventionAres       = interventionAres,
+            interventionAphrodite  = interventionAphrodite,
+            interventionApollo     = interventionApollo,
+            interventionHephaestus = interventionHephaestus,
+            interventionAthena     = interventionAthena,
         };
 
         string json = JsonUtility.ToJson (data, prettyPrint: true);
@@ -549,6 +615,12 @@ public class GameState : MonoBehaviour
         goalFavourComplete     = data.goalFavourComplete;
         goalHonourComplete     = data.goalHonourComplete;
         goalFriendshipComplete = data.goalFriendshipComplete;
+        interventionHermes     = data.interventionHermes;
+        interventionAres       = data.interventionAres;
+        interventionAphrodite  = data.interventionAphrodite;
+        interventionApollo     = data.interventionApollo;
+        interventionHephaestus = data.interventionHephaestus;
+        interventionAthena     = data.interventionAthena;
 
         // Restore time state
         if (TimeManager.Instance != null)
