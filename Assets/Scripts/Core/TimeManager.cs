@@ -125,9 +125,6 @@ public class TimeManager : MonoBehaviour
         // Process divine favour decay and negative favour events
         GameState.Instance.ProcessEndOfDayFavour ();
 
-        // Auto-save at end of each day
-        GameState.Instance.Save ();
-
         // Advance the day counter now so summary shows correct next-day info
         AdvanceDay ();
 
@@ -213,6 +210,23 @@ public class TimeManager : MonoBehaviour
     public int GetCurrentYear () => currentYear;
     public Season GetCurrentSeason () => currentSeason;
     public bool IsDayActive () => dayActive;
+
+    /// <summary>
+    /// Returns the day number within the current season (1–28).
+    /// </summary>
+    public int GetDayOfSeason ()
+    {
+        return ((currentDay - 1) % daysPerSeason) + 1;
+    }
+
+    /// <summary>
+    /// Returns the day number within the season for a given absolute day.
+    /// Used by EndOfDaySummary to show the correct day for a completed day.
+    /// </summary>
+    public int GetDayOfSeason (int absoluteDay)
+    {
+        return ((absoluteDay - 1) % daysPerSeason) + 1;
+    }
 
     /// <summary>
     /// Returns time as a readable string e.g. "06:30"

@@ -14,8 +14,8 @@ public class TimeDisplay : MonoBehaviour
         if (TimeManager.Instance == null) return;
         if (!TimeManager.Instance.IsDayActive ()) return;
 
-        timeText.text   = TimeManager.Instance.GetTimeString ();
-        dayText.text    = $"Day {TimeManager.Instance.GetCurrentDay ()}";
+        timeText.text = TimeManager.Instance.GetTimeString ();
+        dayText.text  = $"Day {TimeManager.Instance.GetDayOfSeason ()}";
 
         if (FestivalManager.Instance != null && FestivalManager.Instance.IsFestivalDay)
             seasonText.text = $"{FestivalManager.Instance.CurrentFestival.displayName}";

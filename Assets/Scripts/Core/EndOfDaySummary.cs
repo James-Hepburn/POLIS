@@ -42,7 +42,7 @@ public class EndOfDaySummary : MonoBehaviour
     {
         if (TimeManager.Instance != null)
         {
-            dayText.text = $"End of Day {GameState.Instance.lastCompletedDay}";
+            dayText.text = $"End of Day {TimeManager.Instance.GetDayOfSeason (GameState.Instance.lastCompletedDay)}";
 
             string season = TimeManager.Instance.GetCurrentSeason ().ToString ();
             if (!string.IsNullOrEmpty (GameState.Instance.lastCompletedDayFestival))
@@ -55,7 +55,9 @@ public class EndOfDaySummary : MonoBehaviour
         {
             drachmaText.text = $"Drachma: ₯ {GameState.Instance.drachma:F0}";
             honourText.text  = $"Honour: {GameState.Instance.honour}";
-            careerText.text  = $"Career: Level {GameState.Instance.careerLevel}  ({GameState.Instance.careerXP} / 100 XP)";
+            careerText.text = GameState.Instance.careerLevel >= 3
+                ? $"Career: Level 3  [Max Level]"
+                : $"Career: Level {GameState.Instance.careerLevel}  ({GameState.Instance.careerXP} / 100 XP)";
             
             if (favourText != null)
                 favourText.text = BuildFavourSummary ();

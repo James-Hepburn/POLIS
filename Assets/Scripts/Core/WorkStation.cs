@@ -111,17 +111,26 @@ public class WorkStation : MonoBehaviour
         int   favour   = GameState.Instance.GetFavour (work.relevantGod);
         float modifier = FavourModifiers.GetModifier (favour);
 
-        float modifiedDrachma = work.drachmaReward * modifier;
+        // Apply career level 3 multiplier on top of divine modifier
+        float careerMultiplier = GameState.Instance.GetCareerMultiplier ();
+
+        float modifiedDrachma = work.drachmaReward * modifier * careerMultiplier;
         int   modifiedXP      = Mathf.RoundToInt (work.xpReward * modifier);
 
         TimeManager.Instance.AdvanceTimeByMinutes (work.timeCostMinutes);
         GameState.Instance.AddDrachma (modifiedDrachma);
         GameState.Instance.AddCareerXP (modifiedXP);
-        GameState.Instance.AddHonour (1);
+        GameState.Instance.AddHonour (1 + GameState.Instance.GetCareerHonourBonus ());
         worksToday++;
 
+        // Priest pinnacle — bonus favour to patron per work session
+        int favourBonus = GameState.Instance.GetCareerFavourBonus ();
+        if (favourBonus > 0)
+            GameState.Instance.ChangeFavour (GameState.Instance.patronGod, favourBonus);
+
+        string pinnacleNote = careerMultiplier > 1f ? " (master's touch)" : "";
         string modifierNote = modifier > 1f ? " (divine blessing!)" : modifier < 1f ? " (divine displeasure)" : "";
-        Debug.Log ($"{work.label} — earned {modifiedDrachma:F1} drachma{modifierNote}. Total: {GameState.Instance.drachma}");
+        Debug.Log ($"{work.label} — earned {modifiedDrachma:F1} drachma{modifierNote}{pinnacleNote}. Total: {GameState.Instance.drachma}");
     }
 
     private string GetLocationFromScene ()

@@ -509,6 +509,41 @@ public class GameState : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Returns a multiplier applied to drachma and XP rewards at career level 3.
+    /// Each profession has a unique pinnacle bonus reflecting their mastery.
+    /// </summary>
+    public float GetCareerMultiplier ()
+    {
+        if (careerLevel < 3) return 1.0f;
+
+        switch (currentProfession)
+        {
+            case Profession.Merchant:    return 1.5f;  // Ship Owner — trade empire, better margins
+            case Profession.Soldier:     return 1.4f;  // Strategos — command authority, honour flows
+            case Profession.Philosopher: return 1.45f; // Renowned Sophist — patrons pay handsomely
+            case Profession.Craftsman:   return 1.5f;  // Master — finest work commands highest price
+            case Profession.Priest:      return 1.3f;  // High Priest — divine channel, offerings flow
+            default:                     return 1.0f;
+        }
+    }
+
+    /// <summary>
+    /// At career level 3, soldiers gain bonus honour per work session.
+    /// At level 3, priests gain bonus favour per work session.
+    /// </summary>
+    public int GetCareerHonourBonus ()
+    {
+        if (careerLevel < 3) return 0;
+        return currentProfession == Profession.Soldier ? 2 : 0;
+    }
+
+    public int GetCareerFavourBonus ()
+    {
+        if (careerLevel < 3) return 0;
+        return currentProfession == Profession.Priest ? 3 : 0;
+    }
+
     // ══════════════════════════════════════════════════════════════════════
     // Relationship helpers
     // ══════════════════════════════════════════════════════════════════════
