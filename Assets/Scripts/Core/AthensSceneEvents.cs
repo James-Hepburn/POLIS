@@ -4,6 +4,10 @@ public class AthensSceneEvents : MonoBehaviour
 {
     private void Start ()
     {
+        // Evaluate life goals every time Athens loads
+        if (GameState.Instance != null)
+            GameState.Instance.EvaluateLifeGoals ();
+
         Invoke (nameof (FireFestivalNotifications), 0.5f);
     }
 
@@ -11,12 +15,10 @@ public class AthensSceneEvents : MonoBehaviour
     {
         if (FestivalManager.Instance == null) return;
 
-        // Check festival state now that Athens has loaded
         FestivalManager.Instance.CheckFestivalForCurrentDay ();
 
         if (FestivalNotification.Instance == null) return;
 
-        // Today is a festival
         if (FestivalManager.Instance.IsFestivalDay)
         {
             FestivalNotification.Instance.ShowToday (
@@ -24,7 +26,6 @@ public class AthensSceneEvents : MonoBehaviour
             return;
         }
 
-        // Tomorrow is a festival
         var tomorrow = FestivalManager.Instance.GetTomorrowsFestival ();
         if (tomorrow.type != FestivalManager.FestivalType.None)
             FestivalNotification.Instance.ShowTomorrow (tomorrow);

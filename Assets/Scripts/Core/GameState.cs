@@ -75,7 +75,23 @@ public class GameState : MonoBehaviour
     public System.Collections.Generic.List<string> pendingEndOfDayEvents =
         new System.Collections.Generic.List<string> ();
 
-    // ── Relationships ──────────────────────────────────────────────────────
+    // ── Life Goals ─────────────────────────────────────────────────────────
+    [Header ("Life Goals")]
+    public bool goalCareerComplete      = false;
+    public bool goalMarriageComplete    = false;
+    public bool goalWealthComplete      = false;
+    public bool goalFavourComplete      = false;
+    public bool goalHonourComplete      = false;
+    public bool goalFriendshipComplete  = false;
+
+    // How many goals have been completed
+    public int GoalsCompleted =>
+        (goalCareerComplete     ? 1 : 0) +
+        (goalMarriageComplete   ? 1 : 0) +
+        (goalWealthComplete     ? 1 : 0) +
+        (goalFavourComplete     ? 1 : 0) +
+        (goalHonourComplete     ? 1 : 0) +
+        (goalFriendshipComplete ? 1 : 0);
     [Header ("Relationships")]
     public int relationshipNikias      = 0;
     public int relationshipDemetrios   = 0;
@@ -307,6 +323,60 @@ public class GameState : MonoBehaviour
     }
 
     // ══════════════════════════════════════════════════════════════════════
+    // Life Goals
+    // ══════════════════════════════════════════════════════════════════════
+
+    /// <summary>
+    /// Returns the career goal label for the current profession.
+    /// </summary>
+    public string GetCareerGoalName ()
+    {
+        switch (currentProfession)
+        {
+            case Profession.Merchant:    return "Become a Ship Owner";
+            case Profession.Soldier:     return "Achieve the rank of Strategos";
+            case Profession.Philosopher: return "Found your own school";
+            case Profession.Craftsman:   return "Establish your own workshop";
+            case Profession.Priest:      return "Rise to High Priest";
+            default:                     return "Reach the pinnacle of your craft";
+        }
+    }
+
+    /// <summary>
+    /// Evaluates all life goals and updates completion flags.
+    /// Called at end of day.
+    /// </summary>
+    public void EvaluateLifeGoals ()
+    {
+        if (!goalCareerComplete && careerLevel >= 3)
+            goalCareerComplete = true;
+
+        if (!goalWealthComplete && drachma >= 500f)
+            goalWealthComplete = true;
+
+        if (!goalFavourComplete && GetFavour (patronGod) >= 80)
+            goalFavourComplete = true;
+
+        if (!goalHonourComplete && honour >= 80)
+            goalHonourComplete = true;
+
+        if (!goalFriendshipComplete)
+        {
+            int[] relationships = {
+                relationshipNikias,   relationshipDemetrios, relationshipTheron,
+                relationshipArgos,    relationshipEudoros,   relationshipChloe,
+                relationshipKallias,  relationshipLydia,     relationshipMiriam,
+                relationshipPhaedra,  relationshipStephanos, relationshipXanthos
+            };
+            int count = 0;
+            foreach (int r in relationships)
+                if (r >= 60) count++;
+            if (count >= 5)
+                goalFriendshipComplete = true;
+        }
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
     // Save / Load
     // ══════════════════════════════════════════════════════════════════════
 
@@ -351,6 +421,14 @@ public class GameState : MonoBehaviour
         public int   currentDay;
         public int   currentYear;
         public int   currentSeason;
+
+        // Life Goals
+        public bool goalCareerComplete;
+        public bool goalMarriageComplete;
+        public bool goalWealthComplete;
+        public bool goalFavourComplete;
+        public bool goalHonourComplete;
+        public bool goalFriendshipComplete;
 
         // Relationships
         public int relationshipNikias;
@@ -408,6 +486,12 @@ public class GameState : MonoBehaviour
             relationshipPhaedra   = relationshipPhaedra,
             relationshipStephanos = relationshipStephanos,
             relationshipXanthos   = relationshipXanthos,
+            goalCareerComplete     = goalCareerComplete,
+            goalMarriageComplete   = goalMarriageComplete,
+            goalWealthComplete     = goalWealthComplete,
+            goalFavourComplete     = goalFavourComplete,
+            goalHonourComplete     = goalHonourComplete,
+            goalFriendshipComplete = goalFriendshipComplete,
         };
 
         string json = JsonUtility.ToJson (data, prettyPrint: true);
@@ -459,6 +543,12 @@ public class GameState : MonoBehaviour
         relationshipPhaedra   = data.relationshipPhaedra;
         relationshipStephanos = data.relationshipStephanos;
         relationshipXanthos   = data.relationshipXanthos;
+        goalCareerComplete     = data.goalCareerComplete;
+        goalMarriageComplete   = data.goalMarriageComplete;
+        goalWealthComplete     = data.goalWealthComplete;
+        goalFavourComplete     = data.goalFavourComplete;
+        goalHonourComplete     = data.goalHonourComplete;
+        goalFriendshipComplete = data.goalFriendshipComplete;
 
         // Restore time state
         if (TimeManager.Instance != null)
