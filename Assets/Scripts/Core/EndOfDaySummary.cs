@@ -15,6 +15,7 @@ public class EndOfDaySummary : MonoBehaviour
     public TextMeshProUGUI continuePrompt;
     public TextMeshProUGUI favourText;
     public TextMeshProUGUI eventsText;
+    public TextMeshProUGUI gossipText;
 
     [Header ("Settings")]
     public int homeInteriorSceneIndex = 4;
@@ -67,6 +68,9 @@ public class EndOfDaySummary : MonoBehaviour
 
             if (eventsText != null)
                 eventsText.text = BuildEventsSummary ();
+
+            if (gossipText != null)
+                gossipText.text = BuildGossipSummary ();
         }
     }
 
@@ -121,6 +125,17 @@ public class EndOfDaySummary : MonoBehaviour
         sb.AppendLine ("The Gods Speak");
         foreach (string evt in GameState.Instance.pendingEndOfDayEvents)
             sb.AppendLine ($"  {evt}");
+        return sb.ToString ();
+    }
+
+    private string BuildGossipSummary ()
+    {
+        if (GameState.Instance == null) return "";
+        if (string.IsNullOrEmpty (GameState.Instance.lastGossipMessage)) return "";
+
+        System.Text.StringBuilder sb = new System.Text.StringBuilder ();
+        sb.AppendLine ("Word on the Street");
+        sb.AppendLine ($"  {GameState.Instance.lastGossipMessage}");
         return sb.ToString ();
     }
 

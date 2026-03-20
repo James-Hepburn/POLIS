@@ -38,7 +38,7 @@ public class LifeGoalsUI : MonoBehaviour
         if (GameState.Instance == null || goalsText == null) return;
 
         System.Text.StringBuilder sb = new System.Text.StringBuilder ();
-        sb.AppendLine ("Life Goals");
+        sb.AppendLine ("── Life Goals ──");
         sb.AppendLine ("");
 
         sb.AppendLine (FormatGoal (
@@ -69,8 +69,6 @@ public class LifeGoalsUI : MonoBehaviour
             GameState.Instance.goalFriendshipComplete,
             $"{CountCloseRelationships ()} / 5"));
 
-        sb.AppendLine ("");
-        sb.AppendLine ($"Completed: {GameState.Instance.GoalsCompleted} / 6");
         sb.AppendLine ("");
         sb.AppendLine ("── Divine Interventions ──");
         sb.AppendLine (FormatGoal ("Hermes",     GameState.Instance.interventionHermes));

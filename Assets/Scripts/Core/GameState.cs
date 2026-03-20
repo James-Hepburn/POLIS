@@ -65,6 +65,7 @@ public class GameState : MonoBehaviour
     public bool gameStarted = false;
     public int  lastCompletedDay = 1;
     public string lastCompletedDayFestival = "";
+    public string lastGossipMessage        = "";
 
     // ── Divine Favour Tracking ─────────────────────────────────────────────
     [Header ("Divine Favour Tracking")]
@@ -467,6 +468,7 @@ public class GameState : MonoBehaviour
         public int    lastCompletedDay;
         public bool   prayedToPatronToday;
         public string lastCompletedDayFestival;
+        public string lastGossipMessage;
 
         // Time
         public float currentHour;
@@ -530,6 +532,7 @@ public class GameState : MonoBehaviour
             lastCompletedDay            = lastCompletedDay,
             prayedToPatronToday         = prayedToPatronToday,
             lastCompletedDayFestival    = lastCompletedDayFestival,
+            lastGossipMessage           = lastGossipMessage,
             currentHour       = TimeManager.Instance != null ? TimeManager.Instance.GetCurrentHour () : 6f,
             currentDay        = TimeManager.Instance != null ? TimeManager.Instance.GetCurrentDay ()  : 1,
             currentYear       = TimeManager.Instance != null ? TimeManager.Instance.GetCurrentYear () : 1,
@@ -597,6 +600,7 @@ public class GameState : MonoBehaviour
         lastCompletedDay            = data.lastCompletedDay;
         prayedToPatronToday         = data.prayedToPatronToday;
         lastCompletedDayFestival    = data.lastCompletedDayFestival;
+        lastGossipMessage           = data.lastGossipMessage;
         relationshipNikias    = data.relationshipNikias;
         relationshipDemetrios = data.relationshipDemetrios;
         relationshipTheron    = data.relationshipTheron;
