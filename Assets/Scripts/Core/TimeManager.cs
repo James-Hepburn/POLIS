@@ -128,6 +128,13 @@ public class TimeManager : MonoBehaviour
         // Process daily gossip from Stephanos
         GossipManager.ProcessDailyGossip ();
 
+        // Marriage daily wealth bonus
+        if (GameState.Instance.romanceStage == GameState.RomanceStage.Married)
+        {
+            GameState.Instance.AddDrachma (5f);
+            GameState.Instance.goalMarriageComplete = true;
+        }
+
         // Evaluate life goals
         GameState.Instance.EvaluateLifeGoals ();
 

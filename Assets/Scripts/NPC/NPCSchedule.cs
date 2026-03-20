@@ -417,6 +417,32 @@ public class NPCSchedule : MonoBehaviour
 
     private bool GetActiveEntry (float hour, out ScheduleEntry entry)
     {
+        // Marriage override — spouse sleeps at HomeInterior
+        if (GameState.Instance != null
+            && GameState.Instance.romanceStage == GameState.RomanceStage.Married
+            && GameState.Instance.romanceTarget == GetComponent<NPC> ()?.npcName)
+        {
+            // Check if this hour falls outside the normal schedule (sleep time)
+            bool hasNormalEntry = false;
+            if (schedule != null)
+                foreach (ScheduleEntry e in schedule)
+                    if (hour >= e.startHour && hour < e.endHour) { hasNormalEntry = true; break; }
+
+            if (!hasNormalEntry)
+            {
+                // Sleep in HomeInterior — walk to player's home door in Athens first
+                entry = new ScheduleEntry {
+                    startHour        = 0f,
+                    endHour          = 24f,
+                    sceneName        = "HomeInterior",
+                    position         = new Vector2 (0f, -1f),
+                    isInsideBuilding = true,
+                    entrancePosition = new Vector2 (1f, -4.5f)
+                };
+                return true;
+            }
+        }
+
         // Festival override takes priority
         if (hasFestivalOverride
             && FestivalManager.Instance != null

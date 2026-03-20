@@ -31,7 +31,8 @@ public class NPC : MonoBehaviour
     public float conversationCooldownSeconds = 10f;
 
     [Header ("Prompt UI")]
-    public GameObject promptUI;   // small world-space "press E" prompt above NPC head
+    public GameObject promptUI;
+    public GameObject romancePromptUI; // [R] Express Interest / Ask for hand / Marry
 
     // ── Internal ───────────────────────────────────────────────────────────
     private Transform player;
@@ -103,8 +104,17 @@ public class NPC : MonoBehaviour
         if (promptUI != null)
             promptUI.SetActive (canTalk);
 
+        // Romance prompt — shown alongside talk prompt when relevant
+        bool canRomance = playerInRange && !IsDialogueOpen && ShowRomancePrompt ();
+        if (romancePromptUI != null)
+            romancePromptUI.SetActive (canRomance);
+
         if (canTalk && Keyboard.current.eKey.wasPressedThisFrame)
             OpenDialogue ();
+
+        // Romance interaction on R key
+        if (canRomance && Keyboard.current.rKey.wasPressedThisFrame)
+            OpenRomanceInteraction ();
     }
 
     // ══════════════════════════════════════════════════════════════════════
@@ -164,6 +174,97 @@ public class NPC : MonoBehaviour
             case FestivalManager.FestivalType.Lenaia:          return dialogueLenaia;
             case FestivalManager.FestivalType.Haloa:           return dialogueHaloa;
             default:                                           return "";
+        }
+    }
+
+    private bool ShowRomancePrompt ()
+    {
+        if (GameState.Instance == null) return false;
+
+        // Candidate — show if can propose courtship or already courting
+        if (npcName == "Lydia" || npcName == "Chloe")
+        {
+            if (GameState.Instance.CanProposeCourtship (npcName)) return true;
+            if (GameState.Instance.romanceTarget == npcName
+                && GameState.Instance.romanceStage == GameState.RomanceStage.Betrothed
+                && GameState.Instance.CanMarry (npcName)) return true;
+        }
+
+        // Father — show if player is courting his daughter
+        if (npcName == "Nikias" || npcName == "Argos")
+        {
+            string daughter = npcName == "Nikias" ? "Lydia" : "Chloe";
+            if (GameState.Instance.romanceTarget == daughter
+                && GameState.Instance.romanceStage == GameState.RomanceStage.Courtship
+                && GameState.Instance.CanProposeBetrothal (daughter)) return true;
+        }
+
+        return false;
+    }
+
+    private void OpenRomanceInteraction ()
+    {
+        if (GameState.Instance == null) return;
+
+        // Set cooldown so prompts hide after interaction
+        lastTalkTime = Time.time;
+        talkedToday  = true;
+        if (romancePromptUI != null) romancePromptUI.SetActive (false);
+        if (promptUI != null)        promptUI.SetActive (false);
+
+        // Candidate interactions
+        if (npcName == "Lydia" || npcName == "Chloe")
+        {
+            if (GameState.Instance.CanProposeCourtship (npcName))
+            {
+                GameState.Instance.romanceTarget = npcName;
+                GameState.Instance.romanceStage  = GameState.RomanceStage.Courtship;
+                TimeManager.Instance?.AdvanceTimeByMinutes (30f);
+                string line = $"You express your interest in {npcName}. She listens thoughtfully. \"I would like to know you better,\" she says.";
+                NPCDialogueUI.Instance?.Open (this, line);
+                return;
+            }
+
+            if (GameState.Instance.romanceTarget == npcName
+                && GameState.Instance.romanceStage == GameState.RomanceStage.Betrothed
+                && GameState.Instance.CanMarry (npcName))
+            {
+                GameState.Instance.SpendDrachma (100f);
+                GameState.Instance.romanceStage = GameState.RomanceStage.Married;
+                GameState.Instance.goalMarriageComplete = true;
+                GameState.Instance.AddHonour (10);
+                TimeManager.Instance?.AdvanceTimeByMinutes (120f);
+                string line = $"You and {npcName} are married before the gods and the city of Athens. Whatever comes next, you face it together.";
+                NPCDialogueUI.Instance?.Open (this, line);
+                return;
+            }
+        }
+
+        // Father interactions
+        if (npcName == "Nikias" || npcName == "Argos")
+        {
+            string daughter = npcName == "Nikias" ? "Lydia" : "Chloe";
+            if (GameState.Instance.romanceTarget == daughter
+                && GameState.Instance.romanceStage == GameState.RomanceStage.Courtship
+                && GameState.Instance.CanProposeBetrothal (daughter))
+            {
+                GameState.Instance.romanceStage = GameState.RomanceStage.Betrothed;
+                GameState.Instance.ChangeRelationship (npcName, 10);
+                TimeManager.Instance?.AdvanceTimeByMinutes (45f);
+                string line = $"{npcName} studies you for a long moment. \"I have watched you,\" he says. \"You have conducted yourself well. You have my blessing. The dowry is 100 drachma, payable on the wedding day.\"";
+                NPCDialogueUI.Instance?.Open (this, line);
+                return;
+            }
+
+            // Father refuses — relationship too low
+            if (GameState.Instance.romanceTarget == daughter
+                && GameState.Instance.romanceStage == GameState.RomanceStage.Courtship)
+            {
+                GameState.Instance.ChangeRelationship (daughter, -5);
+                TimeManager.Instance?.AdvanceTimeByMinutes (30f);
+                string line = $"{npcName} shakes his head slowly. \"Not yet. Prove yourself further, and perhaps we will speak of this again.\"";
+                NPCDialogueUI.Instance?.Open (this, line);
+            }
         }
     }
 

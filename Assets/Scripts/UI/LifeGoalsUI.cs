@@ -65,7 +65,7 @@ public class LifeGoalsUI : MonoBehaviour
             $"{GameState.Instance.honour} / 80"));
 
         sb.AppendLine (FormatGoal (
-            "Have 5 close friends (60+ relationship)",
+            "Have 5 good friends (60+ relationship)",
             GameState.Instance.goalFriendshipComplete,
             $"{CountCloseRelationships ()} / 5"));
 

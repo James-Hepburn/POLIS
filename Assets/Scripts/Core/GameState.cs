@@ -76,7 +76,46 @@ public class GameState : MonoBehaviour
     public System.Collections.Generic.List<string> pendingEndOfDayEvents =
         new System.Collections.Generic.List<string> ();
 
-    // ── Divine Intervention Tracking ───────────────────────────────────────
+    // ── Romance & Marriage ─────────────────────────────────────────────────
+    public enum RomanceStage { None, Friendship, Courtship, Betrothed, Married }
+
+    [Header ("Romance")]
+    public RomanceStage romanceStage  = RomanceStage.None;
+    public string       romanceTarget = ""; // "Lydia" or "Chloe"
+
+    public bool IsRomanceCandidate (string npcName)
+    {
+        if (romanceStage == RomanceStage.Married) return false;
+        if (!string.IsNullOrEmpty (romanceTarget) && romanceTarget != npcName) return false;
+        return npcName == "Lydia" || npcName == "Chloe";
+    }
+
+    public string GetFatherOf (string candidate)
+    {
+        return candidate == "Lydia" ? "Nikias" : candidate == "Chloe" ? "Argos" : "";
+    }
+
+    public bool CanProposeCourtship (string candidate)
+    {
+        if (!IsRomanceCandidate (candidate)) return false;
+        if (romanceStage >= RomanceStage.Courtship) return false;
+        return GetRelationship (candidate) >= 40;
+    }
+
+    public bool CanProposeBetrothal (string candidate)
+    {
+        if (romanceTarget != candidate) return false;
+        if (romanceStage != RomanceStage.Courtship) return false;
+        string father = GetFatherOf (candidate);
+        return GetRelationship (candidate) >= 60 && GetRelationship (father) >= 30;
+    }
+
+    public bool CanMarry (string candidate)
+    {
+        if (romanceTarget != candidate) return false;
+        if (romanceStage != RomanceStage.Betrothed) return false;
+        return drachma >= 100f;
+    }
     [Header ("Divine Interventions")]
     public bool interventionHermes     = false;
     public bool interventionAres       = false;
@@ -476,6 +515,10 @@ public class GameState : MonoBehaviour
         public int   currentYear;
         public int   currentSeason;
 
+        // Romance
+        public int    romanceStage;
+        public string romanceTarget;
+
         // Divine Interventions
         public bool interventionHermes;
         public bool interventionAres;
@@ -533,6 +576,8 @@ public class GameState : MonoBehaviour
             prayedToPatronToday         = prayedToPatronToday,
             lastCompletedDayFestival    = lastCompletedDayFestival,
             lastGossipMessage           = lastGossipMessage,
+            romanceStage                = (int) romanceStage,
+            romanceTarget               = romanceTarget,
             currentHour       = TimeManager.Instance != null ? TimeManager.Instance.GetCurrentHour () : 6f,
             currentDay        = TimeManager.Instance != null ? TimeManager.Instance.GetCurrentDay ()  : 1,
             currentYear       = TimeManager.Instance != null ? TimeManager.Instance.GetCurrentYear () : 1,
@@ -601,6 +646,8 @@ public class GameState : MonoBehaviour
         prayedToPatronToday         = data.prayedToPatronToday;
         lastCompletedDayFestival    = data.lastCompletedDayFestival;
         lastGossipMessage           = data.lastGossipMessage;
+        romanceStage                = (RomanceStage) data.romanceStage;
+        romanceTarget               = data.romanceTarget;
         relationshipNikias    = data.relationshipNikias;
         relationshipDemetrios = data.relationshipDemetrios;
         relationshipTheron    = data.relationshipTheron;
