@@ -14,6 +14,17 @@ public class NPC : MonoBehaviour
     [TextArea] public string dialogueFriendly = "";  // 40 to 79
     [TextArea] public string dialogueClose    = "";  // 80+
 
+    [Header ("Festival Dialogue")]
+    [TextArea] public string dialogueFestivalGeneric = "";  // any festival, no specific line
+    [TextArea] public string dialogueCityDionysia    = "";
+    [TextArea] public string dialogueThargelia       = "";
+    [TextArea] public string dialoguePanathenaia     = "";
+    [TextArea] public string dialogueHephaestia      = "";
+    [TextArea] public string dialogueThesmophoria    = "";
+    [TextArea] public string dialoguePyanopsia       = "";
+    [TextArea] public string dialogueLenaia          = "";
+    [TextArea] public string dialogueHaloa           = "";
+
     [Header ("Settings")]
     public float interactionRadius           = 1.5f;
     public float timeCostMinutes             = 30f;
@@ -99,7 +110,6 @@ public class NPC : MonoBehaviour
     // ══════════════════════════════════════════════════════════════════════
     private void OpenDialogue ()
     {
-        Debug.Log($"NPCDialogueUI.Instance is null: {NPCDialogueUI.Instance == null}");
         lastTalkTime = Time.time;
         talkedToday  = true;
 
@@ -120,12 +130,41 @@ public class NPC : MonoBehaviour
 
     private string GetDialogueLine ()
     {
+        // Festival dialogue takes priority over relationship dialogue
+        if (FestivalManager.Instance != null && FestivalManager.Instance.IsFestivalDay)
+        {
+            string festivalLine = GetFestivalDialogueLine (FestivalManager.Instance.CurrentFestival.type);
+            if (!string.IsNullOrEmpty (festivalLine))
+                return festivalLine;
+
+            // Fall back to generic festival line
+            if (!string.IsNullOrEmpty (dialogueFestivalGeneric))
+                return dialogueFestivalGeneric;
+        }
+
+        // Normal relationship-tier dialogue
         if (GameState.Instance == null) return dialogueNeutral;
         int rel = GameState.Instance.GetRelationship (npcName);
         if (rel < 0)   return dialogueLow;
         if (rel < 40)  return dialogueNeutral;
         if (rel < 80)  return dialogueFriendly;
         return dialogueClose;
+    }
+
+    private string GetFestivalDialogueLine (FestivalManager.FestivalType festival)
+    {
+        switch (festival)
+        {
+            case FestivalManager.FestivalType.CityDionysia:   return dialogueCityDionysia;
+            case FestivalManager.FestivalType.Thargelia:       return dialogueThargelia;
+            case FestivalManager.FestivalType.Panathenaia:     return dialoguePanathenaia;
+            case FestivalManager.FestivalType.Hephaestia:      return dialogueHephaestia;
+            case FestivalManager.FestivalType.Thesmophoria:    return dialogueThesmophoria;
+            case FestivalManager.FestivalType.Pyanopsia:       return dialoguePyanopsia;
+            case FestivalManager.FestivalType.Lenaia:          return dialogueLenaia;
+            case FestivalManager.FestivalType.Haloa:           return dialogueHaloa;
+            default:                                           return "";
+        }
     }
 
     private void OnDrawGizmosSelected ()

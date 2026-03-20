@@ -566,6 +566,20 @@ MonoBehaviour:
     Nikias has been asking about you. Casually. Very casually. But still."
   dialogueClose: 'I saw Lydia watching you from across the Agora yesterday. She did
     not think anyone noticed. I notice everything. '
+  dialogueFestivalGeneric: Festival days are my favourite. Everyone is out, everyone
+    is talking. I hear everything.
+  dialogueCityDionysia: I heard Kallias arguing with his wife outside the theatre.
+    Loudly. During the performance.
+  dialogueThargelia: 
+  dialoguePanathenaia: Nikias donated a new lamp to the Acropolis. Very generous.
+    Very visible. Very Nikias.
+  dialogueHephaestia: 
+  dialogueThesmophoria: 
+  dialoguePyanopsia: 
+  dialogueLenaia: Miriam and Theron were seen talking for quite a long time near
+    the theatre entrance. Just saying.
+  dialogueHaloa: The things people say at a midwinter feast. I could not possibly
+    repeat them. But I will.
   interactionRadius: 0.5
   timeCostMinutes: 30
   conversationCooldownSeconds: 10
@@ -874,6 +888,18 @@ MonoBehaviour:
     case you were wondering.
   dialogueClose: I will tell you something I tell very few people. The city rewards
     those who know which doors to knock on. Knock on mine.
+  dialogueFestivalGeneric: Festivals are excellent for business. Everyone is generous
+    when the gods are watching.
+  dialogueCityDionysia: 
+  dialogueThargelia: 
+  dialoguePanathenaia: I have arranged the seating for the official delegation. Naturally
+    I kept the best positions for myself.
+  dialogueHephaestia: 
+  dialogueThesmophoria: 
+  dialoguePyanopsia: 
+  dialogueLenaia: Even in winter people need someone to smooth the way. That someone
+    is me.
+  dialogueHaloa: 
   interactionRadius: 0.5
   timeCostMinutes: 30
   conversationCooldownSeconds: 10
@@ -1187,6 +1213,17 @@ MonoBehaviour:
     at it.
   dialogueClose: You have proven yourself, my friend. Athens is better for men like
     you.
+  dialogueFestivalGeneric: The city breathes differently on days like this. Even
+    commerce feels sacred.
+  dialogueCityDionysia: 
+  dialogueThargelia: 
+  dialoguePanathenaia: Athena's festival brings the best traders to Athens. I have
+    already made three deals this morning.
+  dialogueHephaestia: 
+  dialogueThesmophoria: 
+  dialoguePyanopsia: 
+  dialogueLenaia: 
+  dialogueHaloa: 
   interactionRadius: 0.5
   timeCostMinutes: 30
   conversationCooldownSeconds: 10
@@ -1500,6 +1537,18 @@ MonoBehaviour:
     maybe. I respect that more than strength anyway.
   dialogueClose: You are the kind of person I would want beside me if things went
     badly. That is the highest thing I know how to say.
+  dialogueFestivalGeneric: Every festival is a chance to show Athens what its athletes
+    are made of.
+  dialogueCityDionysia: 
+  dialogueThargelia: 
+  dialoguePanathenaia: I competed in the footrace today. I won. Obviously. But the
+    margin was closer than last year. That troubles me.
+  dialogueHephaestia: The torch race is mine every year. No one has come close in
+    three seasons.
+  dialogueThesmophoria: 
+  dialoguePyanopsia: 
+  dialogueLenaia: 
+  dialogueHaloa: 
   interactionRadius: 0.5
   timeCostMinutes: 30
   conversationCooldownSeconds: 10
@@ -1964,7 +2013,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.5, y: -2}
+  m_AnchoredPosition: {x: 0, y: 1.5}
   m_SizeDelta: {x: 120, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &450896536
@@ -2808,6 +2857,19 @@ MonoBehaviour:
     Sincerity, I think.
   dialogueClose: I have prayed for you. Do not ask me what I said. Some things belong
     to the goddess alone.
+  dialogueFestivalGeneric: The goddess moves through the city on days like this.
+    Can you not feel it?
+  dialogueCityDionysia: Love and theatre have always been companions. Aphrodite smiles
+    on this festival.
+  dialogueThargelia: 
+  dialoguePanathenaia: 
+  dialogueHephaestia: 
+  dialogueThesmophoria: I observe from a distance today. Some mysteries are not mine
+    to enter. I respect that.
+  dialoguePyanopsia: 
+  dialogueLenaia: Winter theatre has a particular intimacy. The goddess appreciates
+    what is offered in the cold.
+  dialogueHaloa: 
   interactionRadius: 0.5
   timeCostMinutes: 30
   conversationCooldownSeconds: 10
@@ -2977,6 +3039,17 @@ MonoBehaviour:
     That is not nothing.
   dialogueClose: I made extra bread this morning. I do not know why I thought of
     you when I did.
+  dialogueFestivalGeneric: Father closes the workshop on festival days. It is the
+    only time he truly rests.
+  dialogueCityDionysia: I saw the performance three times. Each time something different
+    moved me.
+  dialogueThargelia: 
+  dialoguePanathenaia: 
+  dialogueHephaestia: 
+  dialogueThesmophoria: 
+  dialoguePyanopsia: 
+  dialogueLenaia: 
+  dialogueHaloa: Tonight the rules are different. I like that. Just for one night.
   interactionRadius: 0.5
   timeCostMinutes: 30
   conversationCooldownSeconds: 10
@@ -3238,6 +3311,19 @@ MonoBehaviour:
     minding.
   dialogueClose: I told my father I met you again today. He said nothing. But he
     smiled.
+  dialogueFestivalGeneric: I love the city on festival days. Everyone seems kinder
+    somehow.
+  dialogueCityDionysia: The theatre today was extraordinary. I wept twice and I am
+    not ashamed to admit it.
+  dialogueThargelia: 
+  dialoguePanathenaia: 
+  dialogueHephaestia: 
+  dialogueThesmophoria: "This festival is not for men's eyes, but I will say \u2014
+    it means more to me than I can explain."
+  dialoguePyanopsia: 
+  dialogueLenaia: 
+  dialogueHaloa: There is something freeing about a midwinter feast. The usual rules
+    seem far away tonight.
   interactionRadius: 0.5
   timeCostMinutes: 30
   conversationCooldownSeconds: 10
@@ -3415,6 +3501,18 @@ MonoBehaviour:
     on the wrong ship. I appreciate that more than you know.
   dialogueClose: I have something set aside for you. Came off a ship from Carthage
     last week. I do not show it to everyone.
+  dialogueFestivalGeneric: In Alexandria we celebrate differently but the impulse
+    is the same. Humans need to mark time together.
+  dialogueCityDionysia: 
+  dialogueThargelia: 
+  dialoguePanathenaia: 
+  dialogueHephaestia: A festival for craftsmen and fire. In Egypt we honour similar
+    gods. The names change. The devotion does not.
+  dialogueThesmophoria: 
+  dialoguePyanopsia: 
+  dialogueLenaia: Your winter festivals have a warmth I did not expect. The wine
+    helps, I think.
+  dialogueHaloa: 
   interactionRadius: 0.5
   timeCostMinutes: 30
   conversationCooldownSeconds: 10
@@ -5019,12 +5117,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCSchedule
   schedule:
-  - startHour: 0
-    endHour: 6
-    sceneName: Athens
-    position: {x: -12, y: 3}
-    isInsideBuilding: 0
-    entrancePosition: {x: 0, y: 0}
   - startHour: 6
     endHour: 9
     sceneName: AcropolisInterior
@@ -5055,12 +5147,6 @@ MonoBehaviour:
     position: {x: -1, y: -0.5}
     isInsideBuilding: 1
     entrancePosition: {x: -0.5, y: 2.1}
-  - startHour: 21
-    endHour: 21
-    sceneName: Athens
-    position: {x: -12, y: 3}
-    isInsideBuilding: 0
-    entrancePosition: {x: 0, y: 0}
   homePosition: {x: -12, y: 3}
   homeSceneName: Athens
   hasFestivalOverride: 1
@@ -5095,6 +5181,19 @@ MonoBehaviour:
   dialogueFriendly: "Your piety does not go unnoticed \u2014 by me or by the gods."
   dialogueClose: In all my years serving Zeus, few have shown the devotion you have.
     You honour Athens.
+  dialogueFestivalGeneric: Every festival is an opportunity to draw closer to the
+    divine. Do not waste it.
+  dialogueCityDionysia: 
+  dialogueThargelia: Apollo demands purity. I have spent the morning in ritual. The
+    city feels cleaner for it.
+  dialoguePanathenaia: "I lead the procession this year. The weight of the city's
+    faith is not a burden \u2014 it is an honour."
+  dialogueHephaestia: 
+  dialogueThesmophoria: 
+  dialoguePyanopsia: The harvest belongs to Apollo as much as to the farmers. I pray
+    the god is satisfied.
+  dialogueLenaia: 
+  dialogueHaloa: 
   interactionRadius: 0.5
   timeCostMinutes: 30
   conversationCooldownSeconds: 10
@@ -5509,6 +5608,18 @@ MonoBehaviour:
     That's rare.
   dialogueClose: I used to think I was the sharpest mind in Athens. You're making
     me reconsider.
+  dialogueFestivalGeneric: Festivals remind us that philosophy and piety are not
+    enemies. Socrates himself loved a good procession.
+  dialogueCityDionysia: 
+  dialogueThargelia: Apollo's festival is the only day I feel my arguments are truly
+    heard. Perhaps the god lends clarity.
+  dialoguePanathenaia: 
+  dialogueHephaestia: 
+  dialogueThesmophoria: 
+  dialoguePyanopsia: A harvest festival for Apollo. I find myself more reflective
+    in autumn. The arguments come slower but go deeper.
+  dialogueLenaia: 
+  dialogueHaloa: 
   interactionRadius: 0.5
   timeCostMinutes: 30
   conversationCooldownSeconds: 10
@@ -5815,6 +5926,17 @@ MonoBehaviour:
   dialogueFriendly: You've got good hands. Not many people do anymore.
   dialogueClose: Forty years I've worked this forge. You're one of the few I'd trust
     to carry it on.
+  dialogueFestivalGeneric: A good festival means good commissions afterward. People
+    want to commemorate.
+  dialogueCityDionysia: 
+  dialogueThargelia: 
+  dialoguePanathenaia: 
+  dialogueHephaestia: Hephaestus made the shield of Achilles himself. On his festival
+    I remember why I chose this craft.
+  dialogueThesmophoria: 
+  dialoguePyanopsia: 
+  dialogueLenaia: 
+  dialogueHaloa: 
   interactionRadius: 0.5
   timeCostMinutes: 30
   conversationCooldownSeconds: 10
@@ -7156,6 +7278,17 @@ MonoBehaviour:
   dialogueFriendly: You're tougher than I expected. Keep pushing.
   dialogueClose: I've fought beside men half as capable as you. Athens is lucky to
     have you.
+  dialogueFestivalGeneric: A soldier respects the festivals. The gods deserve their
+    due.
+  dialogueCityDionysia: 
+  dialogueThargelia: 
+  dialoguePanathenaia: "The procession up the Acropolis \u2014 I marched in it for
+    the first time as a recruit. I still feel it in my chest."
+  dialogueHephaestia: 
+  dialogueThesmophoria: 
+  dialoguePyanopsia: 
+  dialogueLenaia: 
+  dialogueHaloa: 
   interactionRadius: 0.5
   timeCostMinutes: 30
   conversationCooldownSeconds: 10
