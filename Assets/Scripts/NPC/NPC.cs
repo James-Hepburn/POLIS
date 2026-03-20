@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class NPC : MonoBehaviour
 {
@@ -8,45 +9,68 @@ public class NPC : MonoBehaviour
     public int    relationshipGain = 5;
 
     [Header ("Dialogue")]
-    [TextArea] public string dialogueLow    = "";  // below 0
-    [TextArea] public string dialogueNeutral = ""; // 0 to 39
-    [TextArea] public string dialogueFriendly = ""; // 40 to 79
-    [TextArea] public string dialogueClose   = "";  // 80+
+    [TextArea] public string dialogueLow      = "";  // below 0
+    [TextArea] public string dialogueNeutral  = "";  // 0 to 39
+    [TextArea] public string dialogueFriendly = "";  // 40 to 79
+    [TextArea] public string dialogueClose    = "";  // 80+
 
     [Header ("Settings")]
-    public float interactionRadius  = 1.5f;
-    public float timeCostMinutes    = 30f;
+    public float interactionRadius           = 1.5f;
+    public float timeCostMinutes             = 30f;
     public float conversationCooldownSeconds = 10f;
 
-    [Header ("UI")]
-    public GameObject promptUI;
-    public GameObject dialogueUI;
-    public TMPro.TextMeshProUGUI dialogueText;
-    public TMPro.TextMeshProUGUI npcNameText;
+    [Header ("Prompt UI")]
+    public GameObject promptUI;   // small world-space "press E" prompt above NPC head
 
     // ── Internal ───────────────────────────────────────────────────────────
     private Transform player;
-    private bool      playerInRange   = false;
-    private bool      dialogueOpen    = false;
-    private float     lastTalkTime    = -999f;
-    private bool      talkedToday     = false;
-    private int       lastTalkedDay   = -1;
-    private float     dialogueOpenTime = -999f;
-    private const float closeDelay    = 0.4f;
+    private bool      playerInRange    = false;
+    private bool      talkedToday      = false;
+    private int       lastTalkedDay    = -1;
+    private float     lastTalkTime     = -999f;
 
-    public bool IsDialogueOpen => dialogueOpen;
+    public bool IsDialogueOpen =>
+        NPCDialogueUI.Instance != null && NPCDialogueUI.Instance.IsOpen
+        && NPCDialogueUI.Instance.CurrentNPC == this;
 
     // ══════════════════════════════════════════════════════════════════════
-    private void Start ()
+    private void Awake ()
     {
-        player = GameObject.FindWithTag ("Player")?.transform;
-        if (promptUI != null)  promptUI.SetActive (false);
-        if (dialogueUI != null) dialogueUI.SetActive (false);
+        DontDestroyOnLoad (gameObject);
     }
 
+    private void Start ()
+    {
+        FindPlayer ();
+        if (promptUI != null) promptUI.SetActive (false);
+    }
+
+    private void OnEnable ()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable ()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded (Scene scene, LoadSceneMode mode)
+    {
+        FindPlayer ();
+        if (promptUI != null) promptUI.SetActive (false);
+    }
+
+    private void FindPlayer ()
+    {
+        GameObject p = GameObject.FindWithTag ("Player");
+        if (p != null) player = p.transform;
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
     private void Update ()
     {
-        if (player == null) return;
+        if (player == null) { FindPlayer (); return; }
 
         // Reset daily cap on new day
         if (TimeManager.Instance != null)
@@ -54,58 +78,36 @@ public class NPC : MonoBehaviour
             int today = TimeManager.Instance.GetCurrentDay ();
             if (today != lastTalkedDay)
             {
-                talkedToday  = false;
+                talkedToday   = false;
                 lastTalkedDay = today;
             }
         }
 
-        float distance = Vector2.Distance (transform.position, player.position);
-        playerInRange  = distance <= interactionRadius;
+        float distance    = Vector2.Distance (transform.position, player.position);
+        playerInRange     = distance <= interactionRadius;
 
-        bool onCooldown = (Time.time - lastTalkTime) < conversationCooldownSeconds;
-        bool canTalk    = playerInRange && !dialogueOpen && !onCooldown && !talkedToday;
-        bool canClose   = dialogueOpen && (Time.time - dialogueOpenTime) >= closeDelay;
+        bool onCooldown   = (Time.time - lastTalkTime) < conversationCooldownSeconds;
+        bool canTalk      = playerInRange && !IsDialogueOpen && !onCooldown && !talkedToday;
 
-        // Show/hide prompt
         if (promptUI != null)
             promptUI.SetActive (canTalk);
 
-        // Open dialogue
         if (canTalk && Keyboard.current.eKey.wasPressedThisFrame)
             OpenDialogue ();
-
-        // Close dialogue — only after delay has elapsed
-        else if (canClose && Keyboard.current.eKey.wasPressedThisFrame)
-            CloseDialogue ();
     }
 
     // ══════════════════════════════════════════════════════════════════════
     private void OpenDialogue ()
     {
-        Debug.Log ("OpenDialogue called");
-        dialogueOpen     = true;
-        lastTalkTime     = Time.time;
-        dialogueOpenTime = Time.time;
-        talkedToday      = true;
+        Debug.Log($"NPCDialogueUI.Instance is null: {NPCDialogueUI.Instance == null}");
+        lastTalkTime = Time.time;
+        talkedToday  = true;
 
-        if (promptUI != null)  promptUI.SetActive (false);
-        if (dialogueUI != null)
-        {
-            Debug.Log ($"dialogueUI is: {dialogueUI.name}");
-            dialogueUI.SetActive (true);
-        }
-        else
-        {
-            Debug.Log ("dialogueUI is NULL");
-        }
+        if (NPCDialogueUI.Instance != null)
+            NPCDialogueUI.Instance.Open (this, GetDialogueLine ());
 
-        if (npcNameText != null)
-            npcNameText.text = npcName;
+        if (promptUI != null) promptUI.SetActive (false);
 
-        if (dialogueText != null)
-            dialogueText.text = GetDialogueLine ();
-
-        // Advance time and relationship
         if (TimeManager.Instance != null)
             TimeManager.Instance.AdvanceTimeByMinutes (timeCostMinutes);
 
@@ -116,21 +118,13 @@ public class NPC : MonoBehaviour
         }
     }
 
-    private void CloseDialogue ()
-    {
-        dialogueOpen = false;
-        if (dialogueUI != null) dialogueUI.SetActive (false);
-    }
-
     private string GetDialogueLine ()
     {
         if (GameState.Instance == null) return dialogueNeutral;
-
         int rel = GameState.Instance.GetRelationship (npcName);
-
-        if (rel < 0)    return dialogueLow;
-        if (rel < 40)   return dialogueNeutral;
-        if (rel < 80)   return dialogueFriendly;
+        if (rel < 0)   return dialogueLow;
+        if (rel < 40)  return dialogueNeutral;
+        if (rel < 80)  return dialogueFriendly;
         return dialogueClose;
     }
 
