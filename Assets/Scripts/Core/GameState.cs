@@ -469,6 +469,85 @@ public class GameState : MonoBehaviour
     }
 
     // ══════════════════════════════════════════════════════════════════════
+    // Legacy System
+    // ══════════════════════════════════════════════════════════════════════
+
+    public int ScoreProsperity ()
+    {
+        int score = 0;
+        if (careerLevel >= 3)  score += 40;
+        if (drachma >= 500f)   score += 30;
+        else if (drachma >= 200f) score += 15;
+        else if (drachma >= 100f) score += 10;
+        if (romanceStage == RomanceStage.Married) score += 20;
+        return Mathf.Min (score, 100);
+    }
+
+    public int ScoreBonds ()
+    {
+        int score = 0;
+        if (romanceStage == RomanceStage.Married) score += 30;
+        int[] rels = {
+            relationshipNikias,   relationshipDemetrios, relationshipTheron,
+            relationshipArgos,    relationshipEudoros,   relationshipChloe,
+            relationshipKallias,  relationshipLydia,     relationshipMiriam,
+            relationshipPhaedra,  relationshipStephanos, relationshipXanthos
+        };
+        int closeCount = 0;
+        foreach (int r in rels)
+            if (r >= 80) closeCount++;
+        score += Mathf.Min (closeCount * 10, 50);
+        if (GoalsCompleted >= 3) score += 20;
+        return Mathf.Min (score, 100);
+    }
+
+    public int ScorePiety ()
+    {
+        int score = 0;
+        if (GetFavour (patronGod) >= 80) score += 40;
+        else if (GetFavour (patronGod) >= 50) score += 20;
+        int interventions = (interventionHermes     ? 1 : 0)
+                          + (interventionAres        ? 1 : 0)
+                          + (interventionAphrodite   ? 1 : 0)
+                          + (interventionApollo      ? 1 : 0)
+                          + (interventionHephaestus  ? 1 : 0)
+                          + (interventionAthena      ? 1 : 0);
+        score += Mathf.Min (interventions * 10, 60);
+        return Mathf.Min (score, 100);
+    }
+
+    public int ScoreRenown ()
+    {
+        int score = 0;
+        if (honour >= 80)      score += 40;
+        else if (honour >= 50) score += 20;
+        if (careerLevel >= 3)  score += 20;
+        if (GoalsCompleted >= 6) score += 20;
+        else if (GoalsCompleted >= 3) score += 10;
+        return Mathf.Min (score, 100);
+    }
+
+    public int ScoreTotal () =>
+        ScoreProsperity () + ScoreBonds () + ScorePiety () + ScoreRenown ();
+
+    public string GetEpitaph ()
+    {
+        int total = ScoreTotal ();
+        string name = playerName;
+        if (total >= 400)
+            return $"Here lies {name}. Athens will speak his name for a generation.";
+        if (total >= 350)
+            return $"Here lies {name}. His life was a credit to his city and his gods.";
+        if (total >= 300)
+            return $"Here lies {name}. He built something worth remembering.";
+        if (total >= 200)
+            return $"Here lies {name}. Athens remembers his name, if not always why.";
+        if (total >= 100)
+            return $"Here lies {name}. He walked the streets of Athens and left them unchanged.";
+        return $"Here lies {name}. He lived and was forgotten.";
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
     // Save / Load
     // ══════════════════════════════════════════════════════════════════════
 
