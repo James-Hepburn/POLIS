@@ -43,13 +43,13 @@ public class PlayerController : MonoBehaviour
         movement.x = 0f;
         movement.y = 0f;
 
-        if (Keyboard.current.wKey.isPressed || Keyboard.current.upArrowKey.isPressed)
+        if (Keyboard.current.upArrowKey.isPressed)
             movement.y =  1f;
-        if (Keyboard.current.sKey.isPressed || Keyboard.current.downArrowKey.isPressed)
+        if (Keyboard.current.downArrowKey.isPressed)
             movement.y = -1f;
-        if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed)
+        if (Keyboard.current.leftArrowKey.isPressed)
             movement.x = -1f;
-        if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed)
+        if (Keyboard.current.rightArrowKey.isPressed)
             movement.x =  1f;
 
         movement = movement.normalized;
