@@ -2924,7 +2924,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 915041059}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 233f7021726374d70be126be46c9e549, type: 3}
+  m_Script: {fileID: 11500000, guid: 5014e8e40b1514f98a03a3156171710e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCreationManager
   professionDropdown: {fileID: 2093660002}
@@ -5522,7 +5522,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2008923527}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6028fa2c736c84b8391b60fc9e50ed50, type: 3}
+  m_Script: {fileID: 11500000, guid: 6784ab31fe3e84d368008f43b06357c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TimeManager
   dayStartHour: 6

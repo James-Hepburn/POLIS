@@ -427,7 +427,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.5}
+  m_AnchoredPosition: {x: 0, y: 0.75}
   m_SizeDelta: {x: 120, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &55379221
@@ -504,7 +504,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2.5}
+  m_AnchoredPosition: {x: 0, y: 2}
   m_SizeDelta: {x: 170, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &84848253
@@ -2334,7 +2334,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.5}
+  m_AnchoredPosition: {x: 0, y: 0.75}
   m_SizeDelta: {x: 120, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &450896536
@@ -2434,7 +2434,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2.5}
+  m_AnchoredPosition: {x: 0, y: 2}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &509073374
@@ -2971,7 +2971,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.5}
+  m_AnchoredPosition: {x: 0, y: 0.75}
   m_SizeDelta: {x: 120, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &672591891
@@ -3208,7 +3208,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.5}
+  m_AnchoredPosition: {x: 0, y: 0.75}
   m_SizeDelta: {x: 120, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &719509749
@@ -3331,7 +3331,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.5}
+  m_AnchoredPosition: {x: 0, y: 0.75}
   m_SizeDelta: {x: 120, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &734620839
@@ -3946,7 +3946,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2.5}
+  m_AnchoredPosition: {x: 0, y: 2}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &826962099
@@ -4231,7 +4231,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2.5}
+  m_AnchoredPosition: {x: 0, y: 2}
   m_SizeDelta: {x: 170, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &876871425
@@ -4623,34 +4623,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c73ba54c6f19d4395b7804e46238948a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
-  musicSource: {fileID: 2079680762}
-  festivalSource: {fileID: 643134115}
-  musicMainTheme: {fileID: 8300000, guid: f0b683eaea601426288c15a5247dda0d, type: 3}
-  musicAthensDay: {fileID: 8300000, guid: edbf88437701647ea99e2374ee3914e2, type: 3}
-  musicAthensNight: {fileID: 8300000, guid: 9a26bb382864e4f4cadcc5f9b950e4bd, type: 3}
-  musicHome: {fileID: 8300000, guid: 4d6f666098afb4296977a49e476019ae, type: 3}
-  musicAgora: {fileID: 8300000, guid: ed2ea739aa35c464c9b702efbbe4c3a4, type: 3}
-  musicGymnasium: {fileID: 8300000, guid: 37600624a52a045c1bafd795197ee49c, type: 3}
-  musicAcropolis: {fileID: 8300000, guid: af6f22073e6aa45408a0d1394794148f, type: 3}
-  musicHarbour: {fileID: 8300000, guid: b03b439ff0f5745beadf17962efd6225, type: 3}
-  musicKerameikos: {fileID: 8300000, guid: cde454ee96d7f4dfba2e4857b66c4df4, type: 3}
-  musicTheatre: {fileID: 8300000, guid: 135a34ea2405e4042ba254ed5a58c3d1, type: 3}
-  musicFestival: {fileID: 8300000, guid: b22154a466a514e988b8ee4cfa5e2cf9, type: 3}
-  musicEndOfDay: {fileID: 8300000, guid: 67e5b9eae71b84fdea9a6941fa1c8d6e, type: 3}
-  musicLegacyScreen: {fileID: 8300000, guid: 12807205a64af458da44336824e17502, type: 3}
-  sfxSource: {fileID: 1671278190}
-  sfxWorking: {fileID: 8300000, guid: c53eec3b34bca4c9990cdca6aea6c2cd, type: 3}
-  sfxTalkingToNPC: {fileID: 8300000, guid: 9cb3847e50dc947cf9b64db8c45bacd3, type: 3}
-  sfxRelationshipGain: {fileID: 8300000, guid: 9415d5113111f4478bea4e30a9173c87, type: 3}
-  sfxDrachmaGained: {fileID: 8300000, guid: a640ce4aff4b1476f82a4f4d96d68dd0, type: 3}
-  sfxHonourGained: {fileID: 8300000, guid: dc09aa1effb9a4b10a25b5a051ce9aa2, type: 3}
-  sfxPrayerOffering: {fileID: 8300000, guid: c4e1fb74519c7455b9deec1eb6f33d93, type: 3}
-  sfxDivineFavourIncrease: {fileID: 8300000, guid: d7e7fcf014ec74f9693793127d2a5a74, type: 3}
-  sfxFestivalNotification: {fileID: 8300000, guid: 08ab2b3706eac46dfaead268f61fbf88, type: 3}
-  sfxCareerLevelUp: {fileID: 8300000, guid: a3d9328053bb4497fa872d9d52c78c10, type: 3}
-  sfxMarriage: {fileID: 8300000, guid: 4c9732e31e4e94de58b8f1a035793499, type: 3}
-  sfxLegacyPanelOpens: {fileID: 8300000, guid: bf83cee13f72c498483360ed011a11b3, type: 3}
-  sfxDayEndSleep: {fileID: 8300000, guid: 813b4c62cf9874a5d80a01a035aad4cd, type: 3}
+  musicSource: {fileID: 0}
+  festivalSource: {fileID: 0}
+  musicMainTheme: {fileID: 0}
+  musicAthensDay: {fileID: 0}
+  musicAthensNight: {fileID: 0}
+  musicHome: {fileID: 0}
+  musicAgora: {fileID: 0}
+  musicGymnasium: {fileID: 0}
+  musicAcropolis: {fileID: 0}
+  musicHarbour: {fileID: 0}
+  musicKerameikos: {fileID: 0}
+  musicTheatre: {fileID: 0}
+  musicFestival: {fileID: 0}
+  musicEndOfDay: {fileID: 0}
+  musicLegacyScreen: {fileID: 0}
+  sfxSource: {fileID: 0}
+  sfxWorking: {fileID: 0}
+  sfxTalkingToNPC: {fileID: 0}
+  sfxRelationshipGain: {fileID: 0}
+  sfxDrachmaGained: {fileID: 0}
+  sfxHonourGained: {fileID: 0}
+  sfxPrayerOffering: {fileID: 0}
+  sfxDivineFavourIncrease: {fileID: 0}
+  sfxFestivalNotification: {fileID: 0}
+  sfxCareerLevelUp: {fileID: 0}
+  sfxMarriage: {fileID: 0}
+  sfxLegacyPanelOpens: {fileID: 0}
+  sfxDayEndSleep: {fileID: 0}
   musicVolume: 0.4
   festivalVolume: 0.12
   sfxVolume: 0.75
@@ -4988,7 +4988,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.5}
+  m_AnchoredPosition: {x: 0, y: 0.75}
   m_SizeDelta: {x: 120, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1065303247
@@ -5225,7 +5225,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.5}
+  m_AnchoredPosition: {x: 0, y: 0.75}
   m_SizeDelta: {x: 120, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1102140394
@@ -5325,7 +5325,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.5}
+  m_AnchoredPosition: {x: 0, y: 0.75}
   m_SizeDelta: {x: 120, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1135092679
@@ -6427,7 +6427,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.5}
+  m_AnchoredPosition: {x: 0, y: 0.75}
   m_SizeDelta: {x: 120, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1424777633
@@ -6716,7 +6716,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.5}
+  m_AnchoredPosition: {x: 0, y: 0.75}
   m_SizeDelta: {x: 120, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1469662891
@@ -8276,7 +8276,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.5}
+  m_AnchoredPosition: {x: 0, y: 0.75}
   m_SizeDelta: {x: 120, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1781816552
@@ -8361,7 +8361,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1825073053}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6028fa2c736c84b8391b60fc9e50ed50, type: 3}
+  m_Script: {fileID: 11500000, guid: 6784ab31fe3e84d368008f43b06357c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TimeManager
   dayStartHour: 6
@@ -8465,7 +8465,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1825073053}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bede84fbdc9a84cc88793f5c47debb7f, type: 3}
+  m_Script: {fileID: 11500000, guid: d33102effc29a40949676960157b3673, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FestivalManager
   festivals:
@@ -9205,7 +9205,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.5}
+  m_AnchoredPosition: {x: 0, y: 0.75}
   m_SizeDelta: {x: 120, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2060358755

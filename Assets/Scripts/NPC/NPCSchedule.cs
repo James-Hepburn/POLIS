@@ -409,6 +409,13 @@ public class NPCSchedule : MonoBehaviour
         // Interiors use scale 1.5, Athens uses scale 1
         float scale = (sceneName == "Athens" || sceneName == "") ? 1f : 1.5f;
         transform.localScale = new Vector3 (scale, scale, 1f);
+
+        // Prompt scale
+        float inverse = 0.01f / scale;
+        if (npcComponent != null && npcComponent.promptUI != null)
+            npcComponent.promptUI.transform.localScale = new Vector3 (inverse, inverse, inverse);
+        if (npcComponent != null && npcComponent.romancePromptUI != null)
+            npcComponent.romancePromptUI.transform.localScale = new Vector3 (inverse, inverse, inverse);
     }
 
     // ══════════════════════════════════════════════════════════════════════
