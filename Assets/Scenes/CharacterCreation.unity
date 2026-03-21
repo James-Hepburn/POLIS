@@ -3931,7 +3931,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.53333336, g: 0.53333336, b: 0.53333336, a: 0}
+  m_BackGroundColor: {r: 0.9607843, g: 0.9019608, b: 0.78431374, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -5575,7 +5575,23 @@ MonoBehaviour:
   isNewGame: 1
   gameStarted: 0
   lastCompletedDay: 1
+  lastCompletedDayFestival: 
+  lastGossipMessage: 
   prayedToPatronToday: 0
+  romanceStage: 0
+  romanceTarget: 
+  interventionHermes: 0
+  interventionAres: 0
+  interventionAphrodite: 0
+  interventionApollo: 0
+  interventionHephaestus: 0
+  interventionAthena: 0
+  goalCareerComplete: 0
+  goalMarriageComplete: 0
+  goalWealthComplete: 0
+  goalFavourComplete: 0
+  goalHonourComplete: 0
+  goalFriendshipComplete: 0
   relationshipNikias: 0
   relationshipDemetrios: 0
   relationshipTheron: 0
