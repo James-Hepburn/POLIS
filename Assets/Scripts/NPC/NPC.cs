@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class NPC : MonoBehaviour
+public class NPC : MonoBehaviour, IInteractable
 {
     [Header ("Identity")]
     public string npcName        = "Nikias";
@@ -45,6 +45,20 @@ public class NPC : MonoBehaviour
         NPCDialogueUI.Instance != null && NPCDialogueUI.Instance.IsOpen
         && NPCDialogueUI.Instance.CurrentNPC == this;
 
+    // ── IInteractable ──────────────────────────────────────────────────────
+    public Vector2 WorldPosition => (Vector2) transform.position;
+
+    public bool IsEligible =>
+        playerInRange
+        && !IsDialogueOpen
+        && (Time.time - lastTalkTime) >= conversationCooldownSeconds
+        && !talkedToday;
+
+    public void ShowPrompt (bool show)
+    {
+        if (promptUI != null) promptUI.SetActive (show);
+    }
+
     // ══════════════════════════════════════════════════════════════════════
     private void Awake ()
     {
@@ -55,6 +69,9 @@ public class NPC : MonoBehaviour
     {
         FindPlayer ();
         if (promptUI != null) promptUI.SetActive (false);
+
+        if (InteractionPromptManager.Instance != null)
+            InteractionPromptManager.Instance.Register (this);
     }
 
     private void OnEnable ()
@@ -67,10 +84,20 @@ public class NPC : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
+    private void OnDestroy ()
+    {
+        if (InteractionPromptManager.Instance != null)
+            InteractionPromptManager.Instance.Unregister (this);
+    }
+
     private void OnSceneLoaded (Scene scene, LoadSceneMode mode)
     {
         FindPlayer ();
         if (promptUI != null) promptUI.SetActive (false);
+
+        // Re-register — Register () guards against duplicates internally
+        if (InteractionPromptManager.Instance != null)
+            InteractionPromptManager.Instance.Register (this);
     }
 
     private void FindPlayer ()
@@ -95,21 +122,20 @@ public class NPC : MonoBehaviour
             }
         }
 
-        float distance    = Vector2.Distance (transform.position, player.position);
-        playerInRange     = distance <= interactionRadius;
+        float distance = Vector2.Distance (transform.position, player.position);
+        playerInRange  = distance <= interactionRadius;
 
-        bool onCooldown   = (Time.time - lastTalkTime) < conversationCooldownSeconds;
-        bool canTalk      = playerInRange && !IsDialogueOpen && !onCooldown && !talkedToday;
+        // Prompt visibility is handled by InteractionPromptManager.
+        // Fallback — self-manage if no manager present (interior scenes)
+        if (InteractionPromptManager.Instance == null)
+            ShowPrompt (IsEligible);
 
-        if (promptUI != null)
-            promptUI.SetActive (canTalk);
-
-        // Romance prompt — shown alongside talk prompt when relevant
+        // Romance prompt is secondary and always self-managed
         bool canRomance = playerInRange && !IsDialogueOpen && ShowRomancePrompt ();
         if (romancePromptUI != null)
             romancePromptUI.SetActive (canRomance);
 
-        if (canTalk && Keyboard.current.eKey.wasPressedThisFrame)
+        if (IsEligible && Keyboard.current.eKey.wasPressedThisFrame)
             OpenDialogue ();
 
         // Romance interaction on R key

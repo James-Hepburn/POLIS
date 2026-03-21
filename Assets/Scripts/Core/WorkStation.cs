@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.SceneManagement;
 
-public class WorkStation : MonoBehaviour
+public class WorkStation : MonoBehaviour, IInteractable
 {
     [Header ("Allowed Professions")]
     public GameState.Profession[] allowedProfessions;
@@ -39,9 +39,19 @@ public class WorkStation : MonoBehaviour
     // ── Internal ───────────────────────────────────────────────────────────
     private Transform       player;
     private bool            playerInRange = false;
+    private bool            _canWork      = false;
     private int             worksToday    = 0;
     private int             lastWorkedDay = -1;
     private TextMeshProUGUI promptText;
+
+    // ── IInteractable ──────────────────────────────────────────────────────
+    public Vector2 WorldPosition => (Vector2) transform.position;
+    public bool    IsEligible    => _canWork;
+
+    public void ShowPrompt (bool show)
+    {
+        if (promptUI != null) promptUI.SetActive (show);
+    }
 
     // ══════════════════════════════════════════════════════════════════════
     private void Start ()
@@ -53,6 +63,15 @@ public class WorkStation : MonoBehaviour
             promptUI.SetActive (false);
             promptText = promptUI.GetComponentInChildren<TextMeshProUGUI> ();
         }
+
+        if (InteractionPromptManager.Instance != null)
+            InteractionPromptManager.Instance.Register (this);
+    }
+
+    private void OnDestroy ()
+    {
+        if (InteractionPromptManager.Instance != null)
+            InteractionPromptManager.Instance.Unregister (this);
     }
 
     private void Update ()
@@ -79,27 +98,25 @@ public class WorkStation : MonoBehaviour
         bool notificationShowing = CareerNotification.Instance != null
                         && CareerNotification.Instance.IsShowing;
 
-        bool canWork = professionAllowed
-                    && worksToday < maxWorksPerDay
-                    && TimeManager.Instance != null
-                    && TimeManager.Instance.IsDayActive ()
-                    && !notificationShowing;
+        _canWork = professionAllowed
+                && playerInRange
+                && worksToday < maxWorksPerDay
+                && TimeManager.Instance != null
+                && TimeManager.Instance.IsDayActive ()
+                && !notificationShowing;
 
-        if (promptUI != null && playerInRange && canWork)
+        // Keep prompt text up to date whenever eligible
+        if (_canWork && promptText != null)
         {
-            if (promptText != null)
-            {
-                ProfessionWork work = workData[GameState.Instance.currentProfession];
-                promptText.text = $"[E] {work.label} at the {GetLocationFromScene ()}";
-            }
-            promptUI.SetActive (true);
-        }
-        else if (promptUI != null)
-        {
-            promptUI.SetActive (false);
+            ProfessionWork work = workData[GameState.Instance.currentProfession];
+            promptText.text = $"[E] {work.label} at the {GetLocationFromScene ()}";
         }
 
-        if (playerInRange && canWork && Keyboard.current.eKey.wasPressedThisFrame)
+        // Fallback — self-manage if no manager present
+        if (InteractionPromptManager.Instance == null)
+            ShowPrompt (_canWork);
+
+        if (_canWork && Keyboard.current.eKey.wasPressedThisFrame)
             DoWork ();
     }
 

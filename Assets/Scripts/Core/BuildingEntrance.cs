@@ -2,10 +2,10 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
 
-public class BuildingEntrance : MonoBehaviour
+public class BuildingEntrance : MonoBehaviour, IInteractable
 {
     [Header ("Building Settings")]
-    public string buildingName = "Home";
+    public string buildingName       = "Home";
     public int    interiorSceneIndex = 2;
     public float  interactionRadius  = 1.5f;
 
@@ -15,13 +15,29 @@ public class BuildingEntrance : MonoBehaviour
     private Transform player;
     private bool      playerInRange = false;
 
+    // ── IInteractable ──────────────────────────────────────────────────────
+    public Vector2 WorldPosition => (Vector2) transform.position;
+    public bool    IsEligible    => playerInRange;
+
+    public void ShowPrompt (bool show)
+    {
+        if (promptUI != null) promptUI.SetActive (show);
+    }
+
     // ══════════════════════════════════════════════════════════════════════
     private void Start ()
     {
         player = GameObject.FindWithTag ("Player")?.transform;
+        if (promptUI != null) promptUI.SetActive (false);
 
-        if (promptUI != null)
-            promptUI.SetActive (false);
+        if (InteractionPromptManager.Instance != null)
+            InteractionPromptManager.Instance.Register (this);
+    }
+
+    private void OnDestroy ()
+    {
+        if (InteractionPromptManager.Instance != null)
+            InteractionPromptManager.Instance.Unregister (this);
     }
 
     private void Update ()
@@ -33,22 +49,20 @@ public class BuildingEntrance : MonoBehaviour
         }
 
         float distance = Vector2.Distance (transform.position, player.position);
-        playerInRange = distance <= interactionRadius;
+        playerInRange  = distance <= interactionRadius;
 
-        if (promptUI != null)
-            promptUI.SetActive (playerInRange);
+        // Fallback — if no manager present (e.g. interior scenes), self-manage
+        if (InteractionPromptManager.Instance == null)
+            ShowPrompt (playerInRange);
 
         if (playerInRange && Keyboard.current.eKey.wasPressedThisFrame)
-        {
-            Debug.Log ("E pressed — entering building");
             EnterBuilding ();
-        }
     }
 
     private void EnterBuilding ()
     {
         PlayerPositionMemory.LastAthensPosition = player.position;
-        PlayerPositionMemory.HasSavedPosition = true;
+        PlayerPositionMemory.HasSavedPosition   = true;
 
         if (SceneTransition.Instance != null)
             SceneTransition.Instance.TransitionToScene (interiorSceneIndex);
