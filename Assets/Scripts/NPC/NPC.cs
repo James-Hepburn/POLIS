@@ -135,7 +135,7 @@ public class NPC : MonoBehaviour, IInteractable
         if (romancePromptUI != null)
             romancePromptUI.SetActive (canRomance);
 
-        if (IsEligible && Keyboard.current.eKey.wasPressedThisFrame)
+        if (IsEligible && Keyboard.current.tKey.wasPressedThisFrame)
             OpenDialogue ();
 
         // Romance interaction on R key

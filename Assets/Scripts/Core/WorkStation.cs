@@ -109,14 +109,14 @@ public class WorkStation : MonoBehaviour, IInteractable
         if (_canWork && promptText != null)
         {
             ProfessionWork work = workData[GameState.Instance.currentProfession];
-            promptText.text = $"[E] {work.label} at the {GetLocationFromScene ()}";
+            promptText.text = $"[W] {work.label} at the {GetLocationFromScene ()}";
         }
 
         // Fallback — self-manage if no manager present
         if (InteractionPromptManager.Instance == null)
             ShowPrompt (_canWork);
 
-        if (_canWork && Keyboard.current.eKey.wasPressedThisFrame)
+        if (_canWork && Keyboard.current.wKey.wasPressedThisFrame)
             DoWork ();
     }
 
