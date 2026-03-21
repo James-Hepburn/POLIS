@@ -117,6 +117,7 @@ public class AltarUI : MonoBehaviour
             : $"You pray to {selectedGod}. The god is pleased.";
 
         Debug.Log ($"Prayed to {selectedGod}. Favour: {GameState.Instance.GetFavour (selectedGod)}");
+        AudioManager.Instance?.PlayPrayerOffering ();
     }
 
     private void OnOffer ()
@@ -146,6 +147,7 @@ public class AltarUI : MonoBehaviour
             : $"You make an offering to {selectedGod}. The god smiles upon you.";
 
         Debug.Log ($"Offered to {selectedGod}. Favour: {GameState.Instance.GetFavour (selectedGod)}");
+        AudioManager.Instance?.PlayPrayerOffering ();
     }
 
     private void OnBack ()

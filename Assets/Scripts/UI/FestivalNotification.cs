@@ -42,6 +42,7 @@ public class FestivalNotification : MonoBehaviour
 
     public void ShowToday (FestivalManager.FestivalData festival)
     {
+        AudioManager.Instance?.PlayFestivalNotification ();
         Show (
             festival.displayName,
             festival.description

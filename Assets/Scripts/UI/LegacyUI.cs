@@ -119,6 +119,7 @@ public class LegacyUI : MonoBehaviour
             epitaphText.text = epitaph;
 
         legacyPanel.SetActive (true);
+        AudioManager.Instance?.PlayLegacyPanelOpens ();
     }
 
     private void OnContinueToMenu ()

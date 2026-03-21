@@ -123,6 +123,9 @@ public class WorkStation : MonoBehaviour
         GameState.Instance.AddHonour (1 + GameState.Instance.GetCareerHonourBonus ());
         worksToday++;
 
+        AudioManager.Instance?.PlayWorking ();
+        AudioManager.Instance?.PlayDrachmaGained ();
+
         // Priest pinnacle — bonus favour to patron per work session
         int favourBonus = GameState.Instance.GetCareerFavourBonus ();
         if (favourBonus > 0)

@@ -52,6 +52,7 @@ public class DivineInterventionUI : MonoBehaviour
         if (dismissText   != null) dismissText.text   = "[E] Accept";
 
         panel.SetActive (true);
+        AudioManager.Instance?.PlayFestivalNotification ();
         StartCoroutine (EnableDismiss ());
     }
 

@@ -125,6 +125,8 @@ public class TimeManager : MonoBehaviour
         // Process divine favour decay and negative favour events
         GameState.Instance.ProcessEndOfDayFavour ();
 
+        AudioManager.Instance?.PlayDayEndSleep ();
+
         // Process daily gossip from Stephanos
         GossipManager.ProcessDailyGossip ();
 

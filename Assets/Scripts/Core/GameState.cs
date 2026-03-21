@@ -274,6 +274,8 @@ public class GameState : MonoBehaviour
     public void AddHonour (int amount)
     {
         honour = Mathf.Clamp (honour + amount, 0, 100);
+        if (amount > 0)
+            AudioManager.Instance?.PlayHonourGained ();
     }
 
     // ══════════════════════════════════════════════════════════════════════
@@ -310,6 +312,8 @@ public class GameState : MonoBehaviour
             case PatronGod.Hephaestus: favourHephaestus = Mathf.Clamp (favourHephaestus + amount, -100, 100); break;
             case PatronGod.Athena:     favourAthena     = Mathf.Clamp (favourAthena     + amount, -100, 100); break;
         }
+        if (amount > 0)
+            AudioManager.Instance?.PlayDivineFavourIncrease ();
     }
 
     public int GetFavour (PatronGod god)
@@ -795,6 +799,8 @@ public class GameState : MonoBehaviour
             // Honour bonus on level up
             AddHonour (5);
 
+            AudioManager.Instance?.PlayCareerLevelUp ();
+
             // Show notification
             if (CareerNotification.Instance != null)
                 CareerNotification.Instance.ShowLevelUp (careerLevel, currentProfession);
@@ -861,6 +867,9 @@ public class GameState : MonoBehaviour
             case "Stephanos":   relationshipStephanos = Mathf.Clamp (relationshipStephanos + modifiedAmount, -100, 100); break;
             case "Xanthos":     relationshipXanthos   = Mathf.Clamp (relationshipXanthos   + modifiedAmount, -100, 100); break;
         }
+
+        if (modifiedAmount > 0)
+            AudioManager.Instance?.PlayRelationshipGain ();
         Debug.Log ($"Relationship with {npcName}: {GetRelationship (npcName)}");
     }
 

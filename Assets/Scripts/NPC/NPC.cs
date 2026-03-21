@@ -123,6 +123,8 @@ public class NPC : MonoBehaviour
         lastTalkTime = Time.time;
         talkedToday  = true;
 
+        AudioManager.Instance?.PlayTalkingToNPC ();
+
         if (NPCDialogueUI.Instance != null)
             NPCDialogueUI.Instance.Open (this, GetDialogueLine ());
 
@@ -234,6 +236,7 @@ public class NPC : MonoBehaviour
                 GameState.Instance.goalMarriageComplete = true;
                 GameState.Instance.AddHonour (10);
                 TimeManager.Instance?.AdvanceTimeByMinutes (120f);
+                AudioManager.Instance?.PlayMarriage ();
                 string line = $"You and {npcName} are married before the gods and the city of Athens. Whatever comes next, you face it together.";
                 NPCDialogueUI.Instance?.Open (this, line);
                 return;
