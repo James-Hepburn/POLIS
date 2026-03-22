@@ -48,7 +48,7 @@ public class NPCDialogueUI : MonoBehaviour
 
         if (nameText    != null) nameText.text    = npc.npcName;
         if (dialogueText != null) dialogueText.text = line;
-        if (hintText    != null) hintText.text    = "[E] Close";
+        if (hintText    != null) hintText.text    = "[X] Close";
         if (dialoguePanel != null) dialoguePanel.SetActive (true);
         Debug.Log($"DialoguePanel active: {dialoguePanel.activeSelf}");
     }

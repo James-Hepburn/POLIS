@@ -159,51 +159,62 @@ public class NPCSchedule : MonoBehaviour
     {
         if (TimeManager.Instance == null) return;
 
-        // If NPC has no active entry, they're sleeping — nothing to do
-        // If NPC's active entry is in a different scene, hide and do nothing
-        float hour         = TimeManager.Instance.GetCurrentHour ();
-        bool  newHasEntry  = GetActiveEntry (hour, out ScheduleEntry newEntry);
+        float hour        = TimeManager.Instance.GetCurrentHour ();
+        bool  newHasEntry = GetActiveEntry (hour, out ScheduleEntry newEntry);
+
+        bool skipEntryChange = false;
 
         if (!newHasEntry)
         {
-            // Sleeping — ensure hidden
+            // No active entry — queue walk home if not already doing so
             if (state != NPCState.Hidden && state != NPCState.WalkingHome)
             {
                 bool inDialogue = npcComponent != null && npcComponent.IsDialogueOpen;
-                if (!inDialogue)
+                if (!inDialogue && !transitionPending)
                     QueueTransition (NPCState.WalkingHome, Random.Range (0f, 2f));
             }
-            // Don't process movement in wrong scene
+
             if (currentSceneName != homeSceneName)
             {
                 SetVisibility (false);
                 return;
             }
+
+            hasActiveEntry  = false;
+            skipEntryChange = true;
         }
-        else if (newEntry.sceneName != currentSceneName)
+        else if (newEntry.sceneName != currentSceneName && !newEntry.isInsideBuilding)
         {
-            // NPC belongs in a different scene — hide and stop
+            // NPC belongs in a different scene and isn't walking to an entrance — hide
             SetVisibility (false);
             hasActiveEntry = newHasEntry;
             activeEntry    = newEntry;
             return;
         }
-        bool  entryChanged     = newHasEntry != hasActiveEntry
-                              || (newHasEntry && (newEntry.sceneName != activeEntry.sceneName
-                                              || newEntry.position   != activeEntry.position));
 
-        if (entryChanged && !transitionPending)
+        if (!skipEntryChange)
         {
-            bool inDialogue = npcComponent != null && npcComponent.IsDialogueOpen;
-            if (!inDialogue)
+            bool entryChanged = newHasEntry != hasActiveEntry
+                             || (newHasEntry && (newEntry.sceneName != activeEntry.sceneName
+                                             || newEntry.position   != activeEntry.position));
+
+            bool alreadyMoving = state == NPCState.WalkingToSpot
+                              || state == NPCState.WalkingHome
+                              || state == NPCState.WalkingToEntrance;
+
+            if (entryChanged && !transitionPending && !alreadyMoving)
             {
-                hasActiveEntry = newHasEntry;
-                activeEntry    = newEntry;
-                QueueTransitionForEntry (newHasEntry, newEntry);
+                bool inDialogue = npcComponent != null && npcComponent.IsDialogueOpen;
+                if (!inDialogue)
+                {
+                    hasActiveEntry = newHasEntry;
+                    activeEntry    = newEntry;
+                    QueueTransitionForEntry (newHasEntry, newEntry);
+                }
             }
         }
 
-        // Execute pending transition
+        // Execute pending transition — always runs, never skipped by early return
         if (transitionPending && Time.time >= transitionTime)
         {
             bool inDialogue = npcComponent != null && npcComponent.IsDialogueOpen;
@@ -271,6 +282,15 @@ public class NPCSchedule : MonoBehaviour
             return;
         }
 
+        // isInsideBuilding means the NPC walks to an entrance in Athens then disappears
+        // The entry's sceneName is the interior they end up in — not where they walk
+        if (entry.isInsideBuilding && currentSceneName == "Athens")
+        {
+            scheduleTarget = entry.entrancePosition;
+            QueueTransition (NPCState.WalkingToEntrance, Random.Range (0f, 2f));
+            return;
+        }
+
         if (entry.sceneName != currentSceneName)
         {
             // Entry is in a different scene — hide here
@@ -278,26 +298,12 @@ public class NPCSchedule : MonoBehaviour
             return;
         }
 
-        if (entry.isInsideBuilding && entry.sceneName == "Athens")
-        {
-            // Walk to building entrance then disappear
-            scheduleTarget = entry.entrancePosition;
-            QueueTransition (NPCState.WalkingToEntrance, Random.Range (0f, 2f));
-        }
+        // Normal spot in current scene
+        scheduleTarget = entry.position;
+        if (state == NPCState.Hidden)
+            QueueTransition (NPCState.WalkingToSpot, Random.Range (0f, 4f));
         else
-        {
-            // Normal spot in current scene
-            scheduleTarget = entry.position;
-            if (state == NPCState.Hidden)
-            {
-                // Wake up — appear at home and walk to spot
-                QueueTransition (NPCState.WalkingToSpot, Random.Range (0f, 4f));
-            }
-            else
-            {
-                QueueTransition (NPCState.WalkingToSpot, Random.Range (0f, 2f));
-            }
-        }
+            QueueTransition (NPCState.WalkingToSpot, Random.Range (0f, 2f));
     }
 
     private void EnterState (NPCState newState)
@@ -410,7 +416,7 @@ public class NPCSchedule : MonoBehaviour
         float scale = (sceneName == "Athens" || sceneName == "") ? 1f : 1.5f;
         transform.localScale = new Vector3 (scale, scale, 1f);
 
-        // Prompt scale
+        // Counteract scale inheritance on prompt children
         float inverse = 0.01f / scale;
         if (npcComponent != null && npcComponent.promptUI != null)
             npcComponent.promptUI.transform.localScale = new Vector3 (inverse, inverse, inverse);
@@ -459,10 +465,10 @@ public class NPCSchedule : MonoBehaviour
         {
             entry = new ScheduleEntry
             {
-                startHour   = festivalStartHour,
-                endHour     = festivalEndHour,
-                sceneName   = festivalSceneName,
-                position    = festivalPosition,
+                startHour        = festivalStartHour,
+                endHour          = festivalEndHour,
+                sceneName        = festivalSceneName,
+                position         = festivalPosition,
                 isInsideBuilding = false,
                 entrancePosition = Vector2.zero
             };
