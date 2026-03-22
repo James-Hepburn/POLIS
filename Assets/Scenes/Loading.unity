@@ -315,8 +315,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -844,8 +844,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -932,19 +932,19 @@ MonoBehaviour:
   - startHour: 7
     endHour: 10
     sceneName: Athens
-    position: {x: -1, y: -2}
+    position: {x: -2, y: 2}
     isInsideBuilding: 0
     entrancePosition: {x: 0, y: 0}
   - startHour: 10
     endHour: 14
     sceneName: AgoraInterior
-    position: {x: -1.5, y: 0.5}
+    position: {x: -1, y: 1}
     isInsideBuilding: 1
     entrancePosition: {x: -1, y: -2.5}
   - startHour: 14
     endHour: 17
     sceneName: Athens
-    position: {x: 0, y: 0}
+    position: {x: 2.5, y: 0}
     isInsideBuilding: 0
     entrancePosition: {x: 0, y: 0}
   - startHour: 17
@@ -1165,8 +1165,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1302,8 +1302,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1402,19 +1402,19 @@ MonoBehaviour:
   - startHour: 13
     endHour: 15
     sceneName: Athens
-    position: {x: -1, y: -1}
+    position: {x: -1.5, y: 2}
     isInsideBuilding: 0
     entrancePosition: {x: 0, y: 0}
   - startHour: 15
     endHour: 18
-    sceneName: HarborInterior
-    position: {x: 1, y: 0}
+    sceneName: HarbourInterior
+    position: {x: 1, y: -2}
     isInsideBuilding: 1
     entrancePosition: {x: 5.8, y: -5.7}
   - startHour: 18
     endHour: 21
     sceneName: Athens
-    position: {x: -0.5, y: -1.5}
+    position: {x: 0.25, y: -1.5}
     isInsideBuilding: 0
     entrancePosition: {x: 0, y: 0}
   homePosition: {x: -14, y: 3}
@@ -1716,9 +1716,9 @@ MonoBehaviour:
   - startHour: 6
     endHour: 8
     sceneName: GymnasiumInterior
-    position: {x: 1, y: 0}
+    position: {x: 1.5, y: 0}
     isInsideBuilding: 1
-    entrancePosition: {x: -6, y: 0.5}
+    entrancePosition: {x: -6, y: 2.5}
   - startHour: 8
     endHour: 12
     sceneName: Athens
@@ -1734,7 +1734,7 @@ MonoBehaviour:
   - startHour: 15
     endHour: 18
     sceneName: GymnasiumInterior
-    position: {x: 1, y: 0.5}
+    position: {x: 1.25, y: 0.5}
     isInsideBuilding: 1
     entrancePosition: {x: -6, y: 0.5}
   - startHour: 18
@@ -1954,8 +1954,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2116,7 +2116,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 95}
+  m_AnchoredPosition: {x: 0, y: 90}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &420233339
@@ -3069,7 +3069,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -115}
+  m_AnchoredPosition: {x: 0, y: -120}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &702231028
@@ -3092,7 +3092,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '[E] Close'
+  m_text: '[X] Close'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3482,7 +3482,7 @@ MonoBehaviour:
   - startHour: 6
     endHour: 9
     sceneName: AcropolisInterior
-    position: {x: 1, y: 0.5}
+    position: {x: 1.5, y: 0.5}
     isInsideBuilding: 1
     entrancePosition: {x: -0.5, y: 2.1}
   - startHour: 9
@@ -3500,13 +3500,13 @@ MonoBehaviour:
   - startHour: 15
     endHour: 18
     sceneName: Athens
-    position: {x: -6.5, y: -6}
+    position: {x: -7.5, y: -2}
     isInsideBuilding: 0
     entrancePosition: {x: 0, y: 0}
   - startHour: 18
     endHour: 21
     sceneName: AcropolisInterior
-    position: {x: 1, y: -0.5}
+    position: {x: 1.25, y: -0.5}
     isInsideBuilding: 1
     entrancePosition: {x: -0.5, y: 2.1}
   homePosition: {x: -14, y: -4}
@@ -3672,25 +3672,25 @@ MonoBehaviour:
   - startHour: 8
     endHour: 11
     sceneName: Athens
-    position: {x: 6, y: 0.5}
+    position: {x: 6.5, y: 0.5}
     isInsideBuilding: 0
     entrancePosition: {x: 0, y: 0}
   - startHour: 11
     endHour: 14
     sceneName: AgoraInterior
-    position: {x: 0, y: -0.5}
+    position: {x: -1.5, y: -2.5}
     isInsideBuilding: 1
     entrancePosition: {x: -1, y: -2.5}
   - startHour: 14
     endHour: 17
     sceneName: Athens
-    position: {x: 0, y: 0}
+    position: {x: -2.5, y: 0}
     isInsideBuilding: 0
     entrancePosition: {x: 0, y: 0}
   - startHour: 17
     endHour: 20
     sceneName: Athens
-    position: {x: 6, y: 0}
+    position: {x: 7.5, y: 0}
     isInsideBuilding: 0
     entrancePosition: {x: 0, y: 0}
   homePosition: {x: -13, y: -0.5}
@@ -4045,25 +4045,25 @@ MonoBehaviour:
   - startHour: 8
     endHour: 11
     sceneName: Athens
-    position: {x: -0.5, y: -0.5}
+    position: {x: 3, y: 3.5}
     isInsideBuilding: 0
     entrancePosition: {x: 0, y: 0}
   - startHour: 11
     endHour: 14
     sceneName: AgoraInterior
-    position: {x: 0, y: 0}
+    position: {x: 0, y: -2.5}
     isInsideBuilding: 1
     entrancePosition: {x: -1, y: -2.5}
   - startHour: 14
     endHour: 17
     sceneName: Athens
-    position: {x: -6.5, y: -6}
+    position: {x: -6.5, y: -2}
     isInsideBuilding: 0
     entrancePosition: {x: 0, y: 0}
   - startHour: 17
     endHour: 20
     sceneName: Athens
-    position: {x: -1, y: 0}
+    position: {x: -1, y: 1.5}
     isInsideBuilding: 0
     entrancePosition: {x: 0, y: 0}
   homePosition: {x: -13, y: 3}
@@ -4342,13 +4342,13 @@ MonoBehaviour:
   - startHour: 12
     endHour: 15
     sceneName: AgoraInterior
-    position: {x: 1.5, y: -0.5}
+    position: {x: 2.5, y: -0.5}
     isInsideBuilding: 1
     entrancePosition: {x: -1, y: -2.5}
   - startHour: 15
     endHour: 18
     sceneName: Athens
-    position: {x: -0.5, y: -1}
+    position: {x: 0.25, y: -1}
     isInsideBuilding: 0
     entrancePosition: {x: 0, y: 0}
   - startHour: 18
@@ -4707,8 +4707,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4794,7 +4794,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 55}
+  m_AnchoredPosition: {x: 0, y: 50}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1035540983
@@ -5646,8 +5646,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6146,8 +6146,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6283,8 +6283,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6471,13 +6471,13 @@ MonoBehaviour:
   - startHour: 6
     endHour: 9
     sceneName: AcropolisInterior
-    position: {x: -1, y: 0.5}
+    position: {x: -1.5, y: 0.5}
     isInsideBuilding: 1
     entrancePosition: {x: -0.5, y: 2.1}
   - startHour: 9
     endHour: 12
     sceneName: Athens
-    position: {x: -0.5, y: 2.5}
+    position: {x: 2.5, y: 2.5}
     isInsideBuilding: 0
     entrancePosition: {x: 0, y: 0}
   - startHour: 12
@@ -6495,7 +6495,7 @@ MonoBehaviour:
   - startHour: 18
     endHour: 21
     sceneName: AcropolisInterior
-    position: {x: -1, y: -0.5}
+    position: {x: -1.25, y: -0.5}
     isInsideBuilding: 1
     entrancePosition: {x: -0.5, y: 2.1}
   homePosition: {x: -12, y: 3}
@@ -6897,7 +6897,7 @@ MonoBehaviour:
   - startHour: 7
     endHour: 10
     sceneName: Athens
-    position: {x: -0.5, y: -1}
+    position: {x: -3, y: -1}
     isInsideBuilding: 0
     entrancePosition: {x: 0, y: 0}
   - startHour: 10
@@ -6909,7 +6909,7 @@ MonoBehaviour:
   - startHour: 13
     endHour: 16
     sceneName: Athens
-    position: {x: -1, y: -0.5}
+    position: {x: 0, y: 2.5}
     isInsideBuilding: 0
     entrancePosition: {x: 0, y: 0}
   - startHour: 16
@@ -7136,8 +7136,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -7633,7 +7633,7 @@ MonoBehaviour:
   - startHour: 10
     endHour: 13
     sceneName: Athens
-    position: {x: 6.6, y: 0.5}
+    position: {x: 7.5, y: 0.5}
     isInsideBuilding: 0
     entrancePosition: {x: 0, y: 0}
   - startHour: 13
@@ -7858,8 +7858,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -7995,8 +7995,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -8132,8 +8132,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -8709,8 +8709,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -8924,8 +8924,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -9061,8 +9061,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -9378,19 +9378,19 @@ MonoBehaviour:
   - startHour: 6
     endHour: 9
     sceneName: GymnasiumInterior
-    position: {x: -1, y: 0}
+    position: {x: -1.5, y: 0}
     isInsideBuilding: 1
     entrancePosition: {x: -6, y: 0.5}
   - startHour: 9
     endHour: 12
     sceneName: Athens
-    position: {x: -6, y: 1.5}
+    position: {x: -7, y: 1.5}
     isInsideBuilding: 0
     entrancePosition: {x: 0, y: 0}
   - startHour: 12
     endHour: 15
     sceneName: Athens
-    position: {x: 0, y: 0}
+    position: {x: -1.5, y: 0}
     isInsideBuilding: 0
     entrancePosition: {x: 0, y: 0}
   - startHour: 15

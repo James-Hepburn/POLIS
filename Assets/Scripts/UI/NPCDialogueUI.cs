@@ -34,7 +34,7 @@ public class NPCDialogueUI : MonoBehaviour
     private void Update ()
     {
         if (!isOpen) return;
-        if ((Time.time - openTime) >= closeDelay && Keyboard.current.eKey.wasPressedThisFrame)
+        if ((Time.time - openTime) >= closeDelay && Keyboard.current.xKey.wasPressedThisFrame)
             Close ();
     }
 

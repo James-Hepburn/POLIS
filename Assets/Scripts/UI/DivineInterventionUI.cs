@@ -31,7 +31,7 @@ public class DivineInterventionUI : MonoBehaviour
 
     private void Update ()
     {
-        if (isOpen && canDismiss && Keyboard.current.eKey.wasPressedThisFrame)
+        if (isOpen && canDismiss && Keyboard.current.aKey.wasPressedThisFrame)
             Dismiss ();
     }
 
@@ -49,7 +49,7 @@ public class DivineInterventionUI : MonoBehaviour
         if (godNameText   != null) godNameText.text   = data.godName;
         if (narrativeText != null) narrativeText.text = data.narrative;
         if (rewardText    != null) rewardText.text    = data.reward;
-        if (dismissText   != null) dismissText.text   = "[E] Accept";
+        if (dismissText   != null) dismissText.text   = "[A] Accept";
 
         panel.SetActive (true);
         AudioManager.Instance?.PlayFestivalNotification ();

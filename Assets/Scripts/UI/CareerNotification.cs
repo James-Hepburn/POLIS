@@ -31,7 +31,7 @@ public class CareerNotification : MonoBehaviour
 
     private void Update ()
     {
-        if (isShowing && canDismiss && Keyboard.current.eKey.wasPressedThisFrame)
+        if (isShowing && canDismiss && Keyboard.current.xKey.wasPressedThisFrame)
             Dismiss ();
     }
 
@@ -46,7 +46,7 @@ public class CareerNotification : MonoBehaviour
 
         titleText.text   = "Career Advancement";
         bodyText.text    = $"You have reached {GetCareerTitle (profession, newLevel)}.\n\n{GetFlavourText (profession, newLevel)}";
-        dismissText.text = "[E] Continue";
+        dismissText.text = "[X] Continue";
 
         // Wait one frame before allowing dismissal
         StartCoroutine (EnableDismissNextFrame ());
