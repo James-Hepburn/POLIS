@@ -11,6 +11,7 @@ public class MainMenu : MonoBehaviour
     public Button          newGameButton;
     public Button          continueButton;
     public TextMeshProUGUI continueButtonText;
+    public Button          wikiButton;
 
     [Header ("Confirmation Panel")]
     public GameObject      confirmPanel;
@@ -21,6 +22,7 @@ public class MainMenu : MonoBehaviour
     [Header ("Scene Indices")]
     public int characterCreationSceneIndex = 2;
     public int homeInteriorSceneIndex      = 4;
+    public int wikiSceneIndex             = 12;
 
     // ══════════════════════════════════════════════════════════════════════
     private void Start ()
@@ -32,6 +34,9 @@ public class MainMenu : MonoBehaviour
         continueButton.onClick.AddListener (OnContinueClicked);
         confirmYesButton.onClick.AddListener (OnConfirmNewGame);
         confirmNoButton.onClick.AddListener  (OnCancelNewGame);
+
+        if (wikiButton != null)
+            wikiButton.onClick.AddListener (OnWikiClicked);
 
         if (confirmPanel != null) confirmPanel.SetActive (false);
 
@@ -79,6 +84,14 @@ public class MainMenu : MonoBehaviour
     private void OnCancelNewGame ()
     {
         if (confirmPanel != null) confirmPanel.SetActive (false);
+    }
+
+    private void OnWikiClicked ()
+    {
+        if (SceneTransition.Instance != null)
+            SceneTransition.Instance.TransitionToScene (wikiSceneIndex);
+        else
+            SceneManager.LoadScene (wikiSceneIndex);
     }
 
     private void StartNewGame ()

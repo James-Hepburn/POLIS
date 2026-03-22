@@ -41,6 +41,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EndOfDay.unity
     guid: 392f1b6348ec64aa68315300f283d671
+  - enabled: 1
+    path: Assets/Scenes/Wiki.unity
+    guid: fd24aa9ec64194ec7aa0fc5924146fd6
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
