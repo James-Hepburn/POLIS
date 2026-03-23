@@ -30,6 +30,7 @@ public class InteractionPromptManager : MonoBehaviour
     private void OnSceneLoaded (Scene scene, LoadSceneMode mode)
     {
         RefreshPlayer ();
+        _registered.Clear (); // NPCs re-register themselves after scene load
     }
 
     private void Update ()

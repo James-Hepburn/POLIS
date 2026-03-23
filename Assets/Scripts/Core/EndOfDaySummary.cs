@@ -47,7 +47,7 @@ public class EndOfDaySummary : MonoBehaviour
 
             string season = TimeManager.Instance.GetCurrentSeason ().ToString ();
             if (!string.IsNullOrEmpty (GameState.Instance.lastCompletedDayFestival))
-                seasonText.text = $"{season} — ★ {GameState.Instance.lastCompletedDayFestival}";
+                seasonText.text = $"{season} — {GameState.Instance.lastCompletedDayFestival}";
             else
                 seasonText.text = season;
         }

@@ -82,6 +82,8 @@ public class NPC : MonoBehaviour, IInteractable
     private void OnDisable ()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        ShowPrompt (false);
+        if (romancePromptUI != null) romancePromptUI.SetActive (false);
     }
 
     private void OnDestroy ()
