@@ -315,10 +315,10 @@ Decay: Each day, favour with all gods decreases slightly. Stay active at the alt
 
 Tiers:
   +50 and above — Strong blessing, intervention possible
-  +20 to +49    — Mild blessing on relevant work
-  -1 to +19     — Neutral, no effect
+  +20 to +49 — Mild blessing on relevant work
+  -1 to +19 — Neutral, no effect
   -20 and below — Displeasure, penalties apply";
-      SetContentHeight (2000);
+      SetContentHeight (1950);
     }
 
     // ══════════════════════════════════════════════════════════════════════
@@ -410,7 +410,7 @@ A festival of Demeter and Dionysus celebrating the first pressing of wine.
 A joyful, earthy celebration. Citizens mingle freely and spirits are high.
 
 Effect: All NPC relationship gains are increased for the day.";
-      SetContentHeight (2000);
+      SetContentHeight (1700);
     }
 
     // ══════════════════════════════════════════════════════════════════════
@@ -529,7 +529,7 @@ XP thresholds are the same for all professions:
   Level 3 unlocked at 250 XP
 
 Divine favour affects your earnings. High favour with your patron god increases drachma and XP. Low favour reduces them. Choose a patron god that matches your profession for best results.";
-      SetContentHeight (2000);
+      SetContentHeight (1900);
     }
 
     // ══════════════════════════════════════════════════════════════════════
@@ -598,6 +598,6 @@ When you end your life (press L in your home), your legacy is scored across four
   Divine Favour — Favour standing with all six gods
 
 Your final score determines your epitaph — the words Athens carves in your memory.";
-      SetContentHeight (2000);
+      SetContentHeight (1650);
     }
 }
