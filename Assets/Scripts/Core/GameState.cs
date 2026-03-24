@@ -176,9 +176,34 @@ public class GameState : MonoBehaviour
     public bool goalHonourComplete      = false;
     public bool goalFriendshipComplete  = false;
 
+    // ── NPC Story Beats ────────────────────────────────────────────────────
+    // Beat indices: Nikias 0-2, Lydia 3-5, Chloe 6-8, Argos 9-11, Eudoros 12-14, Phaedra 15-17
+    [Header ("Story Beats")]
+    public bool[] storyBeatFired  = new bool[18];
+    public int[]  storyBeatChoice = new int[18];
+
+    // Outcome flags referenced across beats
+    public bool nikiasToldAboutDebt    = false;
+    public bool nikiasBetrayedByPlayer = false;
+    public bool lydiaAmbitionSupported = false;
+    public bool chloeFeltSeen          = false;
+    public bool argosRespected         = false;
+    public bool eudorosSharedPain      = false;
+    public bool phaedraFaithRestored   = false;
+
+    public bool HasStoryBeatFired (int beatIndex) =>
+        beatIndex >= 0 && beatIndex < storyBeatFired.Length && storyBeatFired[beatIndex];
+
+    public void FireStoryBeat (int beatIndex, int choice)
+    {
+        if (beatIndex < 0 || beatIndex >= storyBeatFired.Length) return;
+        storyBeatFired[beatIndex]  = true;
+        storyBeatChoice[beatIndex] = choice;
+    }
+
     // ── Collectibles ───────────────────────────────────────────────────────
     [Header ("Collectibles")]
-    public bool[] collectiblesFound = new bool[CollectibleManager.TotalCollectibles];
+    public bool[] collectiblesFound = new bool[20];
 
     // How many goals have been completed
     public int GoalsCompleted =>
@@ -246,7 +271,16 @@ public class GameState : MonoBehaviour
 
         prayedToPatronToday = false;
         pendingEndOfDayEvents.Clear ();
-        collectiblesFound = new bool[CollectibleManager.TotalCollectibles];
+        collectiblesFound      = new bool[20];
+        storyBeatFired         = new bool[18];
+        storyBeatChoice        = new int[18];
+        nikiasToldAboutDebt    = false;
+        nikiasBetrayedByPlayer = false;
+        lydiaAmbitionSupported = false;
+        chloeFeltSeen          = false;
+        argosRespected         = false;
+        eudorosSharedPain      = false;
+        phaedraFaithRestored   = false;
 
         isNewGame   = false;
         gameStarted = true;
@@ -623,9 +657,6 @@ public class GameState : MonoBehaviour
         public bool goalHonourComplete;
         public bool goalFriendshipComplete;
 
-        // Collectibles
-        public bool[] collectiblesFound;
-
         // Relationships
         public int relationshipNikias;
         public int relationshipDemetrios;
@@ -639,6 +670,20 @@ public class GameState : MonoBehaviour
         public int relationshipPhaedra;
         public int relationshipStephanos;
         public int relationshipXanthos;
+
+        // Collectibles
+        public bool[] collectiblesFound;
+
+        // Story beats
+        public bool[] storyBeatFired;
+        public int[]  storyBeatChoice;
+        public bool   nikiasToldAboutDebt;
+        public bool   nikiasBetrayedByPlayer;
+        public bool   lydiaAmbitionSupported;
+        public bool   chloeFeltSeen;
+        public bool   argosRespected;
+        public bool   eudorosSharedPain;
+        public bool   phaedraFaithRestored;
     }
 
     public void Save ()
@@ -698,6 +743,15 @@ public class GameState : MonoBehaviour
             interventionHephaestus = interventionHephaestus,
             interventionAthena     = interventionAthena,
             collectiblesFound      = collectiblesFound,
+            storyBeatFired         = storyBeatFired,
+            storyBeatChoice        = storyBeatChoice,
+            nikiasToldAboutDebt    = nikiasToldAboutDebt,
+            nikiasBetrayedByPlayer = nikiasBetrayedByPlayer,
+            lydiaAmbitionSupported = lydiaAmbitionSupported,
+            chloeFeltSeen          = chloeFeltSeen,
+            argosRespected         = argosRespected,
+            eudorosSharedPain      = eudorosSharedPain,
+            phaedraFaithRestored   = phaedraFaithRestored,
         };
 
         string json = JsonUtility.ToJson (data, prettyPrint: true);
@@ -765,12 +819,31 @@ public class GameState : MonoBehaviour
         interventionHephaestus = data.interventionHephaestus;
         interventionAthena     = data.interventionAthena;
 
-        // Restore collectibles — guard against missing data in older saves
+        // Restore collectibles
         if (data.collectiblesFound != null
-            && data.collectiblesFound.Length == CollectibleManager.TotalCollectibles)
+            && data.collectiblesFound.Length == 20)
             collectiblesFound = data.collectiblesFound;
         else
-            collectiblesFound = new bool[CollectibleManager.TotalCollectibles];
+            collectiblesFound = new bool[20];
+
+        // Restore story beats
+        if (data.storyBeatFired != null && data.storyBeatFired.Length == 18)
+            storyBeatFired = data.storyBeatFired;
+        else
+            storyBeatFired = new bool[18];
+
+        if (data.storyBeatChoice != null && data.storyBeatChoice.Length == 18)
+            storyBeatChoice = data.storyBeatChoice;
+        else
+            storyBeatChoice = new int[18];
+
+        nikiasToldAboutDebt    = data.nikiasToldAboutDebt;
+        nikiasBetrayedByPlayer = data.nikiasBetrayedByPlayer;
+        lydiaAmbitionSupported = data.lydiaAmbitionSupported;
+        chloeFeltSeen          = data.chloeFeltSeen;
+        argosRespected         = data.argosRespected;
+        eudorosSharedPain      = data.eudorosSharedPain;
+        phaedraFaithRestored   = data.phaedraFaithRestored;
 
         // Restore time state
         if (TimeManager.Instance != null)

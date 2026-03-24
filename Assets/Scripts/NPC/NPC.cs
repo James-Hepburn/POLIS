@@ -51,6 +51,7 @@ public class NPC : MonoBehaviour, IInteractable
     public bool IsEligible =>
         playerInRange
         && !IsDialogueOpen
+        && !(StoryDialogueUI.Instance != null && StoryDialogueUI.Instance.IsOpen)
         && (Time.time - lastTalkTime) >= conversationCooldownSeconds
         && !talkedToday;
 
@@ -153,6 +154,43 @@ public class NPC : MonoBehaviour, IInteractable
 
         AudioManager.Instance?.PlayTalkingToNPC ();
 
+        // Check for pending story beat first
+        if (NPCStoryManager.Instance != null && GameState.Instance != null)
+        {
+            int rel      = GameState.Instance.GetRelationship (npcName);
+            int beatIndex = NPCStoryManager.Instance.GetPendingBeat (npcName, rel);
+
+            if (beatIndex >= 0)
+            {
+                NPCStoryManager.StoryBeat beat = NPCStoryManager.Instance.GetBeat (beatIndex);
+                GameState.Instance.FireStoryBeat (beatIndex, 0); // mark as fired
+
+                if (StoryDialogueUI.Instance != null)
+                {
+                    int capturedIndex = beatIndex;
+                    StoryDialogueUI.Instance.Open (
+                        npcName,
+                        beat.dialogue,
+                        beat.choiceA,
+                        beat.choiceB,
+                        () => { GameState.Instance.FireStoryBeat (capturedIndex, 1); beat.onChoiceA?.Invoke (); },
+                        () => { GameState.Instance.FireStoryBeat (capturedIndex, 2); beat.onChoiceB?.Invoke (); }
+                    );
+                }
+
+                if (promptUI != null) promptUI.SetActive (false);
+                if (TimeManager.Instance != null)
+                    TimeManager.Instance.AdvanceTimeByMinutes (timeCostMinutes);
+                if (GameState.Instance != null)
+                {
+                    GameState.Instance.ChangeRelationship (npcName, relationshipGain);
+                    GameState.Instance.AddHonour (1);
+                }
+                return;
+            }
+        }
+
+        // Normal dialogue
         if (NPCDialogueUI.Instance != null)
             NPCDialogueUI.Instance.Open (this, GetDialogueLine ());
 
