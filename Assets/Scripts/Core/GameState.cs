@@ -176,6 +176,10 @@ public class GameState : MonoBehaviour
     public bool goalHonourComplete      = false;
     public bool goalFriendshipComplete  = false;
 
+    // ── Collectibles ───────────────────────────────────────────────────────
+    [Header ("Collectibles")]
+    public bool[] collectiblesFound = new bool[CollectibleManager.TotalCollectibles];
+
     // How many goals have been completed
     public int GoalsCompleted =>
         (goalCareerComplete     ? 1 : 0) +
@@ -242,6 +246,7 @@ public class GameState : MonoBehaviour
 
         prayedToPatronToday = false;
         pendingEndOfDayEvents.Clear ();
+        collectiblesFound = new bool[CollectibleManager.TotalCollectibles];
 
         isNewGame   = false;
         gameStarted = true;
@@ -618,6 +623,9 @@ public class GameState : MonoBehaviour
         public bool goalHonourComplete;
         public bool goalFriendshipComplete;
 
+        // Collectibles
+        public bool[] collectiblesFound;
+
         // Relationships
         public int relationshipNikias;
         public int relationshipDemetrios;
@@ -689,6 +697,7 @@ public class GameState : MonoBehaviour
             interventionApollo     = interventionApollo,
             interventionHephaestus = interventionHephaestus,
             interventionAthena     = interventionAthena,
+            collectiblesFound      = collectiblesFound,
         };
 
         string json = JsonUtility.ToJson (data, prettyPrint: true);
@@ -755,6 +764,13 @@ public class GameState : MonoBehaviour
         interventionApollo     = data.interventionApollo;
         interventionHephaestus = data.interventionHephaestus;
         interventionAthena     = data.interventionAthena;
+
+        // Restore collectibles — guard against missing data in older saves
+        if (data.collectiblesFound != null
+            && data.collectiblesFound.Length == CollectibleManager.TotalCollectibles)
+            collectiblesFound = data.collectiblesFound;
+        else
+            collectiblesFound = new bool[CollectibleManager.TotalCollectibles];
 
         // Restore time state
         if (TimeManager.Instance != null)
