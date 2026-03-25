@@ -154,6 +154,21 @@ public class NPC : MonoBehaviour, IInteractable
 
         AudioManager.Instance?.PlayTalkingToNPC ();
 
+        // Check for friendship event at 100
+        if (FriendshipEventManager.Instance != null && GameState.Instance != null)
+        {
+            int rel = GameState.Instance.GetRelationship (npcName);
+            if (FriendshipEventManager.Instance.ShouldFire (npcName, rel))
+            {
+                FriendshipEventManager.Instance.Fire (npcName, this);
+                if (TimeManager.Instance != null)
+                    TimeManager.Instance.AdvanceTimeByMinutes (timeCostMinutes);
+                if (GameState.Instance != null)
+                    GameState.Instance.ChangeRelationship (npcName, 0);
+                return;
+            }
+        }
+
         // Check for pending story beat first
         if (NPCStoryManager.Instance != null && GameState.Instance != null)
         {

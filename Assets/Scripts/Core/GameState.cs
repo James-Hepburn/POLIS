@@ -267,6 +267,60 @@ public class GameState : MonoBehaviour
     public bool eudorosSharedPain      = false;
     public bool phaedraFaithRestored   = false;
 
+    // ── Friendship Events ─────────────────────────────────────────────────
+    [Header ("Friendship Events")]
+    public bool friendshipNikias    = false;
+    public bool friendshipLydia     = false;
+    public bool friendshipChloe     = false;
+    public bool friendshipArgos     = false;
+    public bool friendshipEudoros   = false;
+    public bool friendshipPhaedra   = false;
+    public bool friendshipDemetrios = false;
+    public bool friendshipTheron    = false;
+    public bool friendshipKallias   = false;
+    public bool friendshipMiriam    = false;
+    public bool friendshipStephanos = false;
+    public bool friendshipXanthos   = false;
+
+    public bool HasFriendshipEventFired (string npcName)
+    {
+        switch (npcName)
+        {
+            case "Nikias":    return friendshipNikias;
+            case "Lydia":     return friendshipLydia;
+            case "Chloe":     return friendshipChloe;
+            case "Argos":     return friendshipArgos;
+            case "Eudoros":   return friendshipEudoros;
+            case "Phaedra":   return friendshipPhaedra;
+            case "Demetrios": return friendshipDemetrios;
+            case "Theron":    return friendshipTheron;
+            case "Kallias":   return friendshipKallias;
+            case "Miriam":    return friendshipMiriam;
+            case "Stephanos": return friendshipStephanos;
+            case "Xanthos":   return friendshipXanthos;
+            default:          return true;
+        }
+    }
+
+    public void SetFriendshipEventFired (string npcName)
+    {
+        switch (npcName)
+        {
+            case "Nikias":    friendshipNikias    = true; break;
+            case "Lydia":     friendshipLydia     = true; break;
+            case "Chloe":     friendshipChloe     = true; break;
+            case "Argos":     friendshipArgos     = true; break;
+            case "Eudoros":   friendshipEudoros   = true; break;
+            case "Phaedra":   friendshipPhaedra   = true; break;
+            case "Demetrios": friendshipDemetrios = true; break;
+            case "Theron":    friendshipTheron    = true; break;
+            case "Kallias":   friendshipKallias   = true; break;
+            case "Miriam":    friendshipMiriam    = true; break;
+            case "Stephanos": friendshipStephanos = true; break;
+            case "Xanthos":   friendshipXanthos   = true; break;
+        }
+    }
+
     public bool HasStoryBeatFired (int beatIndex) =>
         beatIndex >= 0 && beatIndex < storyBeatFired.Length && storyBeatFired[beatIndex];
 
@@ -340,6 +394,9 @@ public class GameState : MonoBehaviour
         hasActiveQuest         = false;
         activeQuestComplete    = false;
         activeQuestProgress    = 0;
+        friendshipNikias = friendshipLydia = friendshipChloe = friendshipArgos =
+        friendshipEudoros = friendshipPhaedra = friendshipDemetrios = friendshipTheron =
+        friendshipKallias = friendshipMiriam = friendshipStephanos = friendshipXanthos = false;
 
         isNewGame   = false;
         gameStarted = true;
@@ -739,6 +796,20 @@ public class GameState : MonoBehaviour
         public bool trialHephaestus;
         public bool trialAthena;
 
+        // Friendship events
+        public bool friendshipNikias;
+        public bool friendshipLydia;
+        public bool friendshipChloe;
+        public bool friendshipArgos;
+        public bool friendshipEudoros;
+        public bool friendshipPhaedra;
+        public bool friendshipDemetrios;
+        public bool friendshipTheron;
+        public bool friendshipKallias;
+        public bool friendshipMiriam;
+        public bool friendshipStephanos;
+        public bool friendshipXanthos;
+
         // Collectibles
         public bool[] collectiblesFound;
 
@@ -850,6 +921,18 @@ public class GameState : MonoBehaviour
             activeQuestDescription = activeQuestDescription,
             activeQuestReward      = activeQuestReward,
             activeQuestStartDay    = activeQuestStartDay,
+            friendshipNikias    = friendshipNikias,
+            friendshipLydia     = friendshipLydia,
+            friendshipChloe     = friendshipChloe,
+            friendshipArgos     = friendshipArgos,
+            friendshipEudoros   = friendshipEudoros,
+            friendshipPhaedra   = friendshipPhaedra,
+            friendshipDemetrios = friendshipDemetrios,
+            friendshipTheron    = friendshipTheron,
+            friendshipKallias   = friendshipKallias,
+            friendshipMiriam    = friendshipMiriam,
+            friendshipStephanos = friendshipStephanos,
+            friendshipXanthos   = friendshipXanthos,
         };
 
         string json = JsonUtility.ToJson (data, prettyPrint: true);
@@ -922,6 +1005,18 @@ public class GameState : MonoBehaviour
         trialApollo            = data.trialApollo;
         trialHephaestus        = data.trialHephaestus;
         trialAthena            = data.trialAthena;
+        friendshipNikias    = data.friendshipNikias;
+        friendshipLydia     = data.friendshipLydia;
+        friendshipChloe     = data.friendshipChloe;
+        friendshipArgos     = data.friendshipArgos;
+        friendshipEudoros   = data.friendshipEudoros;
+        friendshipPhaedra   = data.friendshipPhaedra;
+        friendshipDemetrios = data.friendshipDemetrios;
+        friendshipTheron    = data.friendshipTheron;
+        friendshipKallias   = data.friendshipKallias;
+        friendshipMiriam    = data.friendshipMiriam;
+        friendshipStephanos = data.friendshipStephanos;
+        friendshipXanthos   = data.friendshipXanthos;
 
         // Restore collectibles
         if (data.collectiblesFound != null && data.collectiblesFound.Length == 20)
