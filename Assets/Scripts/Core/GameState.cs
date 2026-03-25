@@ -168,6 +168,43 @@ public class GameState : MonoBehaviour
         }
         return null;
     }
+
+    // ── God Trials ─────────────────────────────────────────────────────────
+    [Header ("God Trials")]
+    public bool trialHermes     = false;
+    public bool trialAres       = false;
+    public bool trialAphrodite  = false;
+    public bool trialApollo     = false;
+    public bool trialHephaestus = false;
+    public bool trialAthena     = false;
+
+    public bool HasTrialFired (PatronGod god)
+    {
+        switch (god)
+        {
+            case PatronGod.Hermes:     return trialHermes;
+            case PatronGod.Ares:       return trialAres;
+            case PatronGod.Aphrodite:  return trialAphrodite;
+            case PatronGod.Apollo:     return trialApollo;
+            case PatronGod.Hephaestus: return trialHephaestus;
+            case PatronGod.Athena:     return trialAthena;
+            default:                   return false;
+        }
+    }
+
+    public void SetTrialFired (PatronGod god)
+    {
+        switch (god)
+        {
+            case PatronGod.Hermes:     trialHermes     = true; break;
+            case PatronGod.Ares:       trialAres       = true; break;
+            case PatronGod.Aphrodite:  trialAphrodite  = true; break;
+            case PatronGod.Apollo:     trialApollo     = true; break;
+            case PatronGod.Hephaestus: trialHephaestus = true; break;
+            case PatronGod.Athena:     trialAthena     = true; break;
+        }
+    }
+
     [Header ("Life Goals")]
     public bool goalCareerComplete      = false;
     public bool goalMarriageComplete    = false;
@@ -284,6 +321,12 @@ public class GameState : MonoBehaviour
 
         prayedToPatronToday    = false;
         pendingEndOfDayEvents.Clear ();
+        trialHermes     = false;
+        trialAres       = false;
+        trialAphrodite  = false;
+        trialApollo     = false;
+        trialHephaestus = false;
+        trialAthena     = false;
         collectiblesFound      = new bool[20];
         storyBeatFired         = new bool[18];
         storyBeatChoice        = new int[18];
@@ -369,6 +412,7 @@ public class GameState : MonoBehaviour
         }
         if (amount > 0)
             AudioManager.Instance?.PlayDivineFavourIncrease ();
+        GodTrialManager.Instance?.CheckForTrial (god, GetFavour (god));
     }
 
     public int GetFavour (PatronGod god)
@@ -687,6 +731,14 @@ public class GameState : MonoBehaviour
         public int relationshipStephanos;
         public int relationshipXanthos;
 
+        // God trials
+        public bool trialHermes;
+        public bool trialAres;
+        public bool trialAphrodite;
+        public bool trialApollo;
+        public bool trialHephaestus;
+        public bool trialAthena;
+
         // Collectibles
         public bool[] collectiblesFound;
 
@@ -771,6 +823,12 @@ public class GameState : MonoBehaviour
             interventionApollo     = interventionApollo,
             interventionHephaestus = interventionHephaestus,
             interventionAthena     = interventionAthena,
+            trialHermes            = trialHermes,
+            trialAres              = trialAres,
+            trialAphrodite         = trialAphrodite,
+            trialApollo            = trialApollo,
+            trialHephaestus        = trialHephaestus,
+            trialAthena            = trialAthena,
             collectiblesFound      = collectiblesFound,
             storyBeatFired         = storyBeatFired,
             storyBeatChoice        = storyBeatChoice,
@@ -858,6 +916,12 @@ public class GameState : MonoBehaviour
         interventionApollo     = data.interventionApollo;
         interventionHephaestus = data.interventionHephaestus;
         interventionAthena     = data.interventionAthena;
+        trialHermes            = data.trialHermes;
+        trialAres              = data.trialAres;
+        trialAphrodite         = data.trialAphrodite;
+        trialApollo            = data.trialApollo;
+        trialHephaestus        = data.trialHephaestus;
+        trialAthena            = data.trialAthena;
 
         // Restore collectibles
         if (data.collectiblesFound != null && data.collectiblesFound.Length == 20)
