@@ -130,6 +130,10 @@ public class TimeManager : MonoBehaviour
         // Process daily gossip from Stephanos
         GossipManager.ProcessDailyGossip ();
 
+        // Process quest end of day
+        if (QuestManager.Instance != null)
+            QuestManager.Instance.ProcessEndOfDay ();
+
         // Marriage daily wealth bonus
         if (GameState.Instance.romanceStage == GameState.RomanceStage.Married)
         {

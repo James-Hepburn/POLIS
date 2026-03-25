@@ -139,6 +139,7 @@ public class WorkStation : MonoBehaviour, IInteractable
         GameState.Instance.AddCareerXP (modifiedXP);
         GameState.Instance.AddHonour (1 + GameState.Instance.GetCareerHonourBonus ());
         worksToday++;
+        QuestManager.Instance?.OnPlayerWorked (modifiedDrachma);
 
         AudioManager.Instance?.PlayWorking ();
         AudioManager.Instance?.PlayDrachmaGained ();

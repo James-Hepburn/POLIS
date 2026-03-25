@@ -176,35 +176,6 @@ public class GameState : MonoBehaviour
     public bool goalHonourComplete      = false;
     public bool goalFriendshipComplete  = false;
 
-    // ── NPC Story Beats ────────────────────────────────────────────────────
-    // Beat indices: Nikias 0-2, Lydia 3-5, Chloe 6-8, Argos 9-11, Eudoros 12-14, Phaedra 15-17
-    [Header ("Story Beats")]
-    public bool[] storyBeatFired  = new bool[18];
-    public int[]  storyBeatChoice = new int[18];
-
-    // Outcome flags referenced across beats
-    public bool nikiasToldAboutDebt    = false;
-    public bool nikiasBetrayedByPlayer = false;
-    public bool lydiaAmbitionSupported = false;
-    public bool chloeFeltSeen          = false;
-    public bool argosRespected         = false;
-    public bool eudorosSharedPain      = false;
-    public bool phaedraFaithRestored   = false;
-
-    public bool HasStoryBeatFired (int beatIndex) =>
-        beatIndex >= 0 && beatIndex < storyBeatFired.Length && storyBeatFired[beatIndex];
-
-    public void FireStoryBeat (int beatIndex, int choice)
-    {
-        if (beatIndex < 0 || beatIndex >= storyBeatFired.Length) return;
-        storyBeatFired[beatIndex]  = true;
-        storyBeatChoice[beatIndex] = choice;
-    }
-
-    // ── Collectibles ───────────────────────────────────────────────────────
-    [Header ("Collectibles")]
-    public bool[] collectiblesFound = new bool[20];
-
     // How many goals have been completed
     public int GoalsCompleted =>
         (goalCareerComplete     ? 1 : 0) +
@@ -226,6 +197,48 @@ public class GameState : MonoBehaviour
     public int relationshipPhaedra     = 0;
     public int relationshipStephanos   = 0;
     public int relationshipXanthos     = 0;
+
+    // ── Active Quest ───────────────────────────────────────────────────────
+    [Header ("Active Quest")]
+    public bool   hasActiveQuest          = false;
+    public int    activeQuestType         = 0;
+    public string activeQuestGiver        = "";
+    public string activeQuestTarget       = "";
+    public int    activeQuestTargetAmount = 0;
+    public int    activeQuestDeadlineDays = 0;
+    public int    activeQuestProgress     = 0;
+    public bool   activeQuestComplete     = false;
+    public string activeQuestDescription  = "";
+    public string activeQuestReward       = "";
+    public int    activeQuestStartDay     = 0;
+
+    // ── Collectibles ───────────────────────────────────────────────────────
+    [Header ("Collectibles")]
+    public bool[] collectiblesFound = new bool[20];
+
+    // ── NPC Story Beats ────────────────────────────────────────────────────
+    [Header ("Story Beats")]
+    public bool[] storyBeatFired  = new bool[18];
+    public int[]  storyBeatChoice = new int[18];
+
+    // Outcome flags
+    public bool nikiasToldAboutDebt    = false;
+    public bool nikiasBetrayedByPlayer = false;
+    public bool lydiaAmbitionSupported = false;
+    public bool chloeFeltSeen          = false;
+    public bool argosRespected         = false;
+    public bool eudorosSharedPain      = false;
+    public bool phaedraFaithRestored   = false;
+
+    public bool HasStoryBeatFired (int beatIndex) =>
+        beatIndex >= 0 && beatIndex < storyBeatFired.Length && storyBeatFired[beatIndex];
+
+    public void FireStoryBeat (int beatIndex, int choice)
+    {
+        if (beatIndex < 0 || beatIndex >= storyBeatFired.Length) return;
+        storyBeatFired[beatIndex]  = true;
+        storyBeatChoice[beatIndex] = choice;
+    }
 
     // ══════════════════════════════════════════════════════════════════════
     private void Awake ()
@@ -269,7 +282,7 @@ public class GameState : MonoBehaviour
         ResetDivineFavour ();
         SetPatronFavour (god, 20);
 
-        prayedToPatronToday = false;
+        prayedToPatronToday    = false;
         pendingEndOfDayEvents.Clear ();
         collectiblesFound      = new bool[20];
         storyBeatFired         = new bool[18];
@@ -281,6 +294,9 @@ public class GameState : MonoBehaviour
         argosRespected         = false;
         eudorosSharedPain      = false;
         phaedraFaithRestored   = false;
+        hasActiveQuest         = false;
+        activeQuestComplete    = false;
+        activeQuestProgress    = 0;
 
         isNewGame   = false;
         gameStarted = true;
@@ -684,6 +700,19 @@ public class GameState : MonoBehaviour
         public bool   argosRespected;
         public bool   eudorosSharedPain;
         public bool   phaedraFaithRestored;
+
+        // Active quest
+        public bool   hasActiveQuest;
+        public int    activeQuestType;
+        public string activeQuestGiver;
+        public string activeQuestTarget;
+        public int    activeQuestTargetAmount;
+        public int    activeQuestDeadlineDays;
+        public int    activeQuestProgress;
+        public bool   activeQuestComplete;
+        public string activeQuestDescription;
+        public string activeQuestReward;
+        public int    activeQuestStartDay;
     }
 
     public void Save ()
@@ -752,6 +781,17 @@ public class GameState : MonoBehaviour
             argosRespected         = argosRespected,
             eudorosSharedPain      = eudorosSharedPain,
             phaedraFaithRestored   = phaedraFaithRestored,
+            hasActiveQuest         = hasActiveQuest,
+            activeQuestType        = activeQuestType,
+            activeQuestGiver       = activeQuestGiver,
+            activeQuestTarget      = activeQuestTarget,
+            activeQuestTargetAmount = activeQuestTargetAmount,
+            activeQuestDeadlineDays = activeQuestDeadlineDays,
+            activeQuestProgress    = activeQuestProgress,
+            activeQuestComplete    = activeQuestComplete,
+            activeQuestDescription = activeQuestDescription,
+            activeQuestReward      = activeQuestReward,
+            activeQuestStartDay    = activeQuestStartDay,
         };
 
         string json = JsonUtility.ToJson (data, prettyPrint: true);
@@ -820,8 +860,7 @@ public class GameState : MonoBehaviour
         interventionAthena     = data.interventionAthena;
 
         // Restore collectibles
-        if (data.collectiblesFound != null
-            && data.collectiblesFound.Length == 20)
+        if (data.collectiblesFound != null && data.collectiblesFound.Length == 20)
             collectiblesFound = data.collectiblesFound;
         else
             collectiblesFound = new bool[20];
@@ -844,6 +883,19 @@ public class GameState : MonoBehaviour
         argosRespected         = data.argosRespected;
         eudorosSharedPain      = data.eudorosSharedPain;
         phaedraFaithRestored   = data.phaedraFaithRestored;
+
+        // Restore active quest
+        hasActiveQuest          = data.hasActiveQuest;
+        activeQuestType         = data.activeQuestType;
+        activeQuestGiver        = data.activeQuestGiver        ?? "";
+        activeQuestTarget       = data.activeQuestTarget       ?? "";
+        activeQuestTargetAmount = data.activeQuestTargetAmount;
+        activeQuestDeadlineDays = data.activeQuestDeadlineDays;
+        activeQuestProgress     = data.activeQuestProgress;
+        activeQuestComplete     = data.activeQuestComplete;
+        activeQuestDescription  = data.activeQuestDescription  ?? "";
+        activeQuestReward       = data.activeQuestReward       ?? "";
+        activeQuestStartDay     = data.activeQuestStartDay;
 
         // Restore time state
         if (TimeManager.Instance != null)

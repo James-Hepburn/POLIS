@@ -107,6 +107,7 @@ public class AltarUI : MonoBehaviour
         int gain = doubleFavour ? prayFavourGain * 2 : prayFavourGain;
 
         GameState.Instance.ChangeFavour (selectedGod, gain);
+        QuestManager.Instance?.OnPlayerPrayed (selectedGod.ToString ());
 
         if (selectedGod == GameState.Instance.patronGod)
             GameState.Instance.prayedToPatronToday = true;
@@ -137,6 +138,7 @@ public class AltarUI : MonoBehaviour
         int gain = doubleFavour ? offerFavourGain * 2 : offerFavourGain;
 
         GameState.Instance.ChangeFavour (selectedGod, gain);
+        QuestManager.Instance?.OnPlayerMadeOffering (selectedGod.ToString ());
 
         if (selectedGod == GameState.Instance.patronGod)
             GameState.Instance.prayedToPatronToday = true;

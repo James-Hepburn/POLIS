@@ -184,6 +184,7 @@ public class NPC : MonoBehaviour, IInteractable
                 if (GameState.Instance != null)
                 {
                     GameState.Instance.ChangeRelationship (npcName, relationshipGain);
+                    QuestManager.Instance?.OnPlayerTalkedToNPC (npcName);
                     GameState.Instance.AddHonour (1);
                 }
                 return;
