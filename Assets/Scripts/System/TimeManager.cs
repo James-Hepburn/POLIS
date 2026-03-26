@@ -192,6 +192,37 @@ public class TimeManager : MonoBehaviour
         }
     }
 
+    private void CheckLoanDeadline ()
+    {
+        if (GameState.Instance == null) return;
+        if (!GameState.Instance.hasActiveLoan) return;
+        if (currentDay < GameState.Instance.loanDeadlineDay) return;
+
+        // Deadline reached and not repaid
+        if (!GameState.Instance.loanExtended)
+        {
+            // First miss — give one extension
+            GameState.Instance.loanExtended    = true;
+            GameState.Instance.loanDeadlineDay = currentDay + 3;
+            GameState.Instance.ChangeRelationship ("Kallias", -20);
+            GameState.Instance.AddHonour (-5);
+            GameState.Instance.pendingEndOfDayEvents.Add (
+            "You have missed your repayment deadline. Kallias is furious. (-20 Kallias relationship, -5 honour) You have 3 more days.");
+        }
+        else
+        {
+            // Second miss — default
+            GameState.Instance.hasActiveLoan   = false;
+            GameState.Instance.loanDefaulted   = true;
+            GameState.Instance.loanAmount      = 0f;
+            GameState.Instance.loanRepayAmount = 0f;
+            GameState.Instance.ChangeRelationship ("Kallias", -30);
+            GameState.Instance.AddHonour (-10);
+            GameState.Instance.pendingEndOfDayEvents.Add (
+            "You have defaulted on your loan. Kallias will never lend to you again. (-30 Kallias relationship, -10 honour)");
+        }
+    }
+
     [Header ("Scene Indices")]
     public int endOfDaySceneIndex = 11;
 

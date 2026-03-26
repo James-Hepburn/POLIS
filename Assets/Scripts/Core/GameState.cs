@@ -254,6 +254,15 @@ public class GameState : MonoBehaviour
     public bool hasShop         = false;
     public int  shopPurchaseDay = 0;
 
+    // ── Loan ──────────────────────────────────────────────────────────────
+    [Header ("Loan")]
+    public bool  hasActiveLoan   = false;
+    public float loanAmount      = 0f;
+    public float loanRepayAmount = 0f;
+    public int   loanDeadlineDay = 0;
+    public bool  loanExtended    = false;
+    public bool  loanDefaulted   = false;
+
     // ── Collectibles ───────────────────────────────────────────────────────
     [Header ("Collectibles")]
     public bool[] collectiblesFound = new bool[20];
@@ -404,6 +413,12 @@ public class GameState : MonoBehaviour
         friendshipKallias = friendshipMiriam = friendshipStephanos = friendshipXanthos = false;
         hasShop         = false;
         shopPurchaseDay = 0;
+        hasActiveLoan   = false;
+        loanAmount      = 0f;
+        loanRepayAmount = 0f;
+        loanDeadlineDay = 0;
+        loanExtended    = false;
+        loanDefaulted   = false;
 
         isNewGame   = false;
         gameStarted = true;
@@ -821,6 +836,14 @@ public class GameState : MonoBehaviour
         public bool hasShop;
         public int  shopPurchaseDay;
 
+        // Loans
+        public bool  hasActiveLoan;
+        public float loanAmount;
+        public float loanRepayAmount;
+        public int   loanDeadlineDay;
+        public bool  loanExtended;
+        public bool  loanDefaulted;
+
         // Collectibles
         public bool[] collectiblesFound;
 
@@ -946,6 +969,12 @@ public class GameState : MonoBehaviour
             friendshipXanthos   = friendshipXanthos,
             hasShop         = hasShop,
             shopPurchaseDay = shopPurchaseDay,
+            hasActiveLoan   = hasActiveLoan,
+            loanAmount      = loanAmount,
+            loanRepayAmount = loanRepayAmount,
+            loanDeadlineDay = loanDeadlineDay,
+            loanExtended    = loanExtended,
+            loanDefaulted   = loanDefaulted,
         };
 
         string json = JsonUtility.ToJson (data, prettyPrint: true);
@@ -1032,6 +1061,12 @@ public class GameState : MonoBehaviour
         friendshipXanthos   = data.friendshipXanthos;
         hasShop         = data.hasShop;
         shopPurchaseDay = data.shopPurchaseDay;
+        hasActiveLoan   = data.hasActiveLoan;
+        loanAmount      = data.loanAmount;
+        loanRepayAmount = data.loanRepayAmount;
+        loanDeadlineDay = data.loanDeadlineDay;
+        loanExtended    = data.loanExtended;
+        loanDefaulted   = data.loanDefaulted;
 
         // Restore collectibles
         if (data.collectiblesFound != null && data.collectiblesFound.Length == 20)

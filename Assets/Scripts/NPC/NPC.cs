@@ -15,7 +15,7 @@ public class NPC : MonoBehaviour, IInteractable
     [TextArea] public string dialogueClose    = "";  // 80+
 
     [Header ("Festival Dialogue")]
-    [TextArea] public string dialogueFestivalGeneric = "";  // any festival, no specific line
+    [TextArea] public string dialogueFestivalGeneric = "";
     [TextArea] public string dialogueCityDionysia    = "";
     [TextArea] public string dialogueThargelia       = "";
     [TextArea] public string dialoguePanathenaia     = "";
@@ -32,14 +32,15 @@ public class NPC : MonoBehaviour, IInteractable
 
     [Header ("Prompt UI")]
     public GameObject promptUI;
-    public GameObject romancePromptUI; // [R] Express Interest / Ask for hand / Marry
+    public GameObject romancePromptUI;
+    public GameObject loanPromptUI; // [L] Banking — assign only on Kallias
 
     // ── Internal ───────────────────────────────────────────────────────────
     private Transform player;
-    private bool      playerInRange    = false;
-    private bool      talkedToday      = false;
-    private int       lastTalkedDay    = -1;
-    private float     lastTalkTime     = -999f;
+    private bool      playerInRange = false;
+    private bool      talkedToday   = false;
+    private int       lastTalkedDay = -1;
+    private float     lastTalkTime  = -999f;
 
     public bool IsDialogueOpen =>
         NPCDialogueUI.Instance != null && NPCDialogueUI.Instance.IsOpen
@@ -69,7 +70,8 @@ public class NPC : MonoBehaviour, IInteractable
     private void Start ()
     {
         FindPlayer ();
-        if (promptUI != null) promptUI.SetActive (false);
+        if (promptUI     != null) promptUI.SetActive (false);
+        if (loanPromptUI != null) loanPromptUI.SetActive (false);
 
         if (InteractionPromptManager.Instance != null)
             InteractionPromptManager.Instance.Register (this);
@@ -85,6 +87,7 @@ public class NPC : MonoBehaviour, IInteractable
         SceneManager.sceneLoaded -= OnSceneLoaded;
         ShowPrompt (false);
         if (romancePromptUI != null) romancePromptUI.SetActive (false);
+        if (loanPromptUI    != null) loanPromptUI.SetActive (false);
     }
 
     private void OnDestroy ()
@@ -97,8 +100,6 @@ public class NPC : MonoBehaviour, IInteractable
     {
         FindPlayer ();
         if (promptUI != null) promptUI.SetActive (false);
-
-        // Re-register — Register () guards against duplicates internally
         if (InteractionPromptManager.Instance != null)
             InteractionPromptManager.Instance.Register (this);
     }
@@ -114,7 +115,6 @@ public class NPC : MonoBehaviour, IInteractable
     {
         if (player == null) { FindPlayer (); return; }
 
-        // Reset daily cap on new day
         if (TimeManager.Instance != null)
         {
             int today = TimeManager.Instance.GetCurrentDay ();
@@ -128,22 +128,40 @@ public class NPC : MonoBehaviour, IInteractable
         float distance = Vector2.Distance (transform.position, player.position);
         playerInRange  = distance <= interactionRadius;
 
-        // Prompt visibility is handled by InteractionPromptManager.
-        // Fallback — self-manage if no manager present (interior scenes)
         if (InteractionPromptManager.Instance == null)
             ShowPrompt (IsEligible);
 
-        // Romance prompt is secondary and always self-managed
+        // Romance prompt
         bool canRomance = playerInRange && !IsDialogueOpen && ShowRomancePrompt ();
         if (romancePromptUI != null)
             romancePromptUI.SetActive (canRomance);
 
+        // Loan prompt — Kallias only
+        bool canLoan = npcName == "Kallias"
+            && playerInRange
+            && !IsDialogueOpen
+            && !(LoanUI.Instance != null && LoanUI.Instance.IsOpen)
+            && !GameState.Instance.loanDefaulted;
+        if (loanPromptUI != null)
+            loanPromptUI.SetActive (canLoan);
+
         if (IsEligible && Keyboard.current.tKey.wasPressedThisFrame)
             OpenDialogue ();
 
-        // Romance interaction on R key
         if (canRomance && Keyboard.current.rKey.wasPressedThisFrame)
             OpenRomanceInteraction ();
+
+        if (canLoan && Keyboard.current.bKey.wasPressedThisFrame)
+            OpenLoan ();
+    }
+
+    // ══════════════════════════════════════════════════════════════════════
+    private void OpenLoan ()
+    {
+        if (LoanUI.Instance == null) return;
+        lastTalkTime = Time.time;
+        if (loanPromptUI != null) loanPromptUI.SetActive (false);
+        LoanUI.Instance.Open ();
     }
 
     // ══════════════════════════════════════════════════════════════════════
@@ -169,16 +187,16 @@ public class NPC : MonoBehaviour, IInteractable
             }
         }
 
-        // Check for pending story beat first
+        // Check for pending story beat
         if (NPCStoryManager.Instance != null && GameState.Instance != null)
         {
-            int rel      = GameState.Instance.GetRelationship (npcName);
+            int rel       = GameState.Instance.GetRelationship (npcName);
             int beatIndex = NPCStoryManager.Instance.GetPendingBeat (npcName, rel);
 
             if (beatIndex >= 0)
             {
                 NPCStoryManager.StoryBeat beat = NPCStoryManager.Instance.GetBeat (beatIndex);
-                GameState.Instance.FireStoryBeat (beatIndex, 0); // mark as fired
+                GameState.Instance.FireStoryBeat (beatIndex, 0);
 
                 if (StoryDialogueUI.Instance != null)
                 {
@@ -218,30 +236,28 @@ public class NPC : MonoBehaviour, IInteractable
         if (GameState.Instance != null)
         {
             GameState.Instance.ChangeRelationship (npcName, relationshipGain);
+            QuestManager.Instance?.OnPlayerTalkedToNPC (npcName);
             GameState.Instance.AddHonour (1);
         }
     }
 
+    // ══════════════════════════════════════════════════════════════════════
     private string GetDialogueLine ()
     {
-        // Festival dialogue takes priority over relationship dialogue
         if (FestivalManager.Instance != null && FestivalManager.Instance.IsFestivalDay)
         {
             string festivalLine = GetFestivalDialogueLine (FestivalManager.Instance.CurrentFestival.type);
             if (!string.IsNullOrEmpty (festivalLine))
                 return festivalLine;
-
-            // Fall back to generic festival line
             if (!string.IsNullOrEmpty (dialogueFestivalGeneric))
                 return dialogueFestivalGeneric;
         }
 
-        // Normal relationship-tier dialogue
         if (GameState.Instance == null) return dialogueNeutral;
         int rel = GameState.Instance.GetRelationship (npcName);
-        if (rel < 0)   return dialogueLow;
-        if (rel < 40)  return dialogueNeutral;
-        if (rel < 80)  return dialogueFriendly;
+        if (rel < 0)  return dialogueLow;
+        if (rel < 40) return dialogueNeutral;
+        if (rel < 80) return dialogueFriendly;
         return dialogueClose;
     }
 
@@ -261,11 +277,11 @@ public class NPC : MonoBehaviour, IInteractable
         }
     }
 
+    // ══════════════════════════════════════════════════════════════════════
     private bool ShowRomancePrompt ()
     {
         if (GameState.Instance == null) return false;
 
-        // Candidate — show if can propose courtship or already courting
         if (npcName == "Lydia" || npcName == "Chloe")
         {
             if (GameState.Instance.CanProposeCourtship (npcName)) return true;
@@ -274,7 +290,6 @@ public class NPC : MonoBehaviour, IInteractable
                 && GameState.Instance.CanMarry (npcName)) return true;
         }
 
-        // Father — show if player is courting his daughter
         if (npcName == "Nikias" || npcName == "Argos")
         {
             string daughter = npcName == "Nikias" ? "Lydia" : "Chloe";
@@ -290,13 +305,11 @@ public class NPC : MonoBehaviour, IInteractable
     {
         if (GameState.Instance == null) return;
 
-        // Set cooldown so prompts hide after interaction
         lastTalkTime = Time.time;
         talkedToday  = true;
         if (romancePromptUI != null) romancePromptUI.SetActive (false);
-        if (promptUI != null)        promptUI.SetActive (false);
+        if (promptUI        != null) promptUI.SetActive (false);
 
-        // Candidate interactions
         if (npcName == "Lydia" || npcName == "Chloe")
         {
             if (GameState.Instance.CanProposeCourtship (npcName))
@@ -314,7 +327,7 @@ public class NPC : MonoBehaviour, IInteractable
                 && GameState.Instance.CanMarry (npcName))
             {
                 GameState.Instance.SpendDrachma (100f);
-                GameState.Instance.romanceStage = GameState.RomanceStage.Married;
+                GameState.Instance.romanceStage         = GameState.RomanceStage.Married;
                 GameState.Instance.goalMarriageComplete = true;
                 GameState.Instance.AddHonour (10);
                 TimeManager.Instance?.AdvanceTimeByMinutes (120f);
@@ -325,7 +338,6 @@ public class NPC : MonoBehaviour, IInteractable
             }
         }
 
-        // Father interactions
         if (npcName == "Nikias" || npcName == "Argos")
         {
             string daughter = npcName == "Nikias" ? "Lydia" : "Chloe";
@@ -341,7 +353,6 @@ public class NPC : MonoBehaviour, IInteractable
                 return;
             }
 
-            // Father refuses — relationship too low
             if (GameState.Instance.romanceTarget == daughter
                 && GameState.Instance.romanceStage == GameState.RomanceStage.Courtship)
             {
