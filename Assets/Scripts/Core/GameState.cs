@@ -249,6 +249,11 @@ public class GameState : MonoBehaviour
     public string activeQuestReward       = "";
     public int    activeQuestStartDay     = 0;
 
+    // ── Shop ──────────────────────────────────────────────────────────────
+    [Header ("Shop")]
+    public bool hasShop         = false;
+    public int  shopPurchaseDay = 0;
+
     // ── Collectibles ───────────────────────────────────────────────────────
     [Header ("Collectibles")]
     public bool[] collectiblesFound = new bool[20];
@@ -397,6 +402,8 @@ public class GameState : MonoBehaviour
         friendshipNikias = friendshipLydia = friendshipChloe = friendshipArgos =
         friendshipEudoros = friendshipPhaedra = friendshipDemetrios = friendshipTheron =
         friendshipKallias = friendshipMiriam = friendshipStephanos = friendshipXanthos = false;
+        hasShop         = false;
+        shopPurchaseDay = 0;
 
         isNewGame   = false;
         gameStarted = true;
@@ -810,6 +817,10 @@ public class GameState : MonoBehaviour
         public bool friendshipStephanos;
         public bool friendshipXanthos;
 
+        // Shop
+        public bool hasShop;
+        public int  shopPurchaseDay;
+
         // Collectibles
         public bool[] collectiblesFound;
 
@@ -933,6 +944,8 @@ public class GameState : MonoBehaviour
             friendshipMiriam    = friendshipMiriam,
             friendshipStephanos = friendshipStephanos,
             friendshipXanthos   = friendshipXanthos,
+            hasShop         = hasShop,
+            shopPurchaseDay = shopPurchaseDay,
         };
 
         string json = JsonUtility.ToJson (data, prettyPrint: true);
@@ -1017,6 +1030,8 @@ public class GameState : MonoBehaviour
         friendshipMiriam    = data.friendshipMiriam;
         friendshipStephanos = data.friendshipStephanos;
         friendshipXanthos   = data.friendshipXanthos;
+        hasShop         = data.hasShop;
+        shopPurchaseDay = data.shopPurchaseDay;
 
         // Restore collectibles
         if (data.collectiblesFound != null && data.collectiblesFound.Length == 20)

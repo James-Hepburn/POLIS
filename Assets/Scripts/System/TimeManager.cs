@@ -141,6 +141,10 @@ public class TimeManager : MonoBehaviour
             GameState.Instance.goalMarriageComplete = true;
         }
 
+        // Shop passive income
+        if (GameState.Instance.hasShop)
+            ApplyShopIncome ();
+
         // Evaluate life goals
         GameState.Instance.EvaluateLifeGoals ();
 
@@ -150,6 +154,42 @@ public class TimeManager : MonoBehaviour
         // Load end of day scene
         if (SceneTransition.Instance != null)
             SceneTransition.Instance.TransitionToScene (endOfDaySceneIndex);
+    }
+
+    private void ApplyShopIncome ()
+    {
+        if (GameState.Instance == null) return;
+        float multiplier = GameState.Instance.GetCareerMultiplier ();
+        switch (GameState.Instance.currentProfession){
+        case GameState.Profession.Merchant:
+            GameState.Instance.AddDrachma (15f * multiplier);
+            GameState.Instance.pendingEndOfDayEvents.Add (
+            $"Your {PropertyBrokerUI.GetShopName ()} earns ₯{(int)(15f * multiplier)} today.");
+            break;
+        case GameState.Profession.Soldier:
+            GameState.Instance.AddDrachma (10f * multiplier);
+            GameState.Instance.AddHonour (2);
+            GameState.Instance.pendingEndOfDayEvents.Add (
+            $"Your {PropertyBrokerUI.GetShopName ()} earns ₯{(int)(10f * multiplier)} and 2 honour today.");
+            break;
+        case GameState.Profession.Philosopher:
+            GameState.Instance.AddDrachma (12f * multiplier);
+            GameState.Instance.AddCareerXP (5);
+            GameState.Instance.pendingEndOfDayEvents.Add (
+            $"Your {PropertyBrokerUI.GetShopName ()} earns ₯{(int)(12f * multiplier)} and 5 career XP today.");
+            break;
+        case GameState.Profession.Craftsman:
+            GameState.Instance.AddDrachma (15f * multiplier);
+            GameState.Instance.pendingEndOfDayEvents.Add (
+            $"Your {PropertyBrokerUI.GetShopName ()} earns ₯{(int)(15f * multiplier)} today.");
+            break;
+        case GameState.Profession.Priest:
+            GameState.Instance.AddDrachma (10f * multiplier);
+            GameState.Instance.ChangeFavour (GameState.Instance.patronGod, 5);
+            GameState.Instance.pendingEndOfDayEvents.Add (
+            $"Your {PropertyBrokerUI.GetShopName ()} earns ₯{(int)(10f * multiplier)} and 5 patron favour today.");
+            break;
+        }
     }
 
     [Header ("Scene Indices")]
