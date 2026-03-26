@@ -254,6 +254,13 @@ public class GameState : MonoBehaviour
     public bool hasShop         = false;
     public int  shopPurchaseDay = 0;
 
+    // ── Politics ───────────────────────────────────────────────────────────
+    [Header ("Politics")]
+    public int  civicRole            = 0; // 0=none, 1=Councillor, 2=Magistrate, 3=Archon
+    public int  civicRoleExpireDay   = 0;
+    public bool hasRunThisSeason     = false;
+    public bool electionPending      = false;
+
     // ── Loan ──────────────────────────────────────────────────────────────
     [Header ("Loan")]
     public bool  hasActiveLoan   = false;
@@ -419,6 +426,10 @@ public class GameState : MonoBehaviour
         loanDeadlineDay = 0;
         loanExtended    = false;
         loanDefaulted   = false;
+        civicRole          = 0;
+        civicRoleExpireDay = 0;
+        hasRunThisSeason   = false;
+        electionPending    = false;
 
         isNewGame   = false;
         gameStarted = true;
@@ -836,6 +847,12 @@ public class GameState : MonoBehaviour
         public bool hasShop;
         public int  shopPurchaseDay;
 
+        // Politics
+        public int  civicRole;
+        public int  civicRoleExpireDay;
+        public bool hasRunThisSeason;
+        public bool electionPending;
+
         // Loans
         public bool  hasActiveLoan;
         public float loanAmount;
@@ -975,6 +992,10 @@ public class GameState : MonoBehaviour
             loanDeadlineDay = loanDeadlineDay,
             loanExtended    = loanExtended,
             loanDefaulted   = loanDefaulted,
+            civicRole          = civicRole,
+            civicRoleExpireDay = civicRoleExpireDay,
+            hasRunThisSeason   = hasRunThisSeason,
+            electionPending    = electionPending,
         };
 
         string json = JsonUtility.ToJson (data, prettyPrint: true);
@@ -1067,6 +1088,10 @@ public class GameState : MonoBehaviour
         loanDeadlineDay = data.loanDeadlineDay;
         loanExtended    = data.loanExtended;
         loanDefaulted   = data.loanDefaulted;
+        civicRole          = data.civicRole;
+        civicRoleExpireDay = data.civicRoleExpireDay;
+        hasRunThisSeason   = data.hasRunThisSeason;
+        electionPending    = data.electionPending;
 
         // Restore collectibles
         if (data.collectiblesFound != null && data.collectiblesFound.Length == 20)

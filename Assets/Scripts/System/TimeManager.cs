@@ -145,6 +145,14 @@ public class TimeManager : MonoBehaviour
         if (GameState.Instance.hasShop)
             ApplyShopIncome ();
 
+        // Apply civic role bonus
+        if (PoliticsManager.Instance != null)
+            PoliticsManager.Instance.ApplyCivicBonus ();
+
+        // Resolve pending election results next morning
+        if (GameState.Instance.electionPending)
+            PoliticsManager.Instance?.ResolveElection ();
+
         // Evaluate life goals
         GameState.Instance.EvaluateLifeGoals ();
 
@@ -243,6 +251,10 @@ public class TimeManager : MonoBehaviour
             currentSeason = newSeason;
             onSeasonChange?.Invoke (currentSeason);
             Debug.Log ($"Season changed to: {currentSeason}");
+
+            // Trigger politics season start
+            if (PoliticsManager.Instance != null)
+                PoliticsManager.Instance.OnSeasonStart ();
         }
 
         // New year every 4 seasons
